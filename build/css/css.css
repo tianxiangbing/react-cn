@@ -32,11 +32,11 @@ body .body {
   [data-dpr="3"] .fontSize15 {
     font-size: 45px; }
 
-.fontSize16, header .logo {
+.fontSize16, header h1 {
   font-size: 16px; }
-  [data-dpr="2"] .fontSize16, [data-dpr="2"] header .logo, header [data-dpr="2"] .logo {
+  [data-dpr="2"] .fontSize16, [data-dpr="2"] header h1, header [data-dpr="2"] h1 {
     font-size: 32px; }
-  [data-dpr="3"] .fontSize16, [data-dpr="3"] header .logo, header [data-dpr="3"] .logo {
+  [data-dpr="3"] .fontSize16, [data-dpr="3"] header h1, header [data-dpr="3"] h1 {
     font-size: 48px; }
 
 .fontSize17 {
@@ -167,15 +167,19 @@ a {
 
 header {
   background-color: blue;
+  line-height: 60px;
   height: 60px; }
   header a {
     color: #fff; }
-  header .logo {
+  header h1 {
     width: 120px;
     display: inline-block;
     text-align: center;
-    font-weight: bold; }
+    font-weight: bold;
+    vertical-align: middle; }
   header .menu {
-    text-align: right;
-    line-height: 60px;
-    display: inline-block; }
+    display: inline-block;
+    float: right;
+    margin-right: 100px; }
+    header .menu a {
+      display: inline-block; }

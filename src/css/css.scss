@@ -1,20 +1,25 @@
 @import 'base';
 header{
 	background-color: blue;
+	line-height: 60px;
 	height: 60px;
 	a{
 		color:#fff;
 	}
-	.logo{
+	h1{
 		width:120px;
 		display: inline-block;
 		text-align: center;
 		font-weight: bold;
 		@extend .fontSize16;
+		vertical-align: middle;
 	}
 	.menu{
-		text-align: right;
-		line-height: 60px;
 		display: inline-block;
+		float:right;
+		margin-right: 100px;
+		a{
+			display: inline-block;
+		}
 	}
 }

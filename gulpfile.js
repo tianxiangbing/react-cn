@@ -20,6 +20,10 @@ gulp.task('css',function(){
     .on('error', sass.logError)
 	.pipe(livereload());
 });
+gulp.task('img',function(){
+	gulp.src('src/**/*.png').pipe(gulp.dest('./build'))
+	.pipe(livereload())
+})
 /*
 gulp.task('sass',function(){
 	gulp.src("src//.scss").pipe(scss())
@@ -32,7 +36,7 @@ gulp.task('watch', function() {
 	livereload.listen();
 	var server = livereload();
 	gulp.watch(['src/**/*.html','src/**/*.htm'], ['html']);
-	gulp.watch('src/**/*.scss',['css'])
+	gulp.watch('src/**/*.scss',['css','img'])
 });
 
-gulp.task('default',['html','css'])
+gulp.task('default',['html','css','img'])

@@ -1,0 +1,55 @@
+@@include('header.htm') 
+    <section class="container downloads">
+  <div class="inner-content">
+    <h1>Downloads</h1>
+    <div class="subHeader"></div>
+    <p>Download the starter kit to get everything you need to
+<a href="/react/docs/getting-started.html">get started with React</a>. The starter kit includes React and some simple example apps.</p>
+
+<div class="buttons-unit">
+  <a href="/react-15.3.0.zip" class="button">
+    Download Starter Kit 15.3.0
+  </a>
+</div>
+<h2><a class="anchor" name="development-vs.-production-builds"></a>Development vs. Production Builds <a class="hash-link" href="#development-vs.-production-builds">#</a></h2>
+<p>We provide two versions of React: an uncompressed version for development and a minified version for production. The development version includes extra warnings about common mistakes, whereas the production version includes extra performance optimizations and strips all error messages.</p>
+
+<p>If you&#39;re just starting out, make sure to use the development version.</p>
+<h2><a class="anchor" name="individual-downloads"></a>Individual Downloads <a class="hash-link" href="#individual-downloads">#</a></h2><h4><a class="anchor" name="react-15.3.0-development"></a>React 15.3.0 (development) <a class="hash-link" href="#react-15.3.0-development">#</a></h4>
+<p>The uncompressed, development version of <a href="https://npmcdn.com/react@15.3.0/dist/react.js">react.js</a> and <a href="https://npmcdn.com/react-dom@15.3.0/dist/react-dom.js">react-dom.js</a> with inline documentation (you need both files).</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;https://npmcdn.com/react@15.3.0/dist/react.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;https://npmcdn.com/react-dom@15.3.0/dist/react-dom.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</code></pre></div><h4><a class="anchor" name="react-15.3.0-production"></a>React 15.3.0 (production) <a class="hash-link" href="#react-15.3.0-production">#</a></h4>
+<p>The compressed, production version of <a href="https://npmcdn.com/react@15.3.0/dist/react.min.js">react.js</a> and <a href="https://npmcdn.com/react-dom@15.3.0/dist/react-dom.min.js">react-dom.js</a> (you need both).</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;https://npmcdn.com/react@15.3.0/dist/react.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;https://npmcdn.com/react-dom@15.3.0/dist/react-dom.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</code></pre></div><h4><a class="anchor" name="react-with-add-ons-15.3.0-development"></a>React with Add-Ons 15.3.0 (development) <a class="hash-link" href="#react-with-add-ons-15.3.0-development">#</a></h4>
+<p>The uncompressed, development version of React with <a href="/react/docs/addons.html">optional add-ons</a>.</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;https://npmcdn.com/react@15.3.0/dist/react-with-addons.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;https://npmcdn.com/react-dom@15.3.0/dist/react-dom.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</code></pre></div><h4><a class="anchor" name="react-with-add-ons-15.3.0-production"></a>React with Add-Ons 15.3.0 (production) <a class="hash-link" href="#react-with-add-ons-15.3.0-production">#</a></h4>
+<p>The compressed, production version of React with <a href="/react/docs/addons.html">optional add-ons</a>.</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;https://npmcdn.com/react@15.3.0/dist/react-with-addons.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;https://npmcdn.com/react-dom@15.3.0/dist/react-dom.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</code></pre></div>
+<blockquote>
+<p>Note:</p>
+
+<p>We&#39;re using <a href="https://npmcdn.com">npmcdn</a> to serve these files. This is a free service with the goal to provide a hassle-free CDN for npm package authors. React is also available on other free CDNs including <a href="https://cdnjs.com/libraries/react/">cdnjs</a> and <a href="https://www.jsdelivr.com/projects/react">jsDelivr</a>. If you have concerns with relying on an external host, we always recommend that you download React and serve it from your own servers.</p>
+</blockquote>
+<h2><a class="anchor" name="npm"></a>npm <a class="hash-link" href="#npm">#</a></h2>
+<p>We recommend using React from npm with a bundler like <a href="http://browserify.org/">browserify</a> or <a href="https://webpack.github.io/">webpack</a>. You can use the <code>react</code> and <code>react-dom</code> packages. After installing it using <code>npm install --save react react-dom</code>, you can use:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">React</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;react&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">ReactDOM</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;react-dom&#39;</span><span class="p">);</span>
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">App</span> <span class="o">/&gt;</span><span class="p">,</span> <span class="p">...);</span>
+</code></pre></div>
+<p>Each of the <a href="/react/docs/addons.html">add-ons</a> lives in its own package.</p>
+
+<p><strong>Note:</strong> by default, React will be in development mode. To use React in production mode, set the environment variable <code>NODE_ENV</code> to <code>production</code> (using envify or webpack&#39;s DefinePlugin). A minifier that performs dead-code elimination such as <a href="https://github.com/mishoo/UglifyJS2">UglifyJS</a> is recommended to completely remove the extra code present in development mode.</p>
+<h2><a class="anchor" name="bower"></a>Bower <a class="hash-link" href="#bower">#</a></h2><div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>bower install --save react
+</code></pre></div>
+
+    
+  </div>
+</section>
+@@include('footer.htm')

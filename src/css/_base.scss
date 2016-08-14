@@ -5,6 +5,7 @@ img,div,body,html,ul,li,a,i,span,p,h1,h2,h3{
 	user-select: none;
 	-webkit-highlight: none; 
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	font-family:"Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;font-family:proxima-nova,"Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;
 }
 $baseFontSize :75;
 
@@ -208,4 +209,7 @@ input,textarea{
 }
 a{
 	color:#333333
+}
+img{
+	vertical-align: middle;
 }

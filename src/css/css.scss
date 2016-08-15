@@ -49,6 +49,7 @@ header{
 		a{
 			display: inline-block;
 			padding:0 10px;
+			line-height:50px;
 		}
 	}
 	.submenu{
@@ -62,6 +63,9 @@ header{
 }
 .container{
 	padding:50px 0 0 0 ;
+	p{
+		line-height: 1.5;
+	}
 }
 .hero{
 	height: 300px;

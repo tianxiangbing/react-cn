@@ -488,7 +488,8 @@ header {
     white-space: nowrap; }
     header .menu a {
       display: inline-block;
-      padding: 0 10px; }
+      padding: 0 10px;
+      line-height: 50px; }
   header .submenu {
     line-height: 50px;
     float: right; }
@@ -498,6 +499,8 @@ header {
 
 .container {
   padding: 50px 0 0 0; }
+  .container p {
+    line-height: 1.5; }
 
 .hero {
   height: 300px;

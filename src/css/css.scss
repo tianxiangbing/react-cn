@@ -4,6 +4,7 @@ html{
 	background-color: #f9f9f9;
 	height: 100%;
 	overflow: auto;
+	font-family: proxima-nova,"Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;
 }
 body{
 	height: 100%;
@@ -26,11 +27,12 @@ header{
 	}
 	.logo{
 	    color: #00d8ff;
-	    font-size: 24px;
+	    font-size: 21px;
 	    line-height: 50px;
 	    height: 50px;
 	    display: inline-block;
 	    white-space: nowrap;
+	    font-weight: normal;
 	    img{
 		    vertical-align: -10px;margin-right: 5px;
 	    }

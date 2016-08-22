@@ -1,5 +1,5 @@
 @import 'base';
-@import 'syntax';
+@import 'vs';
 html{
 	background-color: #f9f9f9;
 	height: 100%;
@@ -88,7 +88,7 @@ header{
 }
 .buttons-unit{
 	text-align: center;
-    .button{
+    a{
     	box-shadow: 1px 3px 3px rgba(0,0,0,0.3);
     	font-size: 24px;
 	    color: #fafafa;
@@ -161,7 +161,7 @@ footer{
 		line-height: 1.6;
 	}
 }
-.highlight {
+pre {
     position: relative;
     margin-bottom: 14px;
     padding: 30px 14px 14px;
@@ -171,9 +171,7 @@ footer{
     color: #637c84;
     background: #f8f5ec;
     line-height: 1.5;
-    pre{
-    	margin:0;
-    }
+    margin:0;
     &:after{
     	position:absolute;
     	top:0;right:0;left:0;
@@ -199,5 +197,11 @@ footer{
 	color:#aaa;
 	:hover{
 		display: inline-block;
+	}
+}
+.edit-page-link{
+	float:right;
+	&:hover{
+		text-decoration:underline;
 	}
 }

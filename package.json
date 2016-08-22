@@ -4,7 +4,8 @@
   "description": "react 中国",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "pretest": "npm run --silent lint",
+    "test": "npm run --silent tests-only"
   },
   "repository": {
     "type": "git",
@@ -24,8 +25,10 @@
     "gulp-ext-replace": "^0.3.0",
     "gulp-file-include": "^0.13.0",
     "gulp-livereload": "^3.8.1",
-    "gulp-markdown": "^1.2.0",
     "gulp-rename": "^1.2.2",
-    "gulp-ruby-sass": "^2.0.6"
+    "gulp-ruby-sass": "^2.0.6",
+    "gulp-to-markdown": "^1.0.0",
+    "highlightjs": "^8.7.0",
+    "marked": "^0.3.6"
   }
 }

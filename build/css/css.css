@@ -426,3 +426,6 @@ h1:hover .hash-link, h2:hover .hash-link, h3:hover .hash-link, h4:hover .hash-li
       width: 33%; }
   .marketing h3 {
     margin: 0 0 10px 0; }
+
+.docs-prevnext {
+  text-align: right; }

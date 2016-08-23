@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<title>React中国-Reactjs中文教程-React Native中文资料</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
 	<meta name="keywords" content="React,React Native" />
 	<meta name="description" content="React中文教程,React Native,Reactjs下载,jsx语法" />
 	<link rel="stylesheet" href="/css/css.css">
@@ -13,10 +14,10 @@
 <header>
 	<h1><a class="logo" href="http://www.react-cn.com/"><img class="nav-logo" src="/logo.svg" width="36" height="36">React</a></h1>
 	<div class="menu">
-		<a href="/index.html">首页</a>
-		<a href="/downloads.html">下载</a>
-		<a href="/docs/getting-started.html">中文文档</a>
-		<a href="/plugin.html">插件推荐</a>
+		<a href="/index.html" class="active">首页</a>
+		<a href="/downloads.html" >下载</a>
+		<a href="/docs/getting-started.html" >中文文档</a>
+		<a href="/plugin.html" >插件推荐</a>
 	</div>
 	<div class="submenu">
 		<a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=db86a206a1e04f114217ccffd92ee11f5faca14d283a71d97817937ee3cf9d00"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="reactjs、reactnative技术群" title="reactjs、reactnative技术群"></a>
@@ -35,6 +36,23 @@
 	        </div>
 	    </div>
 	<div class="container">
+		<section class="marketing">
+			<div class="marketing-row">
+				<div class="marketing-col">
+					<h3>状态机</h3>
+					<p>React适合非常轻松的创建交互界面. 设计一个简单的状态机在你的应用程序里,当数据发生改变时,可以有效及正确的更新和呈现你的组件.</p>
+				</div>
+				<div class="marketing-col">
+					<h3>基于组件的</h3>
+					<p>构建封装你的组件，管理好你的状态state,使其变成一个多个组件组成的复杂交互界面。</p>
+					<p>因为是使用的jsx语法，js和html是在一起的.可以更好的控制状态来更新DOM。</p>
+				</div>
+				<div class="marketing-col">
+					<h3>学习一次，到处使用</h3>
+					<p>这里我想说的是，学会了react的原理，就可以做很多以前不能做的事了，比如游戏，它本身也是个状态机，又比如使用React Native开发app应用。</p>
+				</div>
+			</div>
+		</section>
     </div>
 
 <footer>
@@ -45,7 +63,7 @@
     var bp = document.createElement('script');
     var curProtocol = window.location.protocol.split(':')[0];
     if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
     }
     else {
         bp.src = 'http://push.zhanzhang.baidu.com/push.js';

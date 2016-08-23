@@ -2,10 +2,11 @@
 <html lang="zh">
 <head>
 	<meta charset="UTF-8">
-	<title>React中国-Reactjs中文教程-React Native中文资料</title>
+	<title>快速入门-React中国</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="keywords" content="React,React Native" />
-	<meta name="description" content="React中文教程,React Native,Reactjs下载,jsx语法" />
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+	<meta name="keywords" content="reactjs快速入门教程" />
+	<meta name="description" content="reactjs下载及环境配置" />
 	<link rel="stylesheet" href="/css/css.css">
 	<link rel="shortcut icon" href="/favicon.ico">
 </head>
@@ -13,10 +14,10 @@
 <header>
 	<h1><a class="logo" href="http://www.react-cn.com/"><img class="nav-logo" src="/logo.svg" width="36" height="36">React</a></h1>
 	<div class="menu">
-		<a href="/index.html">首页</a>
-		<a href="/downloads.html">下载</a>
-		<a href="/docs/getting-started.html">中文文档</a>
-		<a href="/plugin.html">插件推荐</a>
+		<a href="/index.html" >首页</a>
+		<a href="/downloads.html" >下载</a>
+		<a href="/docs/getting-started.html" class="active">中文文档</a>
+		<a href="/plugin.html" >插件推荐</a>
 	</div>
 	<div class="submenu">
 		<a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=db86a206a1e04f114217ccffd92ee11f5faca14d283a71d97817937ee3cf9d00"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="reactjs、reactnative技术群" title="reactjs、reactnative技术群"></a>
@@ -25,16 +26,13 @@
 	</div>
 </header>
 <div class="container documentationContent">
-	<a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/docs/md/getting-started.md" target="_blank">在github上编辑</a>
-	<h1 id="-">快速入门</h1>
-<h2 id="-a-class-anchor-name-jsfiddle-a-jsfiddle-jsfiddle-"><a class="anchor" name="jsfiddle"></a>JSFiddle <a href="#jsfiddle">#</a></h2>
-<p>开始学习 React 最简单的方式是使用如下JSFiddle的 Hello World例子：</p>
+	<a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/docs/md/getting-started.md" target="_blank">在github上编辑这篇文章</a>
+	<h1><a name="-" class="anchor" href="#-"></a>快速入门<a  class="hash-link" href="#-">#</a></h1><h2><a name="jsfiddle" class="anchor" href="#jsfiddle"></a>JSFiddle<a  class="hash-link" href="#jsfiddle">#</a></h2><p>开始学习 React 最简单的方式是使用如下JSFiddle的 Hello World例子：</p>
 <ul>
 <li><strong><a href="http://jsfiddle.net/reactjs/69z2wepo/">React JSFiddle</a></strong></li>
 <li><a href="http://jsfiddle.net/reactjs/5vjqabv3/">React JSFiddle without JSX</a></li>
 </ul>
-<h2 id="-a-class-anchor-name-starter-kit-a-starter-kit-starter-kit-"><a class="anchor" name="-starter-kit"></a>初学者教程包 (Starter Kit) <a href="#-starter-kit">#</a></h2>
-<p>如果不想使用npm可以下载初学者教程包，其中预置了React和ReactDOM。</p>
+<h2><a name="-starter-kit-" class="anchor" href="#-starter-kit-"></a>初学者教程包 (Starter Kit)<a  class="hash-link" href="#-starter-kit-">#</a></h2><p>如果不想使用npm可以下载初学者教程包，其中预置了React和ReactDOM。</p>
 <div class="buttons-unit downloads"><a href="/react-15.3.0.zip">下载初学者教程包 v15.3.0</a></div>
 
 <p>在初学者教程包的根目录，创建一个包含以下内容的 <code>helloworld.html</code>。</p>
@@ -58,8 +56,7 @@
   <span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span>
 </code></pre><p>在 JavaScript 代码里写着 XML 格式的代码称为 JSX；可以去 <a href="/react/docs/jsx-in-depth.html">JSX 语法</a> 里学习更多 JSX 相关的知识。为了把 JSX 转成标准的 JavaScript，我们用 <code>&lt;script type=&quot;text/babel&quot;&gt;</code> 标签，然后通过Babel转换成在浏览器中真正执行的内容。</p>
-<h3 id="-a-class-anchor-name-a-"><a class="anchor" name=""></a>分离文件 <a href="#">#</a></h3>
-<p>你的 React JSX 代码文件可以写在单独的文件里。创建 <code>src/helloworld.js</code> 文件，内容如下：</p>
+<h3><a name="-a-class-anchor-name-a-a-href-a-" class="anchor" href="#-a-class-anchor-name-a-a-href-a-"></a><a class="anchor" name=""></a>分离文件 <a href="#">#</a><a  class="hash-link" href="#-a-class-anchor-name-a-a-href-a-">#</a></h3><p>你的 React JSX 代码文件可以写在单独的文件里。创建 <code>src/helloworld.js</code> 文件，内容如下：</p>
 <pre><code>React.<span class="hljs-built_in">render</span><span class="hljs-params">(
   &lt;h1&gt;Hello, world!&lt;/h1&gt;,
   document.getElementById<span class="hljs-params">('example')</span>
@@ -67,8 +64,7 @@
 </code></pre><p>然后在 <code>helloworld.html</code> 引用它：</p>
 <pre><code><span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text/babel"</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"src/helloworld.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
 </code></pre><p>请注意，某些浏览器（如，Chrome浏览器）将无法加载该文件，除非它通过HTTP服务。</p>
-<h3 id="-a-class-anchor-name-a-"><a class="anchor" name=""></a>离线转换 <a href="#">#</a></h3>
-<p>先安装命令行工具（依赖 <a href="http://npmjs.org/">npm</a>）：</p>
+<h3><a name="-a-class-anchor-name-a-a-href-a-" class="anchor" href="#-a-class-anchor-name-a-a-href-a-"></a><a class="anchor" name=""></a>离线转换 <a href="#">#</a><a  class="hash-link" href="#-a-class-anchor-name-a-a-href-a-">#</a></h3><p>先安装命令行工具（依赖 <a href="http://npmjs.org/">npm</a>）：</p>
 <pre><code>npm <span class="hljs-operator"><span class="hljs-keyword">install</span> -<span class="hljs-keyword">g</span> react-tools</span>
 </code></pre><p>然后将你的 <code>src/helloworld.js</code> 文件转成标准的 JavaScript:</p>
 <pre><code>jsx <span class="hljs-comment">--watch src/ build/</span>
@@ -90,14 +86,33 @@
     <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"build/helloworld.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span>
-</code></pre><h2 id="-a-class-anchor-name-commonjs-a-commonjs-commonjs-"><a class="anchor" name="-commonjs-"></a>想要遵循 CommonJS 规范? <a href="#-commonjs-">#</a></h2>
-<p>如果你想在使用 React 时，遵循 <a href="http://browserify.org/">browserify</a>，<a href="http://webpack.github.io/">webpack</a> 或者或其它兼容CommonJS的模块系统，只要使用 <a href="https://www.npmjs.org/package/react"><code>react</code> npm包</a> 即可。而且，<code>jsx</code> 转换工具可以很轻松的地集成到大部分打包系统里（不仅仅是 CommonJS）。</p>
-<h2 id="-a-class-anchor-name-a-"><a class="anchor" name=""></a>下一步 <a href="#">#</a></h2>
-<p>接着学习更多 <a href="/docs/index.html">入门教程</a> 和初学者教程包 <code>examples</code> 目录下的其它例子。</p>
+</code></pre><h2><a name="-commonjs-" class="anchor" href="#-commonjs-"></a>想要遵循 CommonJS 规范?<a  class="hash-link" href="#-commonjs-">#</a></h2><p>如果你想在使用 React 时，遵循 <a href="http://browserify.org/">browserify</a>，<a href="http://webpack.github.io/">webpack</a> 或者或其它兼容CommonJS的模块系统，只要使用 <a href="https://www.npmjs.org/package/react"><code>react</code> npm包</a> 即可。而且，<code>jsx</code> 转换工具可以很轻松的地集成到大部分打包系统里（不仅仅是 CommonJS）。</p>
+<h2><a name="-" class="anchor" href="#-"></a>下一步<a  class="hash-link" href="#-">#</a></h2><p>接着学习更多 <a href="/docs/tutorial.html">入门教程</a> 和初学者教程包 <code>examples</code> 目录下的其它例子。</p>
 <p>我们还有一个社区开发者共同建设的 Wiki：<a href="https://github.com/facebook/react/wiki/Complementary-Tools">workflows, UI-components, routing, data management etc.</a></p>
 <p>祝你好运，欢迎来到 React 的世界。</p>
-<div class="docs-prevnext"><a href="/docs/index.html">下一条 →</a></div>
 
-<p></div></p>
-
+	<div class="docs-prevnext"><a href="/docs/tutorial.html">下一条 →</a></div>
+	</div>
 </div>
+
+<footer>
+<p>友情链接：<a href="https://facebook.github.io/react/" target="_blank">react</a> <a href="http://www.lovewebgames.com/" target="_blank">javascript JY</a> <a href="http://www.lovewebgames.com/jsmodule/index.html" target="_blank">js组件</a><a href="http://www.react-cn.com/">react中国</a></p>
+<p>© 2016-2017 <a href="http://www.react-cn.com">react-cn.com</a> 版权所有 ICP证：浙ICP备09082150号-3</p>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+</footer>
+</body>
+</html>

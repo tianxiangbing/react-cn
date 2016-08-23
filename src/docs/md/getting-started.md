@@ -1,14 +1,14 @@
 
 # 快速入门
 
-## <a class="anchor" name="jsfiddle"></a>JSFiddle [#](#jsfiddle)
+## JSFiddle
 
 开始学习 React 最简单的方式是使用如下JSFiddle的 Hello World例子：
 
 *   **[React JSFiddle](http://jsfiddle.net/reactjs/69z2wepo/)**
 *   [React JSFiddle without JSX](http://jsfiddle.net/reactjs/5vjqabv3/)
 
-## <a class="anchor" name="-starter-kit"></a>初学者教程包 (Starter Kit) [#](#-starter-kit)
+## 初学者教程包 (Starter Kit)
 
 如果不想使用npm可以下载初学者教程包，其中预置了React和ReactDOM。
 
@@ -99,18 +99,14 @@
     </html>
 
 
-## <a class="anchor" name="-commonjs-"></a>想要遵循 CommonJS 规范? [#](#-commonjs-)
+## 想要遵循 CommonJS 规范?
 
 如果你想在使用 React 时，遵循 [browserify](http://browserify.org/)，[webpack](http://webpack.github.io/) 或者或其它兼容CommonJS的模块系统，只要使用 [`react` npm包](https://www.npmjs.org/package/react) 即可。而且，`jsx` 转换工具可以很轻松的地集成到大部分打包系统里（不仅仅是 CommonJS）。
 
-## <a class="anchor" name=""></a>下一步 [#](#)
+## 下一步
 
-接着学习更多 [入门教程](/docs/index.html) 和初学者教程包 `examples` 目录下的其它例子。
+接着学习更多 [入门教程](/docs/tutorial.html) 和初学者教程包 `examples` 目录下的其它例子。
 
 我们还有一个社区开发者共同建设的 Wiki：[workflows, UI-components, routing, data management etc.](https://github.com/facebook/react/wiki/Complementary-Tools)
 
 祝你好运，欢迎来到 React 的世界。
-
-<div class="docs-prevnext">[下一条 →](/docs/index.html)</div>
-
-</div>

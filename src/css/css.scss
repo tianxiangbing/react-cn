@@ -19,6 +19,7 @@ header{
 	top:0;
 	left:0;
 	width:100%;
+	height: 50px;
 	a{
 		color:#ddd;
 		&:hover{
@@ -52,6 +53,11 @@ header{
 			display: inline-block;
 			padding:0 10px;
 			line-height:50px;
+			&.active{
+				color: #fafafa;
+			    border-bottom: 3px solid #cc7a6f;
+			    background: #333;
+			}
 		}
 	}
 	.submenu{
@@ -72,7 +78,7 @@ header{
 .hero{
 	height: 300px;
     background: #2d2d2d;
-    padding-top: 50px;
+    padding-top: 70px;
     color: #e9e9e9;
     font-weight: 300;
     h2{
@@ -192,16 +198,36 @@ pre {
  		line-height: 1.5;
  	}
 }
-.hash-link{
-	display: none;
-	color:#aaa;
-	:hover{
-		display: inline-block;
+h1,h2,h3,h4,h5{
+	.hash-link{
+		display: none;
+		color:#aaa;
+	}
+	&:hover{
+		.hash-link{
+			display: inline-block;
+		}
 	}
 }
 .edit-page-link{
 	float:right;
 	&:hover{
 		text-decoration:underline;
+	}
+}
+.marketing{
+	display: table;
+	width:980px;
+	margin:0 auto;
+	.marketing-row{
+		display: table-row;
+		.marketing-col{
+			display: table-cell;
+			padding:0 20px;
+			width:33%;
+		}
+	}
+	h3{
+		margin:0 0 10px 0;
 	}
 }

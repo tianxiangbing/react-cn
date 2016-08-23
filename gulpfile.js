@@ -18,6 +18,21 @@ marked.setOptions({
 	}
 });
 
+var renderer = new marked.Renderer();
+
+renderer.heading = function (text, level) {
+  var escapedText = text.toLowerCase().replace(/[^\w]+/g, '-');
+  //console.log(text)
+  return '<h' + level + '><a name="' +
+                escapedText +
+                 '" class="anchor" href="#' +
+                 escapedText +
+                 '"></a>' +
+                  text + '<a  class="hash-link" href="#' +
+                 escapedText +
+                 '">#</a></h' + level + '>';
+}
+
 gulp.task('html', function() {
 	gulp.src('src/**/*.html')
 		.pipe(fileinclude({
@@ -44,8 +59,8 @@ gulp.task('md', function() {
 			prefix: "@@",
 			filters: {
 				markdown: function(str) {
-
-					return marked.parse(str)
+					//console.log(marked(str, { renderer: renderer }))
+					return marked(str, { renderer: renderer })
 				}
 			}
 		}))

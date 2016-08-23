@@ -246,7 +246,8 @@ header {
   z-index: 2;
   top: 0;
   left: 0;
-  width: 100%; }
+  width: 100%;
+  height: 50px; }
   header a {
     color: #ddd; }
     header a:hover {
@@ -275,6 +276,10 @@ header {
       display: inline-block;
       padding: 0 10px;
       line-height: 50px; }
+      header .menu a.active {
+        color: #fafafa;
+        border-bottom: 3px solid #cc7a6f;
+        background: #333; }
   header .submenu {
     line-height: 50px;
     float: right; }
@@ -290,7 +295,7 @@ header {
 .hero {
   height: 300px;
   background: #2d2d2d;
-  padding-top: 50px;
+  padding-top: 70px;
   color: #e9e9e9;
   font-weight: 300; }
   .hero h2 {
@@ -398,13 +403,26 @@ pre {
 .documentationContent p {
   line-height: 1.5; }
 
-.hash-link {
+h1 .hash-link, h2 .hash-link, h3 .hash-link, h4 .hash-link, h5 .hash-link {
   display: none;
   color: #aaa; }
-  .hash-link :hover {
-    display: inline-block; }
+h1:hover .hash-link, h2:hover .hash-link, h3:hover .hash-link, h4:hover .hash-link, h5:hover .hash-link {
+  display: inline-block; }
 
 .edit-page-link {
   float: right; }
   .edit-page-link:hover {
     text-decoration: underline; }
+
+.marketing {
+  display: table;
+  width: 980px;
+  margin: 0 auto; }
+  .marketing .marketing-row {
+    display: table-row; }
+    .marketing .marketing-row .marketing-col {
+      display: table-cell;
+      padding: 0 20px;
+      width: 33%; }
+  .marketing h3 {
+    margin: 0 0 10px 0; }

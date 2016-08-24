@@ -8,7 +8,9 @@ var sass = require('gulp-ruby-sass');
 
 var marked = require('marked');
 var ext_replace = require('gulp-ext-replace'); //改扩展名
-var lighlightjs = require('highlightjs/highlight.pack.js')
+var lighlightjs = require('highlightjs/highlight.pack.js');
+var uglify = require('gulp-uglify');
+
 marked.setOptions({
 	highlight: function(code) {
 		/*console.log(code)
@@ -20,17 +22,17 @@ marked.setOptions({
 
 var renderer = new marked.Renderer();
 
-renderer.heading = function (text, level) {
-  var escapedText = text.toLowerCase().replace(/[^\w]+/g, '-');
-  //console.log(text)
-  return '<h' + level + '><a name="' +
-                escapedText +
-                 '" class="anchor" href="#' +
-                 escapedText +
-                 '"></a>' +
-                  text + '<a  class="hash-link" href="#' +
-                 escapedText +
-                 '">#</a></h' + level + '>';
+renderer.heading = function(text, level) {
+	var escapedText = text.toLowerCase().replace(/[^\w]+/g, '-');
+	//console.log(text)
+	return '<h' + level + '><a name="' +
+		escapedText +
+		'" class="anchor" href="#' +
+		escapedText +
+		'"></a>' +
+		text + '<a  class="hash-link" href="#' +
+		escapedText +
+		'">#</a></h' + level + '>';
 }
 
 gulp.task('html', function() {
@@ -60,7 +62,9 @@ gulp.task('md', function() {
 			filters: {
 				markdown: function(str) {
 					//console.log(marked(str, { renderer: renderer }))
-					return marked(str, { renderer: renderer })
+					return marked(str, {
+						renderer: renderer
+					})
 				}
 			}
 		}))
@@ -81,18 +85,25 @@ gulp.task('watch', function() {
 	livereload.listen();
 	var server = livereload();
 	gulp.watch(['src/**/*.html', 'src/**/*.htm'], ['html']);
-	gulp.watch('src/**/*.scss', ['css', 'img'])
-	gulp.watch('src/**/*.md', ['md'])
-		//gulp.watch('src/**/*.js',['lint'])
+	gulp.watch('src/**/*.scss', ['css', 'img']);
+	gulp.watch('src/**/*.md', ['md']);
+	gulp.watch('src/**/*.js', ['js']);
+	//gulp.watch('src/**/*.js',['lint'])
 });
 
 
 var toMarkdown = require('gulp-to-markdown');
 
-gulp.task('toMd', function () {
-    return gulp.src('./src/getting-started.html')
-        .pipe(toMarkdown())
-        .pipe(gulp.dest('./dist'));
+gulp.task('toMd', function() {
+	return gulp.src('./src/getting-started.html')
+		.pipe(toMarkdown())
+		.pipe(gulp.dest('./dist'));
+});
+gulp.task('js', function() {
+	gulp.src('src/**/*.js')
+		.pipe(uglify())
+		.pipe(gulp.dest('./build'))
+		.pipe(livereload());
 });
 
-gulp.task('default', ['md','html', 'css', 'img'])
+gulp.task('default', ['md', 'html', 'css', 'img', 'js'])

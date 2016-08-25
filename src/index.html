@@ -28,10 +28,65 @@
 			</div>
 		</section>
 		<section class="demo">
-		<h3>Reactjs示例TODO</h3>
+			<h3>Reactjs示例TODO</h3>
 			<div class="desc">
 				<p>使用Reactjs的state可以很轻松的实现mvvm模式，而且入口更单一可控性更强。</p>
 				<p>再使用Reactjs的约束性组件，可以很好的限制用户的任何输入。基本上原来很复杂的验证都可以在onChange里完成，通过虚拟DOM来更新页面，基本上无障碍的反应在ui界面上.</p>
+				<a href="https://github.com/tianxiangbing/react-todo" target="_blank">在github上查看源码 → </a>
+				<pre><code>export <span class="hljs-keyword">default</span> class App extends Component{
+  constructor(props){
+    super(props);
+    this.<span class="hljs-keyword">state</span>={list:[{title:<span class="hljs-string">"点我进入编辑模式"</span>}],title:''};
+  }
+  addHandle(e){
+    let list = this.<span class="hljs-keyword">state</span>.list;
+    list = list.concat([{title:this.<span class="hljs-keyword">state</span>.title}]);
+    this.<span class="hljs-built_in">set</span>State({list:list,title:''});
+  }
+  changeHandle(e){
+    this.<span class="hljs-built_in">set</span>State({title:e.target.value});
+  }
+  delHandle(index){
+    console.<span class="hljs-keyword">log</span>(index)
+    let list = this.<span class="hljs-keyword">state</span>.list;
+    list.splice(index,<span class="hljs-number">1</span>);
+    this.<span class="hljs-built_in">set</span>State();
+  }
+  changeItem(item,e){
+    item.title = e.target.value;
+    this.<span class="hljs-built_in">set</span>State();
+  }
+  blurHandle(item){
+    item.edit = !item.edit;
+    this.<span class="hljs-built_in">set</span>State();
+  }
+  <span class="hljs-keyword">to</span>Edit(item){
+    item.edit=!item.edit;
+    console.<span class="hljs-keyword">log</span>(this.refs.txtedit)
+    this.<span class="hljs-built_in">set</span>State();
+  }
+  render(){
+    return (
+      <span class="hljs-variable">&lt;div&gt;</span>
+        <span class="hljs-variable">&lt;div&gt;</span><span class="hljs-variable">&lt;input type="text" value={this.state.title} onKeyDown={(e)=&gt;</span>{e.keyCode==<span class="hljs-number">13</span>?this.addHandle(e):undefined}} placeholder=<span class="hljs-string">"请输入标题"</span> <span class="hljs-keyword">on</span>Change={this.changeHandle.bind(this)}/&gt;<span class="hljs-variable">&lt;button onClick={this.addHandle.bind(this)}&gt;</span>添加<span class="hljs-variable">&lt;/button&gt;</span><span class="hljs-variable">&lt;/div&gt;</span>
+        <span class="hljs-variable">&lt;div className="preview"&gt;</span>{this.<span class="hljs-keyword">state</span>.title}<span class="hljs-variable">&lt;/div&gt;</span>
+        <span class="hljs-variable">&lt;div className="list"&gt;</span>
+          {
+            this.<span class="hljs-keyword">state</span>.list.map((item,index)=&gt;{
+              return (
+                  <span class="hljs-variable">&lt;a key={index}&gt;</span>
+                    {item.edit?<span class="hljs-variable">&lt;input type="text" onKeyDown={(e)=&gt;</span>{e.keyCode==<span class="hljs-number">13</span>?this.<span class="hljs-keyword">to</span>Edit(item):undefined}} <span class="hljs-keyword">on</span>Blur={this.blurHandle.bind(this,item)} <span class="hljs-keyword">on</span>Change={this.changeItem.bind(this,item)} value={item.title}/&gt;:<span class="hljs-variable">&lt;span onClick={this.toEdit.bind(this,item)}&gt;</span>{item.title}<span class="hljs-variable">&lt;/span&gt;</span>}
+                    <span class="hljs-variable">&lt;button onClick={this.delHandle.bind(this,index)}&gt;</span>删除<span class="hljs-variable">&lt;/button&gt;</span>
+                  <span class="hljs-variable">&lt;/a&gt;</span>
+                )
+            })
+          }
+        <span class="hljs-variable">&lt;/div&gt;</span>
+      <span class="hljs-variable">&lt;/div&gt;</span>
+    );
+  }
+}
+</code></pre>
 			</div>
 			<div class="dm" id="todo"></div>
 		</section>

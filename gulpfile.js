@@ -16,6 +16,7 @@ marked.setOptions({
 		/*console.log(code)
 		console.log("============")
 		console.log(lighlightjs.highlightAuto(code).value)*/
+		console.log(lighlightjs.listLanguages)
 		return lighlightjs.highlightAuto(code).value;
 	}
 });

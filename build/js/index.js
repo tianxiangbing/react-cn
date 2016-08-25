@@ -1,1 +1,1 @@
-function test(){"use strict"}
+"use strict";function test(){console.log("ok")}test();

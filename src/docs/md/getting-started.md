@@ -44,18 +44,19 @@
 
 你的 React JSX 代码文件可以写在单独的文件里。创建 `src/helloworld.js` 文件，内容如下：
 
+```javascript
+React.render(
+  <h1>Hello, world!</h1>,
+  document.getElementById('example')
+);
 
-    React.render(
-      <h1>Hello, world!</h1>,
-      document.getElementById('example')
-    );
-
+```
 
 然后在 `helloworld.html` 引用它：
 
-
+```html
     <script type="text/babel" src="src/helloworld.js"></script>
-
+```
 
 请注意，某些浏览器（如，Chrome浏览器）将无法加载该文件，除非它通过HTTP服务。
 
@@ -63,9 +64,9 @@
 
 先安装命令行工具（依赖 [npm](http://npmjs.org/)）：
 
-
+```cmd
     npm install -g react-tools
-
+```
 
 然后将你的 `src/helloworld.js` 文件转成标准的 JavaScript:
 
@@ -75,12 +76,12 @@
 
 一旦你修改了， `build/helloworld.js` 文件会自动生成。
 
-
+```jsx
     React.render(
       React.createElement('h1', null, 'Hello, world!'),
       document.getElementById('example')
     );
-
+```
 
 对照以下内容更新你的 HTML 代码
 

@@ -7,6 +7,26 @@ img,div,body,html,ul,li,a,i,span,p,h1,h2,h3{
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 	font-family:"Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;font-family:proxima-nova,"Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;
 }
+::-webkit-scrollbar
+{
+	width: 5px;
+	height: 5px;
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 5px;
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb
+{
+	border-radius: 5px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #555;
+}
 $baseFontSize :75;
 
 $fontFamily:'Microsoft Yahei', 'Hiragino Sans GB', Helvetica;

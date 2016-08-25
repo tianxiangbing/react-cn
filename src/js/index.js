@@ -1,3 +1,6 @@
+"use strict";
+//dssad
 function test(){
-    "use strict";
+    console.log('ok')
 }
+test();

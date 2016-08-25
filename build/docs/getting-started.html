@@ -58,23 +58,27 @@
 <span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span>
 </code></pre><p>在 JavaScript 代码里写着 XML 格式的代码称为 JSX；可以去 <a href="/react/docs/jsx-in-depth.html">JSX 语法</a> 里学习更多 JSX 相关的知识。为了把 JSX 转成标准的 JavaScript，我们用 <code>&lt;script type=&quot;text/babel&quot;&gt;</code> 标签，然后通过Babel转换成在浏览器中真正执行的内容。</p>
 <h3><a name="-a-class-anchor-name-a-a-href-a-" class="anchor" href="#-a-class-anchor-name-a-a-href-a-"></a><a class="anchor" name=""></a>分离文件 <a href="#">#</a><a  class="hash-link" href="#-a-class-anchor-name-a-a-href-a-">#</a></h3><p>你的 React JSX 代码文件可以写在单独的文件里。创建 <code>src/helloworld.js</code> 文件，内容如下：</p>
-<pre><code>React.<span class="hljs-built_in">render</span><span class="hljs-params">(
+<pre><code class="lang-javascript">React.<span class="hljs-built_in">render</span><span class="hljs-params">(
   &lt;h1&gt;Hello, world!&lt;/h1&gt;,
   document.getElementById<span class="hljs-params">('example')</span>
 )</span>;
-</code></pre><p>然后在 <code>helloworld.html</code> 引用它：</p>
-<pre><code><span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text/babel"</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"src/helloworld.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
-</code></pre><p>请注意，某些浏览器（如，Chrome浏览器）将无法加载该文件，除非它通过HTTP服务。</p>
+</code></pre>
+<p>然后在 <code>helloworld.html</code> 引用它：</p>
+<pre><code class="lang-html">    <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text/babel"</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"src/helloworld.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+</code></pre>
+<p>请注意，某些浏览器（如，Chrome浏览器）将无法加载该文件，除非它通过HTTP服务。</p>
 <h3><a name="-a-class-anchor-name-a-a-href-a-" class="anchor" href="#-a-class-anchor-name-a-a-href-a-"></a><a class="anchor" name=""></a>离线转换 <a href="#">#</a><a  class="hash-link" href="#-a-class-anchor-name-a-a-href-a-">#</a></h3><p>先安装命令行工具（依赖 <a href="http://npmjs.org/">npm</a>）：</p>
-<pre><code>npm <span class="hljs-operator"><span class="hljs-keyword">install</span> -<span class="hljs-keyword">g</span> react-tools</span>
-</code></pre><p>然后将你的 <code>src/helloworld.js</code> 文件转成标准的 JavaScript:</p>
+<pre><code class="lang-cmd">    npm <span class="hljs-operator"><span class="hljs-keyword">install</span> -<span class="hljs-keyword">g</span> react-tools</span>
+</code></pre>
+<p>然后将你的 <code>src/helloworld.js</code> 文件转成标准的 JavaScript:</p>
 <pre><code>jsx <span class="hljs-comment">--watch src/ build/</span>
 </code></pre><p>一旦你修改了， <code>build/helloworld.js</code> 文件会自动生成。</p>
-<pre><code>React.render(
-  React.createElement(<span class="hljs-string">'h1'</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">'Hello, world!'</span>),
-  <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'example'</span>)
-);
-</code></pre><p>对照以下内容更新你的 HTML 代码</p>
+<pre><code class="lang-jsx">    React.render(
+      React.createElement(<span class="hljs-string">'h1'</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">'Hello, world!'</span>),
+      <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'example'</span>)
+    );
+</code></pre>
+<p>对照以下内容更新你的 HTML 代码</p>
 <pre><code><span class="hljs-doctype">&lt;!DOCTYPE html&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-title">html</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-title">head</span>&gt;</span>

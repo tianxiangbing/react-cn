@@ -1,11 +1,9 @@
 img,div,body,html,ul,li,a,i,span,p,h1,h2,h3{
-	-webkit-touch-callout: none; 
-	-webkit-text-size-adjust: none; 
-	-webkit-user-select: none; 
-	user-select: none;
-	-webkit-highlight: none; 
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 	font-family:"Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;font-family:proxima-nova,"Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;
+}
+ul,li,ol{
+	padding:0;list-style: none;margin:0;
 }
 ::-webkit-scrollbar
 {

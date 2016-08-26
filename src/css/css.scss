@@ -68,6 +68,11 @@ header{
 			padding:0 10px;
 		}
 	}
+	@media screen and (max-width: 980px) {
+		.submenu {
+			display:none!important;
+		}
+	}
 }
 .container{
 	padding:50px 0 0 0 ;
@@ -89,11 +94,12 @@ header{
     }
     .desc{
     	text-align: center;
-	margin:0 0 60px  0;
+		margin:0 0 50px  0;
     }
 }
 .buttons-unit{
 	text-align: center;
+	margin:10px 0;
     a{
     	box-shadow: 1px 3px 3px rgba(0,0,0,0.3);
     	font-size: 24px;
@@ -189,14 +195,40 @@ pre {
     }
 }
 .documentationContent{
- 	h2{
- 	    margin-top: 30px;
+	overflow:hidden;
+	font-size:13px;
+	h1{
+		margin:10px 0;
+	}
+ 	h2,h3{
+ 	    margin: 10px 0;
  	    font-weight: bold;
  	    line-height: 40px;
  	}
  	p{
- 		line-height: 1.5;
+ 		line-height: 1.6;
  	}
+	.rightContainer{
+		width:100%;
+		float:right;
+		margin-left:-210px;
+		.inner{
+			margin-left:260px;
+		}
+		ul{
+			margin:10px 0;
+			li{
+			margin-left:20px;
+			list-style-type: disc;
+			}
+		}
+	}
+	h3{
+		font-size: 20px;
+	}
+	pre{
+		margin:10px 0;
+	}
 }
 h1,h2,h3,h4,h5{
 	.hash-link{
@@ -286,6 +318,21 @@ h1,h2,h3,h4,h5{
 				min-width: 100px;
 				height: 30px;
 			}
+		}
+	}
+}
+.docnav{
+	width:210px;
+	float:left;
+	.nav-docs-section{
+		padding:0 0 12px;
+		border-bottom:1px solid #ccc;
+		font-size:12px;
+		h3{
+			font-size:14px;
+			font-weight: bold;
+			margin:10px 0;
+			line-height: 30px;
 		}
 	}
 }

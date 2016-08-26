@@ -1,12 +1,12 @@
 img, div, body, html, ul, li, a, i, span, p, h1, h2, h3 {
-  -webkit-touch-callout: none;
-  -webkit-text-size-adjust: none;
-  -webkit-user-select: none;
-  user-select: none;
-  -webkit-highlight: none;
   -webkit-tap-highlight-color: transparent;
   font-family: "Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;
   font-family: proxima-nova,"Helvetica Neue",Helvetica,Roboto,Arial,sans-serif; }
+
+ul, li, ol {
+  padding: 0;
+  list-style: none;
+  margin: 0; }
 
 ::-webkit-scrollbar {
   width: 5px;
@@ -326,6 +326,9 @@ header {
     header .submenu a {
       display: inline-block;
       padding: 0 10px; }
+  @media screen and (max-width: 980px) {
+    header .submenu {
+      display: none !important; } }
 
 .container {
   padding: 50px 0 0 0; }
@@ -345,10 +348,11 @@ header {
     line-height: 77px; }
   .hero .desc {
     text-align: center;
-    margin: 0 0 60px  0; }
+    margin: 0 0 50px  0; }
 
 .buttons-unit {
-  text-align: center; }
+  text-align: center;
+  margin: 10px 0; }
   .buttons-unit a {
     box-shadow: 1px 3px 3px rgba(0, 0, 0, 0.3);
     font-size: 24px;
@@ -436,12 +440,32 @@ pre {
     content: "Code";
     line-height: 1; }
 
-.documentationContent h2 {
-  margin-top: 30px;
-  font-weight: bold;
-  line-height: 40px; }
-.documentationContent p {
-  line-height: 1.5; }
+.documentationContent {
+  overflow: hidden;
+  font-size: 13px; }
+  .documentationContent h1 {
+    margin: 10px 0; }
+  .documentationContent h2, .documentationContent h3 {
+    margin: 10px 0;
+    font-weight: bold;
+    line-height: 40px; }
+  .documentationContent p {
+    line-height: 1.6; }
+  .documentationContent .rightContainer {
+    width: 100%;
+    float: right;
+    margin-left: -210px; }
+    .documentationContent .rightContainer .inner {
+      margin-left: 260px; }
+    .documentationContent .rightContainer ul {
+      margin: 10px 0; }
+      .documentationContent .rightContainer ul li {
+        margin-left: 20px;
+        list-style-type: disc; }
+  .documentationContent h3 {
+    font-size: 20px; }
+  .documentationContent pre {
+    margin: 10px 0; }
 
 h1 .hash-link, h2 .hash-link, h3 .hash-link, h4 .hash-link, h5 .hash-link {
   display: none;
@@ -512,3 +536,16 @@ h1:hover .hash-link, h2:hover .hash-link, h3:hover .hash-link, h4:hover .hash-li
       display: inline-block;
       min-width: 100px;
       height: 30px; }
+
+.docnav {
+  width: 210px;
+  float: left; }
+  .docnav .nav-docs-section {
+    padding: 0 0 12px;
+    border-bottom: 1px solid #ccc;
+    font-size: 12px; }
+    .docnav .nav-docs-section h3 {
+      font-size: 14px;
+      font-weight: bold;
+      margin: 10px 0;
+      line-height: 30px; }

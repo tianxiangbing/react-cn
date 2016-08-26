@@ -27,8 +27,10 @@
 	</div>
 </header>
 <div class="container documentationContent">
-	<a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/docs/md/getting-started.md" target="_blank">在github上编辑这篇文章</a>
-	<h1><a name="-" class="anchor" href="#-"></a>快速入门<a  class="hash-link" href="#-">#</a></h1><h2><a name="jsfiddle" class="anchor" href="#jsfiddle"></a>JSFiddle<a  class="hash-link" href="#jsfiddle">#</a></h2><p>开始学习 React 最简单的方式是使用如下JSFiddle的 Hello World例子：</p>
+	<div class="rightContainer">
+		<div class="inner">
+			<a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/docs/md/getting-started.md" target="_blank">在github上编辑这篇文章</a>
+			<h1><a name="-" class="anchor" href="#-"></a>快速入门<a  class="hash-link" href="#-">#</a></h1><h2><a name="jsfiddle" class="anchor" href="#jsfiddle"></a>JSFiddle<a  class="hash-link" href="#jsfiddle">#</a></h2><p>开始学习 React 最简单的方式是使用如下JSFiddle的 Hello World例子：</p>
 <ul>
 <li><strong><a href="http://jsfiddle.net/reactjs/69z2wepo/">React JSFiddle</a></strong></li>
 <li><a href="http://jsfiddle.net/reactjs/5vjqabv3/">React JSFiddle without JSX</a></li>
@@ -57,7 +59,7 @@
   <span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span>
 </code></pre><p>在 JavaScript 代码里写着 XML 格式的代码称为 JSX；可以去 <a href="/react/docs/jsx-in-depth.html">JSX 语法</a> 里学习更多 JSX 相关的知识。为了把 JSX 转成标准的 JavaScript，我们用 <code>&lt;script type=&quot;text/babel&quot;&gt;</code> 标签，然后通过Babel转换成在浏览器中真正执行的内容。</p>
-<h3><a name="-a-class-anchor-name-a-a-href-a-" class="anchor" href="#-a-class-anchor-name-a-a-href-a-"></a><a class="anchor" name=""></a>分离文件 <a href="#">#</a><a  class="hash-link" href="#-a-class-anchor-name-a-a-href-a-">#</a></h3><p>你的 React JSX 代码文件可以写在单独的文件里。创建 <code>src/helloworld.js</code> 文件，内容如下：</p>
+<h3><a name="-" class="anchor" href="#-"></a>分离文件<a  class="hash-link" href="#-">#</a></h3><p>你的 React JSX 代码文件可以写在单独的文件里。创建 <code>src/helloworld.js</code> 文件，内容如下：</p>
 <pre><code class="lang-javascript">React.<span class="hljs-built_in">render</span><span class="hljs-params">(
   &lt;h1&gt;Hello, world!&lt;/h1&gt;,
   document.getElementById<span class="hljs-params">('example')</span>
@@ -67,7 +69,7 @@
 <pre><code class="lang-html">    <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text/babel"</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"src/helloworld.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
 </code></pre>
 <p>请注意，某些浏览器（如，Chrome浏览器）将无法加载该文件，除非它通过HTTP服务。</p>
-<h3><a name="-a-class-anchor-name-a-a-href-a-" class="anchor" href="#-a-class-anchor-name-a-a-href-a-"></a><a class="anchor" name=""></a>离线转换 <a href="#">#</a><a  class="hash-link" href="#-a-class-anchor-name-a-a-href-a-">#</a></h3><p>先安装命令行工具（依赖 <a href="http://npmjs.org/">npm</a>）：</p>
+<h3><a name="-" class="anchor" href="#-"></a>离线转换<a  class="hash-link" href="#-">#</a></h3><p>先安装命令行工具（依赖 <a href="http://npmjs.org/">npm</a>）：</p>
 <pre><code class="lang-cmd">    npm <span class="hljs-operator"><span class="hljs-keyword">install</span> -<span class="hljs-keyword">g</span> react-tools</span>
 </code></pre>
 <p>然后将你的 <code>src/helloworld.js</code> 文件转成标准的 JavaScript:</p>
@@ -96,8 +98,25 @@
 <p>我们还有一个社区开发者共同建设的 Wiki：<a href="https://github.com/facebook/react/wiki/Complementary-Tools">workflows, UI-components, routing, data management etc.</a></p>
 <p>祝你好运，欢迎来到 React 的世界。</p>
 
-	<div class="docs-prevnext"><a href="/docs/tutorial.html">下一条 →</a></div>
+			<div class="docs-prevnext"><a href="/docs/tutorial.html">下一条 →</a></div>
+		</div>
 	</div>
+    <div class="docnav">
+    <div class="nav-docs-section">
+      <h3>快速入门</h3>
+      <ul>
+          <li>
+            <a href="/docs/getting-started.html" class="active">快速开始</a>
+          </li>
+          <li>
+            <a href="/docs/tutorial.html">教程</a>
+          </li>
+          <li>
+            <a href="/docs/thinking-in-react.html">使用React的思路</a>
+          </li>
+      </ul>
+    </div>
+</div>
 </div>
 
 <footer>

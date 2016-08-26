@@ -16,7 +16,7 @@ marked.setOptions({
 		/*console.log(code)
 		console.log("============")
 		console.log(lighlightjs.highlightAuto(code).value)*/
-		console.log(lighlightjs.listLanguages)
+		//console.log(lighlightjs.listLanguages)
 		return lighlightjs.highlightAuto(code).value;
 	}
 });
@@ -85,7 +85,7 @@ gulp.task('sass',function(){
 gulp.task('watch', function() {
 	livereload.listen();
 	var server = livereload();
-	gulp.watch(['src/**/*.html', 'src/**/*.htm'], ['html']);
+	gulp.watch(['src/**/*.html', 'src/**/*.htm'], ['html', 'md']);
 	gulp.watch('src/**/*.scss', ['css', 'img']);
 	gulp.watch('src/**/*.md', ['md']);
 	gulp.watch('src/**/*.js', ['js']);

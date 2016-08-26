@@ -40,7 +40,7 @@
 
 在 JavaScript 代码里写着 XML 格式的代码称为 JSX；可以去 [JSX 语法](/react/docs/jsx-in-depth.html) 里学习更多 JSX 相关的知识。为了把 JSX 转成标准的 JavaScript，我们用 `<script type="text/babel">` 标签，然后通过Babel转换成在浏览器中真正执行的内容。
 
-### <a class="anchor" name=""></a>分离文件 [#](#)
+### 分离文件
 
 你的 React JSX 代码文件可以写在单独的文件里。创建 `src/helloworld.js` 文件，内容如下：
 
@@ -60,7 +60,7 @@ React.render(
 
 请注意，某些浏览器（如，Chrome浏览器）将无法加载该文件，除非它通过HTTP服务。
 
-### <a class="anchor" name=""></a>离线转换 [#](#)
+### 离线转换 
 
 先安装命令行工具（依赖 [npm](http://npmjs.org/)）：
 

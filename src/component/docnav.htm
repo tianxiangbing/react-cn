@@ -3,13 +3,54 @@
       <h3>快速入门</h3>
       <ul>
           <li>
-            <a href="/docs/getting-started.html" class="active">快速开始</a>
+            <a href="/docs/getting-started.html" @@if(context.focus=='getting-started'||!context.focus){class="active"}>快速开始</a>
           </li>
           <li>
-            <a href="/docs/tutorial.html">教程</a>
+            <a href="/docs/tutorial.html" @@if(context.focus=='tutorial'){class="active"}>教程</a>
           </li>
           <li>
-            <a href="/docs/thinking-in-react.html">使用React的思路</a>
+            <a href="/docs/thinking-in-react.html" @@if(context.focus=='thinking-in-react'){class="active"}>React编程思想</a>
+          </li>
+      </ul>
+    </div>
+    <div class="nav-docs-section">
+      <h3>社区资源</h3>
+      <ul>
+          <li>
+            <a href="/docs/conferences.html" @@if(context.focus=='conferences'){class="active"}>会议</a>
+          </li>
+          <li>
+            <a href="/docs/videos.html" @@if(context.focus=='videos'){class="active"}>视频</a>
+          </li>
+          <li>
+            <a href="/docs/complementary-tools.html" @@if(context.focus=='complementary-tools'){class="active"}>辅助工具</a>
+          </li>
+          <li>
+            <a href="/docs/examples.html" @@if(context.focus=='examples'){class="active"}>react例子</a>
+          </li>
+      </ul>
+    </div>
+    <div class="nav-docs-section">
+      <h3>导航</h3>
+      <ul>
+          <li>
+            <a href="/docs/why-react.html" @@if(context.focus=='why-react'){class="active"}>为什么使用React?</a>
+          </li>
+          <li>
+            <a href="/docs/tutorial.html" @@if(context.focus=='tutorial'){class="active"}>显示数据</a>
+            <ul>
+                  <li>
+                    <a href="/react/docs/jsx-in-depth.html">JSX in Depth</a>
+                  </li>
+                
+                  <li>
+                    <a href="/react/docs/jsx-spread.html">JSX Spread Attributes</a>
+                  </li>
+                
+                  <li>
+                    <a href="/react/docs/jsx-gotchas.html">JSX Gotchas</a>
+                  </li>
+              </ul>
           </li>
       </ul>
     </div>

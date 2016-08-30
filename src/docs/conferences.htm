@@ -1,0 +1,19 @@
+@@include('../component/header.htm', {
+    "context":{
+    	"title": "会议",
+    	"keywords": "reactjs快速入门教程",
+    	"desc": "reactjs社区资源",
+    	"menu":"doc"
+    }
+  })
+<div class="container documentationContent">
+	<div class="rightContainer">
+		<div class="inner">
+			<a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/docs/md/getting-started.md" target="_blank">在github上编辑这篇文章</a>
+			@@include(markdown('./md/conferences.md'))
+            <div class="docs-prevnext"><a href="/docs/thinking-in-react.html" class="prev">← 上一条 </a><a class="next" href="/docs/videos.html">下一条 →</a></div>
+		</div>
+	</div>
+    @@include('../component/docnav.htm',{"context":{"focus":"videos"}})
+</div>
+@@include('../component/footer.htm')

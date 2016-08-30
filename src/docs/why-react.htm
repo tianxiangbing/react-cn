@@ -1,0 +1,19 @@
+@@include('../component/header.htm', {
+    "context":{
+    	"title": "为什么使用React？",
+    	"keywords": "为什么使用React？",
+    	"desc": "为什么使用React？",
+    	"menu":"doc"
+    }
+  })
+<div class="container documentationContent">
+	<div class="rightContainer">
+		<div class="inner">
+			<a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/docs/md/why-react.md" target="_blank">在github上编辑这篇文章</a>
+			@@include(markdown('./md/why-react.md'))
+            <div class="docs-prevnext"><a href="/docs/conferences.html" class="prev">← 上一条 </a><a class="next" href="/docs/complementary-tools.html">下一条 →</a></div>
+		</div>
+	</div>
+    @@include('../component/docnav.htm',{"context":{"focus":"why-react"}})
+</div>
+@@include('../component/footer.htm')

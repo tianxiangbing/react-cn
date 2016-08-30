@@ -30,23 +30,56 @@
 	<div class="rightContainer">
 		<div class="inner">
 			<a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/docs/md/getting-started.md" target="_blank">在github上编辑这篇文章</a>
-			<h1><a name="-" class="anchor" href="#-"></a>快速入门<a  class="hash-link" href="#-">#</a></h1><h2><a name="jsfiddle" class="anchor" href="#jsfiddle"></a>JSFiddle<a  class="hash-link" href="#jsfiddle">#</a></h2><p>开始学习 React 最简单的方式是使用如下JSFiddle的 Hello World例子：</p>
+			<h1><a name="-" class="anchor" href="#-"></a>快速入门<a  class="hash-link" href="#-">#</a></h1><h2><a name="jsfiddle" class="anchor" href="#jsfiddle"></a>JSFiddle<a  class="hash-link" href="#jsfiddle">#</a></h2><p>开始 Hack React 的最简单的方法是用下面 JSFiddle 的Hello Worlds：</p>
 <ul>
-<li><strong><a href="http://jsfiddle.net/reactjs/69z2wepo/">React JSFiddle</a></strong></li>
-<li><a href="http://jsfiddle.net/reactjs/5vjqabv3/">React JSFiddle without JSX</a></li>
+<li><strong><a href="https://jsfiddle.net/reactjs/69z2wepo/">React JSFiddle</a></strong></li>
+<li><a href="https://jsfiddle.net/reactjs/5vjqabv3/">React JSFiddle without JSX</a></li>
 </ul>
-<h2><a name="-starter-kit-" class="anchor" href="#-starter-kit-"></a>初学者教程包 (Starter Kit)<a  class="hash-link" href="#-starter-kit-">#</a></h2><p>如果不想使用npm可以下载初学者教程包，其中预置了React和ReactDOM。</p>
-<div class="buttons-unit downloads"><a href="/react-15.3.0.zip">下载初学者教程包 v15.3.0</a></div>
+<h2><a name="-npm-react" class="anchor" href="#-npm-react"></a>通过 npm 使用 React<a  class="hash-link" href="#-npm-react">#</a></h2><p>我们建议在 React 中使用 CommonJS 模块系统，比如 <a href="http://browserify.org/">browserify</a> 或 <a href="https://webpack.github.io/">webpack</a>。使用 <a href="https://www.npmjs.com/package/react"><code>react</code></a> 和 <a href="https://www.npmjs.com/package/react-dom"><code>react-dom</code></a> npm 包.</p>
+<pre><code class="lang-js"><span class="hljs-comment">// main.js</span>
+<span class="hljs-built_in">var</span> React = <span class="hljs-keyword">require</span>(<span class="hljs-string">'react'</span>);
+<span class="hljs-built_in">var</span> ReactDOM = <span class="hljs-keyword">require</span>(<span class="hljs-string">'react-dom'</span>);
 
-<p>在初学者教程包的根目录，创建一个包含以下内容的 <code>helloworld.html</code>。</p>
-<pre><code><span class="hljs-doctype">&lt;!DOCTYPE html&gt;</span>
+ReactDOM<span class="hljs-built_in">.</span>render(
+  &lt;h1&gt;Hello, world<span class="hljs-subst">!</span>&lt;/h1&gt;,
+  document<span class="hljs-built_in">.</span>getElementById(<span class="hljs-string">'example'</span>)
+);
+</code></pre>
+<p>要用 browserify 安装 React DOM 和构建你的包。</p>
+<pre><code class="lang-sh">$ npm install --save react react-dom <span class="hljs-keyword">babelify </span><span class="hljs-keyword">babel-preset-react
+</span>$ <span class="hljs-keyword">browserify </span>-t [ <span class="hljs-keyword">babelify </span>--presets [ react ] ] main.js -o <span class="hljs-keyword">bundle.js</span>
+</code></pre>
+<p>要用 webpack 安装 React DOM 和构建你的包:  </p>
+<pre><code class="lang-sh"><span class="hljs-variable">$ </span>npm install --save react react-dom babel-preset-react
+<span class="hljs-variable">$ </span>webpack
+</code></pre>
+<blockquote>
+<p>注意:</p>
+<p>如果你正在使用 ES2015, 你将要使用 <code>babel-preset-es2015</code> 包.</p>
+</blockquote>
+<p><strong>注意:</strong> 默认情况下，React 将会在开发模式，很缓慢，不建议用于生产。要在生产模式下使用 React，设置环境变量 <code>NODE_ENV</code> 为 <code>production</code> （使用 envify 或者 webpack&#39;s DefinePlugin）。例如：</p>
+<pre><code class="lang-js"><span class="hljs-keyword">new</span> webpack.DefinePlugin({
+  <span class="hljs-string">"process.env"</span>: {
+    NODE_ENV: JSON.stringify(<span class="hljs-string">"production"</span>)
+  }
+});
+</code></pre>
+<h2><a name="-npm-" class="anchor" href="#-npm-"></a>不用 npm 的快速开始<a  class="hash-link" href="#-npm-">#</a></h2><p>如果你现在还没准备要使用npm,你可以下载这个已经包含了预构建的 React 和 React DOM 拷贝的入门套件. </p>
+<div class="buttons-unit downloads">
+  <a href="/react-15.3.0.zip" class="button">
+    下载入门 v15.3.0 套件
+  </a>
+</div>
+
+<p>在入门教程包的根目录，创建一个含有如下代码的 <code>helloworld.html</code>。</p>
+<pre><code class="lang-html"><span class="hljs-doctype">&lt;!DOCTYPE html&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-title">html</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-title">head</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">meta</span> <span class="hljs-attribute">charset</span>=<span class="hljs-value">"UTF-8"</span> /&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span>Hello React!<span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"build/react.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"build/react-dom.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"https://npmcdn.com/babel-core@5.8.38/browser.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-title">head</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-title">body</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"example"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
@@ -58,45 +91,52 @@
     </span></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span>
-</code></pre><p>在 JavaScript 代码里写着 XML 格式的代码称为 JSX；可以去 <a href="/react/docs/jsx-in-depth.html">JSX 语法</a> 里学习更多 JSX 相关的知识。为了把 JSX 转成标准的 JavaScript，我们用 <code>&lt;script type=&quot;text/babel&quot;&gt;</code> 标签，然后通过Babel转换成在浏览器中真正执行的内容。</p>
-<h3><a name="-" class="anchor" href="#-"></a>分离文件<a  class="hash-link" href="#-">#</a></h3><p>你的 React JSX 代码文件可以写在单独的文件里。创建 <code>src/helloworld.js</code> 文件，内容如下：</p>
-<pre><code class="lang-javascript">React.<span class="hljs-built_in">render</span><span class="hljs-params">(
+</code></pre>
+<p>在 JavaScript 代码里写着 XML 格式的代码称为 JSX；可以去 <a href="/react/docs/jsx-in-depth.html">JSX 语法</a> 里学习更多 JSX 相关的知识。为了把 JSX 转成标准的 JavaScript，我们用 <code>&lt;script type=&quot;text/babel&quot;&gt;</code> 标签，并引入 Babel 来完成在浏览器里的代码转换。在浏览器里打开这个html，你应该可以看到成功的消息！</p>
+<h3><a name="-" class="anchor" href="#-"></a>分离文件<a  class="hash-link" href="#-">#</a></h3><p>你的 React JSX 代码文件可以写在另外的文件里。新建下面的 <code>src/helloworld.js</code>。</p>
+<pre><code class="lang-javascript">ReactDOM.<span class="hljs-built_in">render</span><span class="hljs-params">(
   &lt;h1&gt;Hello, world!&lt;/h1&gt;,
   document.getElementById<span class="hljs-params">('example')</span>
 )</span>;
 </code></pre>
-<p>然后在 <code>helloworld.html</code> 引用它：</p>
-<pre><code class="lang-html">    <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text/babel"</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"src/helloworld.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+<p>然后在 <code>helloworld.html</code> 引用该文件：</p>
+<pre><code class="lang-html{10}"><span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text/babel"</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"src/helloworld.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
 </code></pre>
-<p>请注意，某些浏览器（如，Chrome浏览器）将无法加载该文件，除非它通过HTTP服务。</p>
-<h3><a name="-" class="anchor" href="#-"></a>离线转换<a  class="hash-link" href="#-">#</a></h3><p>先安装命令行工具（依赖 <a href="http://npmjs.org/">npm</a>）：</p>
-<pre><code class="lang-cmd">    npm <span class="hljs-operator"><span class="hljs-keyword">install</span> -<span class="hljs-keyword">g</span> react-tools</span>
+<p>注意一些浏览器（比如 Chrome ）会在使用 HTTP 以外的协议加载文件时失败。</p>
+<h3><a name="-" class="anchor" href="#-"></a>离线转换<a  class="hash-link" href="#-">#</a></h3><p>先安装<a href="http://babeljs.io/">Babel</a>命令行工具（需要 <a href="https://www.npmjs.com/">npm</a>）：</p>
+<pre><code><span class="hljs-built_in">npm</span> install --<span class="hljs-built_in">global</span> babel-cli
+<span class="hljs-built_in">npm</span> install babel-preset-react
+</code></pre><p>然后把你的 <code>src/helloworld.js</code> 文件转成标准的 JavaScript:</p>
+<pre><code><span class="hljs-comment">babel</span> <span class="hljs-literal">-</span><span class="hljs-literal">-</span><span class="hljs-comment">presets</span> <span class="hljs-comment">react</span> <span class="hljs-comment">src</span> <span class="hljs-literal">-</span><span class="hljs-literal">-</span><span class="hljs-comment">watch</span> <span class="hljs-literal">-</span><span class="hljs-literal">-</span><span class="hljs-comment">out</span><span class="hljs-literal">-</span><span class="hljs-comment">dir</span> <span class="hljs-comment">build</span>
+</code></pre><blockquote>
+<p>注意:</p>
+<p>如果你正在使用 ES2015, 你将需要使用 <code>babel-preset-es2015</code> 包.</p>
+</blockquote>
+<p><code>build/helloworld.js</code> 会在你对文件进行修改时自动生成。 阅读 <a href="http://babeljs.io/docs/usage/cli/">Babel CLI 文档</a> 了解高级用法。</p>
+<pre><code class="lang-javascript{2}">ReactDOM.render(
+  React.createElement(<span class="hljs-string">'h1'</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">'Hello, world!'</span>),
+  <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'example'</span>)
+);
 </code></pre>
-<p>然后将你的 <code>src/helloworld.js</code> 文件转成标准的 JavaScript:</p>
-<pre><code>jsx <span class="hljs-comment">--watch src/ build/</span>
-</code></pre><p>一旦你修改了， <code>build/helloworld.js</code> 文件会自动生成。</p>
-<pre><code class="lang-jsx">    React.render(
-      React.createElement(<span class="hljs-string">'h1'</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">'Hello, world!'</span>),
-      <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'example'</span>)
-    );
-</code></pre>
-<p>对照以下内容更新你的 HTML 代码</p>
-<pre><code><span class="hljs-doctype">&lt;!DOCTYPE html&gt;</span>
+<p>对照下面更新你的 HTML 代码</p>
+<pre><code class="lang-html{8,12}"><span class="hljs-doctype">&lt;!DOCTYPE html&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-title">html</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-title">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">meta</span> <span class="hljs-attribute">charset</span>=<span class="hljs-value">"UTF-8"</span> /&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span>Hello React!<span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"build/react.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
-    <span class="hljs-comment">&lt;!-- 不需要JSXTransformer! --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"build/react-dom.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+    <span class="hljs-comment">&lt;!-- 不需要 Babel! --&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-title">head</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-title">body</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"example"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"build/helloworld.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span>
-</code></pre><h2><a name="-commonjs-" class="anchor" href="#-commonjs-"></a>想要遵循 CommonJS 规范?<a  class="hash-link" href="#-commonjs-">#</a></h2><p>如果你想在使用 React 时，遵循 <a href="http://browserify.org/">browserify</a>，<a href="http://webpack.github.io/">webpack</a> 或者或其它兼容CommonJS的模块系统，只要使用 <a href="https://www.npmjs.org/package/react"><code>react</code> npm包</a> 即可。而且，<code>jsx</code> 转换工具可以很轻松的地集成到大部分打包系统里（不仅仅是 CommonJS）。</p>
-<h2><a name="-" class="anchor" href="#-"></a>下一步<a  class="hash-link" href="#-">#</a></h2><p>接着学习更多 <a href="/docs/tutorial.html">入门教程</a> 和初学者教程包 <code>examples</code> 目录下的其它例子。</p>
-<p>我们还有一个社区开发者共同建设的 Wiki：<a href="https://github.com/facebook/react/wiki/Complementary-Tools">workflows, UI-components, routing, data management etc.</a></p>
-<p>祝你好运，欢迎来到 React 的世界。</p>
+</code></pre>
+<h2><a name="-" class="anchor" href="#-"></a>下一步<a  class="hash-link" href="#-">#</a></h2><p>去看看<a href="/react/docs/tutorial.html">入门教程</a> 和入门教程包 <code>examples</code> 目录下的其它例子学习更多。</p>
+<p>我们还有一个社区开发者共建的 Wiki：<a href="https://github.com/facebook/react/wiki/Complementary-Tools">workflows, UI-components, routing, data management etc.</a></p>
+<p>恭喜你，欢迎来到 React 的世界。</p>
 
 			<div class="docs-prevnext"><a href="/docs/tutorial.html">下一条 →</a></div>
 		</div>
@@ -109,11 +149,53 @@
             <a href="/docs/getting-started.html" class="active">快速开始</a>
           </li>
           <li>
-            <a href="/docs/tutorial.html">教程</a>
+            <a href="/docs/tutorial.html" >教程</a>
           </li>
           <li>
-            <a href="/docs/thinking-in-react.html">使用React的思路</a>
+            <a href="/docs/thinking-in-react.html" >React编程思想</a>
           </li>
+      </ul>
+    </div>
+    <div class="nav-docs-section">
+      <h3>社区资源</h3>
+      <ul>
+          <li>
+            <a href="/docs/conferences.html" >会议</a>
+          </li>
+          <li>
+            <a href="/docs/videos.html" >视频</a>
+          </li>
+          <li>
+            <a href="/docs/complementary-tools.html" >辅助工具</a>
+          </li>
+          <li>
+            <a href="/docs/examples.html" >react例子</a>
+          </li>
+      </ul>
+    </div>
+    <div class="nav-docs-section">
+      <h3>导航</h3>
+      <ul>
+          <li>
+            <a href="/docs/why-react.html" >为什么使用React?</a>
+          </li>
+          <li>
+            <a href="/docs/tutorial.html" >显示数据</a>
+            <ul>
+                  <li>
+                    <a href="/react/docs/jsx-in-depth.html">JSX in Depth</a>
+                  </li>
+                
+                  <li>
+                    <a href="/react/docs/jsx-spread.html">JSX Spread Attributes</a>
+                  </li>
+                
+                  <li>
+                    <a href="/react/docs/jsx-gotchas.html">JSX Gotchas</a>
+                  </li>
+              </ul>
+          </li>
+       
       </ul>
     </div>
 </div>

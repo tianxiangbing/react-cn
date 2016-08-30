@@ -1,0 +1,20 @@
+@@include('../component/header.htm', {
+    "context":{
+        "title": "辅助工具",
+        "keywords": "react的思路",
+        "desc": "辅助工具",
+        "menu":"doc"
+    }
+  })
+
+<div class="container documentationContent">
+    <div class="rightContainer">
+		<div class="inner">
+            <a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/docs/md/complementary-tools.md" target="_blank">在github上编辑这篇文章</a>
+            @@include(markdown('./md/complementary-tools.md'))
+            <div class="docs-prevnext"><a href="/docs/videos.html" class="prev">← 上一条 </a><a class="next" href="/docs/conferences.html">下一条 →</a></div>
+		</div>
+    </div>
+    @@include('../component/docnav.htm',{"context":{"focus":"complementary-tools"}})
+</div>
+@@include('../component/footer.htm')

@@ -3,111 +3,161 @@
 
 ## JSFiddle
 
-开始学习 React 最简单的方式是使用如下JSFiddle的 Hello World例子：
+开始 Hack React 的最简单的方法是用下面 JSFiddle 的Hello Worlds：
 
-*   **[React JSFiddle](http://jsfiddle.net/reactjs/69z2wepo/)**
-*   [React JSFiddle without JSX](http://jsfiddle.net/reactjs/5vjqabv3/)
+ * **[React JSFiddle](https://jsfiddle.net/reactjs/69z2wepo/)**
+ * [React JSFiddle without JSX](https://jsfiddle.net/reactjs/5vjqabv3/)
 
-## 初学者教程包 (Starter Kit)
+## 通过 npm 使用 React
 
-如果不想使用npm可以下载初学者教程包，其中预置了React和ReactDOM。
+我们建议在 React 中使用 CommonJS 模块系统，比如 [browserify](http://browserify.org/) 或 [webpack](https://webpack.github.io/)。使用 [`react`](https://www.npmjs.com/package/react) 和 [`react-dom`](https://www.npmjs.com/package/react-dom) npm 包.
 
-<div class="buttons-unit downloads">[下载初学者教程包 v15.3.0](/react-15.3.0.zip)</div>
+```js
+// main.js
+var React = require('react');
+var ReactDOM = require('react-dom');
 
-在初学者教程包的根目录，创建一个包含以下内容的 `helloworld.html`。
-
-
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <meta charset="UTF-8" />
-        <title>Hello React!</title>
-        <script src="build/react.js"></script>
-        <script src="build/react-dom.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
-      </head>
-      <body>
-        <div id="example"></div>
-        <script type="text/babel">
-          ReactDOM.render(
-            <h1>Hello, world!</h1>,
-            document.getElementById('example')
-          );
-        </script>
-      </body>
-    </html>
-
-
-在 JavaScript 代码里写着 XML 格式的代码称为 JSX；可以去 [JSX 语法](/react/docs/jsx-in-depth.html) 里学习更多 JSX 相关的知识。为了把 JSX 转成标准的 JavaScript，我们用 `<script type="text/babel">` 标签，然后通过Babel转换成在浏览器中真正执行的内容。
-
-### 分离文件
-
-你的 React JSX 代码文件可以写在单独的文件里。创建 `src/helloworld.js` 文件，内容如下：
-
-```javascript
-React.render(
+ReactDOM.render(
   <h1>Hello, world!</h1>,
   document.getElementById('example')
 );
-
 ```
 
-然后在 `helloworld.html` 引用它：
+要用 browserify 安装 React DOM 和构建你的包。
+
+```sh
+$ npm install --save react react-dom babelify babel-preset-react
+$ browserify -t [ babelify --presets [ react ] ] main.js -o bundle.js
+```
+
+要用 webpack 安装 React DOM 和构建你的包:  
+
+```sh
+$ npm install --save react react-dom babel-preset-react
+$ webpack
+```
+
+> 注意:
+>
+> 如果你正在使用 ES2015, 你将要使用 `babel-preset-es2015` 包.
+
+**注意:** 默认情况下，React 将会在开发模式，很缓慢，不建议用于生产。要在生产模式下使用 React，设置环境变量 `NODE_ENV` 为 `production` （使用 envify 或者 webpack's DefinePlugin）。例如：
+
+```js
+new webpack.DefinePlugin({
+  "process.env": {
+    NODE_ENV: JSON.stringify("production")
+  }
+});
+```
+
+## 不用 npm 的快速开始
+
+如果你现在还没准备要使用npm,你可以下载这个已经包含了预构建的 React 和 React DOM 拷贝的入门套件. 
+
+<div class="buttons-unit downloads">
+  <a href="/react-15.3.0.zip" class="button">
+    下载入门 v15.3.0 套件
+  </a>
+</div>
+
+在入门教程包的根目录，创建一个含有如下代码的 `helloworld.html`。
 
 ```html
-    <script type="text/babel" src="src/helloworld.js"></script>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello React!</title>
+    <script src="build/react.js"></script>
+    <script src="build/react-dom.js"></script>
+    <script src="https://npmcdn.com/babel-core@5.8.38/browser.min.js"></script>
+  </head>
+  <body>
+    <div id="example"></div>
+    <script type="text/babel">
+      ReactDOM.render(
+        <h1>Hello, world!</h1>,
+        document.getElementById('example')
+      );
+    </script>
+  </body>
+</html>
 ```
 
-请注意，某些浏览器（如，Chrome浏览器）将无法加载该文件，除非它通过HTTP服务。
+在 JavaScript 代码里写着 XML 格式的代码称为 JSX；可以去 [JSX 语法](/react/docs/jsx-in-depth.html) 里学习更多 JSX 相关的知识。为了把 JSX 转成标准的 JavaScript，我们用 `<script type="text/babel">` 标签，并引入 Babel 来完成在浏览器里的代码转换。在浏览器里打开这个html，你应该可以看到成功的消息！
 
-### 离线转换 
+### 分离文件
 
-先安装命令行工具（依赖 [npm](http://npmjs.org/)）：
+你的 React JSX 代码文件可以写在另外的文件里。新建下面的 `src/helloworld.js`。
 
-```cmd
-    npm install -g react-tools
+```javascript
+ReactDOM.render(
+  <h1>Hello, world!</h1>,
+  document.getElementById('example')
+);
 ```
 
-然后将你的 `src/helloworld.js` 文件转成标准的 JavaScript:
+然后在 `helloworld.html` 引用该文件：
 
-
-    jsx --watch src/ build/
-
-
-一旦你修改了， `build/helloworld.js` 文件会自动生成。
-
-```jsx
-    React.render(
-      React.createElement('h1', null, 'Hello, world!'),
-      document.getElementById('example')
-    );
+```html{10}
+<script type="text/babel" src="src/helloworld.js"></script>
 ```
 
-对照以下内容更新你的 HTML 代码
+注意一些浏览器（比如 Chrome ）会在使用 HTTP 以外的协议加载文件时失败。
+
+### 离线转换
+
+先安装[Babel](http://babeljs.io/)命令行工具（需要 [npm](https://www.npmjs.com/)）：
+
+```
+npm install --global babel-cli
+npm install babel-preset-react
+```
+
+然后把你的 `src/helloworld.js` 文件转成标准的 JavaScript:
+
+```
+babel --presets react src --watch --out-dir build
+```
+
+> 注意:
+>
+> 如果你正在使用 ES2015, 你将需要使用 `babel-preset-es2015` 包.
+
+`build/helloworld.js` 会在你对文件进行修改时自动生成。 阅读 [Babel CLI 文档](http://babeljs.io/docs/usage/cli/) 了解高级用法。
+
+```javascript{2}
+ReactDOM.render(
+  React.createElement('h1', null, 'Hello, world!'),
+  document.getElementById('example')
+);
+```
 
 
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <title>Hello React!</title>
-        <script src="build/react.js"></script>
-        <!-- 不需要JSXTransformer! -->
-      </head>
-      <body>
-        <div id="example"></div>
-        <script src="build/helloworld.js"></script>
-      </body>
-    </html>
+对照下面更新你的 HTML 代码
 
-
-## 想要遵循 CommonJS 规范?
-
-如果你想在使用 React 时，遵循 [browserify](http://browserify.org/)，[webpack](http://webpack.github.io/) 或者或其它兼容CommonJS的模块系统，只要使用 [`react` npm包](https://www.npmjs.org/package/react) 即可。而且，`jsx` 转换工具可以很轻松的地集成到大部分打包系统里（不仅仅是 CommonJS）。
+```html{8,12}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello React!</title>
+    <script src="build/react.js"></script>
+    <script src="build/react-dom.js"></script>
+    <!-- 不需要 Babel! -->
+  </head>
+  <body>
+    <div id="example"></div>
+    <script src="build/helloworld.js"></script>
+  </body>
+</html>
+```
 
 ## 下一步
 
-接着学习更多 [入门教程](/docs/tutorial.html) 和初学者教程包 `examples` 目录下的其它例子。
+去看看[入门教程](/react/docs/tutorial.html) 和入门教程包 `examples` 目录下的其它例子学习更多。
 
-我们还有一个社区开发者共同建设的 Wiki：[workflows, UI-components, routing, data management etc.](https://github.com/facebook/react/wiki/Complementary-Tools)
+我们还有一个社区开发者共建的 Wiki：[workflows, UI-components, routing, data management etc.](https://github.com/facebook/react/wiki/Complementary-Tools)
 
-祝你好运，欢迎来到 React 的世界。
+恭喜你，欢迎来到 React 的世界。

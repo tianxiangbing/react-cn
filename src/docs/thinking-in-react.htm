@@ -1,19 +1,20 @@
 @@include('../component/header.htm', {
     "context":{
-        "title": "react的思路",
+        "title": "react的编程思想",
         "keywords": "react的思路",
-        "desc": "使用react的思路",
+        "desc": "使用react的编程思想",
         "menu":"doc"
     }
   })
+
 <div class="container documentationContent">
     <div class="rightContainer">
 		<div class="inner">
             <a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/docs/md/tinking-in-react.md" target="_blank">在github上编辑这篇文章</a>
-            @@include(markdown('./md/tinking-in-react.md'))
-            <div class="docs-prevnext"><a href="/docs/tutorial.html" class="prev">← 上一条 </a><a class="next" href="/docs/thinking-in-react.html">下一条 →</a></div>
+            @@include(markdown('./md/thinking-in-react.md'))
+            <div class="docs-prevnext"><a href="/docs/tutorial.html" class="prev">← 上一条 </a><a class="next" href="/docs/conferences.html">下一条 →</a></div>
 		</div>
     </div>
-    @@include('../component/docnav.htm',{"focus":"getting-started"})
+    @@include('../component/docnav.htm',{"context":{"focus":"thinking-in-react"}})
 </div>
 @@include('../component/footer.htm')

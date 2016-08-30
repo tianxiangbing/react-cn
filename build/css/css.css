@@ -549,3 +549,9 @@ h1:hover .hash-link, h2:hover .hash-link, h3:hover .hash-link, h4:hover .hash-li
       font-weight: bold;
       margin: 10px 0;
       line-height: 30px; }
+    .docnav .nav-docs-section a {
+      color: #666; }
+      .docnav .nav-docs-section a.active {
+        color: #cc7a6f; }
+    .docnav .nav-docs-section ul ul {
+      margin-left: 20px; }

@@ -334,5 +334,16 @@ h1,h2,h3,h4,h5{
 			margin:10px 0;
 			line-height: 30px;
 		}
+		a{
+			color:#666;
+			&.active{
+				color:#cc7a6f;
+			}
+		}
+		ul{
+			ul{
+				margin-left:20px;
+			}
+		}
 	}
 }

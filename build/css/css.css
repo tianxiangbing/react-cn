@@ -450,7 +450,8 @@ pre {
     font-weight: bold;
     line-height: 40px; }
   .documentationContent p {
-    line-height: 1.6; }
+    line-height: 1.6;
+    margin: 10px 0; }
   .documentationContent .rightContainer {
     width: 100%;
     float: right;
@@ -555,3 +556,11 @@ h1:hover .hash-link, h2:hover .hash-link, h3:hover .hash-link, h4:hover .hash-li
         color: #cc7a6f; }
     .docnav .nav-docs-section ul ul {
       margin-left: 20px; }
+
+blockquote {
+  margin: 0; }
+
+p code {
+  color: #555;
+  background-color: rgba(0, 0, 0, 0.04);
+  padding: 1px 3px; }

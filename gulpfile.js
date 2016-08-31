@@ -57,7 +57,7 @@ gulp.task('img', function() {
 });
 
 gulp.task('md', function() {
-	return gulp.src('src/docs/*.htm')
+	return gulp.src('src/**/*.htm')
 		.pipe(fileinclude({
 			prefix: "@@",
 			filters: {
@@ -70,7 +70,7 @@ gulp.task('md', function() {
 			}
 		}))
 		.pipe(ext_replace('.html'))
-		.pipe(gulp.dest('./build/docs'))
+		.pipe(gulp.dest('./build'))
 		.pipe(livereload())
 });
 

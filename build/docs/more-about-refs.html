@@ -2,11 +2,11 @@
 <html lang="zh">
 <head>
 	<meta charset="UTF-8">
-	<title>react的例子-React中国</title>
+	<title>对组件的refs-React中国</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="renderer" content="webkit|ie-comp|ie-stand">
-	<meta name="keywords" content="react的例子" />
-	<meta name="description" content="使用react的例子" />
+	<meta name="keywords" content="jsx,refs,属性,数据" />
+	<meta name="description" content="对组件的refs" />
 	<link rel="stylesheet" href="/css/css.css">
 	<link rel="shortcut icon" href="/favicon.ico">
 </head>
@@ -26,41 +26,46 @@
 		<a href="/reactnative/index.html">React Native中文资料</a>
 	</div>
 </header>
-
 <div class="container documentationContent">
-    <div class="rightContainer">
+	<div class="rightContainer">
 		<div class="inner">
-            <a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/docs/md/examples.md" target="_blank">在github上编辑这篇文章</a>
-            <h1><a name="react-" class="anchor" href="#react-"></a>react例子<a  class="hash-link" href="#react-">#</a></h1><h2><a name="sample-code" class="anchor" href="#sample-code"></a>Sample Code<a  class="hash-link" href="#sample-code">#</a></h2><ul>
-<li><strong><a href="https://facebook.github.io/react/downloads.html">React starter kit</a></strong> Includes several examples which you can <a href="https://github.com/facebook/react/tree/master/examples/">view online in our GitHub repository</a>.</li>
-<li><strong><a href="https://github.com/petehunt/react-one-hour-email">React one-hour email</a></strong> Goes step-by-step from a static HTML mock to an interactive email reader, written in just one hour!</li>
-<li><strong><a href="http://www.reactstarterkit.com/">React Starter Kit</a></strong> A skeleton project for building isomorphic web applications on top of React, Flux, Express.js (for SSR), Gulp, Webpack (see <a href="https://github.com/kriasoft/react-starter-kit">source code</a>, <a href="http://demo.reactstarterkit.com/">demo</a>)</li>
-<li><strong><a href="https://github.com/mhart/react-server-example">React server rendering example</a></strong> Demonstrates how to use React&#39;s server rendering capabilities.</li>
-<li><strong><a href="https://github.com/yiminghe/learning-react">React tutorials and sample code for starter</a></strong> Include some articles and sample code for starter.</li>
-<li><strong><a href="https://github.com/code0wl/react-example-es2015">Thinking in React using ES2015</a></strong> Include the thinking in React example using latest technologies so late beginners can use ECMAScript 2015 by example.</li>
-<li><strong><a href="https://github.com/pierreavizou/universal-routed-flux-demo">Universal-routed-flux-demo</a></strong> A skeleton to get started building universal flux applications, with Reactjs, React Router and es6.</li>
+			<a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/docs/md/more-about-refs.md" target="_blank">在github上编辑这篇文章</a>
+			<h1><a name="-refs" class="anchor" href="#-refs"></a>对组件的refs<a  class="hash-link" href="#-refs">#</a></h1><p>React提供了强大的抽象机制使你在大多数情况下免于直接接触DOM，但有时你仅仅只需要访问底层API，也许是为了与第三方库或者已有的代码协作。</p>
+<h2><a name="-dom" class="anchor" href="#-dom"></a>虚拟 DOM<a  class="hash-link" href="#-dom">#</a></h2><p>React非常快速是因为它从不直接操作DOM。React维持了一个快速的内存中的DOM表示。<code>render()</code> 方法实际上返回一个对DOM的<em>描述</em>，然后React能将其与内存中的“描述”进行比较，以计算出最快速的方式更新浏览器。</p>
+<p>此外，React实现了一个完备的合成事件（synthetic event）系统，以使得所有的事件对象都被保证符合W3C细则，而不论各个浏览器的怪癖，并且所有事件跨浏览器地一致并高效的冒泡（bubbles），你甚至能在IE8里使用一些HTML5事件！</p>
+<p>大多数时间你应该和React的&quot;伪造浏览器&quot;呆在一起，因为它更高性能并且容易推理。然而，有时你只需要访问底层API，或许是为了与第三方库比如一个jQuery插件协作。React为你提供了安全舱口来直接使用底层API。</p>
+<h2><a name="refs-finddomnode-" class="anchor" href="#refs-finddomnode-"></a>Refs 和 findDOMNode()<a  class="hash-link" href="#refs-finddomnode-">#</a></h2><p>为了与浏览器互动，你需要一个指向DOM node的引用。你可以连接一个 <code>ref</code> 到任何的元素，这允许你引用组件的 <strong>backing instance</strong>  。如果你需要在组件上调用命令式函数，或者想访问底层的DOM节点，它很有用。要了解更多关于 refs，包括更有效使用他们的方法，请查看我们的 <a href="/react/docs/more-about-refs-zh-CN.html">关于Refs的更多内容</a> 文档。</p>
+<h2><a name="-" class="anchor" href="#-"></a>组件的生命周期<a  class="hash-link" href="#-">#</a></h2><p>组件的生命周期有三个主要部分：</p>
+<ul>
+<li><strong>挂载:</strong> 组件被注入DOM。</li>
+<li><strong>更新:</strong> 组件被重新渲染来决定DOM是否应被更新。</li>
+<li><strong>卸载:</strong> 组件从DOM中被移除。</li>
 </ul>
-<h2><a name="open-source-demos" class="anchor" href="#open-source-demos"></a>Open-Source Demos<a  class="hash-link" href="#open-source-demos">#</a></h2><ul>
-<li><strong><a href="https://github.com/ruanyf/react-demos">React Demos</a></strong> a collection of simple demos of React.js</li>
-<li><strong><a href="https://maaamba.herokuapp.com/">Mamba</a></strong> a classical game built with <a href="https://github.com/facebook/flux">Flux</a>, <a href="https://github.com/facebook/react">React.js</a>, and <a href="https://github.com/facebook/immutable-js">immutable-js</a></li>
-<li><strong><a href="http://facebook.github.io/flux/docs/todo-list.html">TodoMVC</a></strong></li>
-<li><strong><a href="https://github.com/khan/perseus">Khan Academy question editor</a></strong> (Browse their GitHub account for many more production apps!)</li>
-<li><strong><a href="https://github.com/jaredly/github-issues-viewer">github-issue-viewer</a></strong></li>
-<li><strong><a href="https://github.com/prabirshrestha/hn-react">hn-react</a></strong> Dead-simple Hacker News client.</li>
-<li><strong><a href="https://github.com/IvanVergiliev/2048-react">2048-react</a></strong> A clone of the 2048 game.</li>
-<li><strong><a href="https://github.com/kureikain/git-trash/">Git-Trash</a></strong> A way to remove junk/dead/fork repository on Github quickly.</li>
-<li><strong><a href="http://www.openmindedinnovations.com/blogs/backbone-react-component-with-middleman">Backbone-React-Component Tutorial</a></strong> A simple tutorial showing off how to use backbone with react.</li>
-<li><strong><a href="http://www.openmindedinnovations.com/blogs/react-animations-with-react-tweenstate">React-Tween-State Tutorial</a></strong> Animations in react using the react-tween-state library.</li>
-<li><strong><a href="http://www.openmindedinnovations.com/blogs/backbone-react-sortable-table">Backbone React Sortable Table Tutorial</a></strong> Shows you how to use Backbone and React to make a sortable table using a custom React mixin.</li>
-<li><strong><a href="https://github.com/ihaolin/react-ratchet-gulp">React-Ratchet-Gulp</a></strong> An app demo build with Gulp, React, Ratchet.</li>
-<li><strong><a href="https://github.com/fatiherikli/fil">Fil</a></strong> A playground for in-browser interpreters. Built with React/Redux. </li>
-<li><strong><a href="https://github.com/LeoAJ/react-iTunes-search">react-iTunes-search</a></strong> simple web app for iTunes Search implemented with React</li>
-<li><strong><a href="https://github.com/jeffschwartz/react-typescript-quickstart/">React/TypeScript Quickstart</a></strong> Supports project development using React, NPM, TypeScript, ESLint and Webpack.</li>
+<p>React提供生命周期方法，以便你可以指定钩挂到这个过程上。我们提供了 <strong>will</strong> 方法，该方法在某事发生前被调用，<strong>did</strong>方法，在某事发生后被调用。</p>
+<h3><a name="-" class="anchor" href="#-"></a>挂载<a  class="hash-link" href="#-">#</a></h3><ul>
+<li><code>getInitialState(): object</code> 在组件挂载前被调用。有状态组件(Stateful components) 应该实现此函数并返回初始state的数据。</li>
+<li><code>componentWillMount()</code> 在挂载发生前被立即调用。</li>
+<li><code>componentDidMount()</code> 在挂载发生后被立即调用。 需要DOM node的初始化应该放在这里。</li>
 </ul>
+<h3><a name="-" class="anchor" href="#-"></a>更新<a  class="hash-link" href="#-">#</a></h3><ul>
+<li><code>componentWillReceiveProps(object nextProps)</code> 当挂载的组件接收到新的props时被调用。此方法应该被用于比较<code>this.props</code> 和 <code>nextProps</code>以用于使用<code>this.setState()</code>执行状态转换。</li>
+<li><code>shouldComponentUpdate(object nextProps, object nextState): boolean</code> 当组件决定任何改变是否要更新到DOM时被调用。作为一个优化实现比较<code>this.props</code> 和 <code>nextProps</code> 、<code>this.state</code> 和 <code>nextState</code> ，如果React应该跳过更新，返回<code>false</code>。</li>
+<li><code>componentWillUpdate(object nextProps, object nextState)</code> 在更新发生前被立即调用。你不能在此调用<code>this.setState()</code>。</li>
+<li><code>componentDidUpdate(object prevProps, object prevState)</code> 在更新发生后被立即调用。</li>
+</ul>
+<h3><a name="-" class="anchor" href="#-"></a>卸载<a  class="hash-link" href="#-">#</a></h3><ul>
+<li><code>componentWillUnmount()</code> 在组件被卸载和摧毁前被立即调用。清理应该放在这里。</li>
+</ul>
+<h3><a name="-" class="anchor" href="#-"></a>已挂载的方法<a  class="hash-link" href="#-">#</a></h3><p><em>Mounted</em> 复合组件同样支持以下方法:</p>
+<ul>
+<li><code>component.forceUpdate()</code> 可以在任何已挂载的组件上调用，在你知道某些深处的组件状态在未使用 <code>this.setState()</code> 就被改变了时。</li>
+</ul>
+<h2><a name="-" class="anchor" href="#-"></a>浏览器支持<a  class="hash-link" href="#-">#</a></h2><p>React 支持绝大多数流行的浏览器，包括 Internet Explorer 9 及以上。</p>
+<p>（我们不支持那些不支持 ES5 methods 的更老的浏览器，但你可能发现如果你的页面包含了类似 <a href="https://github.com/es-shims/es5-shim">es5-shim and es5-sham</a> 的填充物时是可以在更老的浏览器上运行的。是否做这一步取决于你自己。）</p>
 
-            <div class="docs-prevnext"><a href="/docs/tutorial.html" class="prev">← 上一条 </a><a class="next" href="/docs/conferences.html">下一条 →</a></div>
-		</div>
-    </div>
+            <div class="docs-prevnext"><a href="/docs/working-with-the-browser.html" class="prev">← 上一条 </a><a class="next" href="/docs/tooling-integration.html">下一条 →</a></div>
+		</div> 
+	</div>
     <div class="docnav">
     <div class="nav-docs-section">
       <h3>快速入门</h3>
@@ -89,7 +94,7 @@
             <a href="/docs/complementary-tools.html" >辅助工具</a>
           </li>
           <li>
-            <a href="/docs/examples.html" class="active">react例子</a>
+            <a href="/docs/examples.html" >react例子</a>
           </li>
       </ul>
     </div>
@@ -131,7 +136,7 @@
             <a href="/docs/working-with-the-browser.html" >与浏览器协作</a>
               <ul>
                 <li>
-                  <a href="/docs/more-about-refs.html" >对组件的refs</a>
+                  <a href="/docs/more-about-refs.html" class="active">对组件的refs</a>
                 </li>
               </ul>
           </li>

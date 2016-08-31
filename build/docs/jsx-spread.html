@@ -2,11 +2,11 @@
 <html lang="zh">
 <head>
 	<meta charset="UTF-8">
-	<title>react的例子-React中国</title>
+	<title>jsx展开属性-React中国</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="renderer" content="webkit|ie-comp|ie-stand">
-	<meta name="keywords" content="react的例子" />
-	<meta name="description" content="使用react的例子" />
+	<meta name="keywords" content="jsx,props,属性,数据" />
+	<meta name="description" content="jsx展开属性" />
 	<link rel="stylesheet" href="/css/css.css">
 	<link rel="shortcut icon" href="/favicon.ico">
 </head>
@@ -26,41 +26,37 @@
 		<a href="/reactnative/index.html">React Native中文资料</a>
 	</div>
 </header>
-
 <div class="container documentationContent">
-    <div class="rightContainer">
+	<div class="rightContainer">
 		<div class="inner">
-            <a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/docs/md/examples.md" target="_blank">在github上编辑这篇文章</a>
-            <h1><a name="react-" class="anchor" href="#react-"></a>react例子<a  class="hash-link" href="#react-">#</a></h1><h2><a name="sample-code" class="anchor" href="#sample-code"></a>Sample Code<a  class="hash-link" href="#sample-code">#</a></h2><ul>
-<li><strong><a href="https://facebook.github.io/react/downloads.html">React starter kit</a></strong> Includes several examples which you can <a href="https://github.com/facebook/react/tree/master/examples/">view online in our GitHub repository</a>.</li>
-<li><strong><a href="https://github.com/petehunt/react-one-hour-email">React one-hour email</a></strong> Goes step-by-step from a static HTML mock to an interactive email reader, written in just one hour!</li>
-<li><strong><a href="http://www.reactstarterkit.com/">React Starter Kit</a></strong> A skeleton project for building isomorphic web applications on top of React, Flux, Express.js (for SSR), Gulp, Webpack (see <a href="https://github.com/kriasoft/react-starter-kit">source code</a>, <a href="http://demo.reactstarterkit.com/">demo</a>)</li>
-<li><strong><a href="https://github.com/mhart/react-server-example">React server rendering example</a></strong> Demonstrates how to use React&#39;s server rendering capabilities.</li>
-<li><strong><a href="https://github.com/yiminghe/learning-react">React tutorials and sample code for starter</a></strong> Include some articles and sample code for starter.</li>
-<li><strong><a href="https://github.com/code0wl/react-example-es2015">Thinking in React using ES2015</a></strong> Include the thinking in React example using latest technologies so late beginners can use ECMAScript 2015 by example.</li>
-<li><strong><a href="https://github.com/pierreavizou/universal-routed-flux-demo">Universal-routed-flux-demo</a></strong> A skeleton to get started building universal flux applications, with Reactjs, React Router and es6.</li>
-</ul>
-<h2><a name="open-source-demos" class="anchor" href="#open-source-demos"></a>Open-Source Demos<a  class="hash-link" href="#open-source-demos">#</a></h2><ul>
-<li><strong><a href="https://github.com/ruanyf/react-demos">React Demos</a></strong> a collection of simple demos of React.js</li>
-<li><strong><a href="https://maaamba.herokuapp.com/">Mamba</a></strong> a classical game built with <a href="https://github.com/facebook/flux">Flux</a>, <a href="https://github.com/facebook/react">React.js</a>, and <a href="https://github.com/facebook/immutable-js">immutable-js</a></li>
-<li><strong><a href="http://facebook.github.io/flux/docs/todo-list.html">TodoMVC</a></strong></li>
-<li><strong><a href="https://github.com/khan/perseus">Khan Academy question editor</a></strong> (Browse their GitHub account for many more production apps!)</li>
-<li><strong><a href="https://github.com/jaredly/github-issues-viewer">github-issue-viewer</a></strong></li>
-<li><strong><a href="https://github.com/prabirshrestha/hn-react">hn-react</a></strong> Dead-simple Hacker News client.</li>
-<li><strong><a href="https://github.com/IvanVergiliev/2048-react">2048-react</a></strong> A clone of the 2048 game.</li>
-<li><strong><a href="https://github.com/kureikain/git-trash/">Git-Trash</a></strong> A way to remove junk/dead/fork repository on Github quickly.</li>
-<li><strong><a href="http://www.openmindedinnovations.com/blogs/backbone-react-component-with-middleman">Backbone-React-Component Tutorial</a></strong> A simple tutorial showing off how to use backbone with react.</li>
-<li><strong><a href="http://www.openmindedinnovations.com/blogs/react-animations-with-react-tweenstate">React-Tween-State Tutorial</a></strong> Animations in react using the react-tween-state library.</li>
-<li><strong><a href="http://www.openmindedinnovations.com/blogs/backbone-react-sortable-table">Backbone React Sortable Table Tutorial</a></strong> Shows you how to use Backbone and React to make a sortable table using a custom React mixin.</li>
-<li><strong><a href="https://github.com/ihaolin/react-ratchet-gulp">React-Ratchet-Gulp</a></strong> An app demo build with Gulp, React, Ratchet.</li>
-<li><strong><a href="https://github.com/fatiherikli/fil">Fil</a></strong> A playground for in-browser interpreters. Built with React/Redux. </li>
-<li><strong><a href="https://github.com/LeoAJ/react-iTunes-search">react-iTunes-search</a></strong> simple web app for iTunes Search implemented with React</li>
-<li><strong><a href="https://github.com/jeffschwartz/react-typescript-quickstart/">React/TypeScript Quickstart</a></strong> Supports project development using React, NPM, TypeScript, ESLint and Webpack.</li>
-</ul>
+			<a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/docs/md/jsx-spread.md" target="_blank">在github上编辑这篇文章</a>
+			<h1><a name="jsx-" class="anchor" href="#jsx-"></a>JSX 展开属性<a  class="hash-link" href="#jsx-">#</a></h1><p>如果你事先知道组件需要的全部 Props（属性），JSX 很容易地这样写：</p>
+<pre><code class="lang-javascript">  var component = <span class="hljs-tag">&lt;<span class="hljs-title">Component</span> <span class="hljs-attribute">foo</span>=<span class="hljs-value">{x}</span> <span class="hljs-attribute">bar</span>=<span class="hljs-value">{y}</span> /&gt;</span>;
+</code></pre>
+<h2><a name="-props-" class="anchor" href="#-props-"></a>修改 Props 是不好的，明白吗<a  class="hash-link" href="#-props-">#</a></h2><p>如果你不知道要设置哪些 Props，那么现在最好不要设置它：</p>
+<pre><code class="lang-javascript">  <span class="hljs-variable"><span class="hljs-keyword">var</span> component</span> = <span class="hljs-type">&lt;Component /&gt;</span>;
+  component.props.foo = x; <span class="hljs-comment">// 不好</span>
+  component.props.bar = y; <span class="hljs-comment">// 同样不好</span>
+</code></pre>
+<p>这样是反模式，因为 React 不能帮你检查属性类型（propTypes）。这样即使你的 属性类型有错误也不能得到清晰的错误提示。</p>
+<p>Props 应该被认为是不可变的。在别处修改 props 对象可能会导致预料之外的结果，所以原则上这将是一个冻结的对象。</p>
+<h2><a name="-spread-attributes-" class="anchor" href="#-spread-attributes-"></a>展开属性（Spread Attributes）<a  class="hash-link" href="#-spread-attributes-">#</a></h2><p>现在你可以使用 JSX 的新特性 - 展开属性：</p>
+<pre><code class="lang-javascript">  var props = {}<span class="hljs-comment">;</span>
+  props.foo = x<span class="hljs-comment">;</span>
+  props.bar = y<span class="hljs-comment">;</span>
+  var component = &lt;Component {...props} /&gt;<span class="hljs-comment">;</span>
+</code></pre>
+<p>传入对象的属性会被复制到组件内。</p>
+<p>它能被多次使用，也可以和其它属性一起用。注意顺序很重要，后面的会覆盖掉前面的。</p>
+<pre><code class="lang-javascript">  <span class="hljs-built_in">var</span> props = { foo: <span class="hljs-string">'default'</span> };
+  <span class="hljs-built_in">var</span> component = &lt;Component {<span class="hljs-attribute">...</span>props} foo={<span class="hljs-string">'override'</span>} /&gt;;
+  console<span class="hljs-built_in">.</span><span class="hljs-keyword">log</span>(component<span class="hljs-built_in">.</span>props<span class="hljs-built_in">.</span>foo); <span class="hljs-comment">// 'override'</span>
+</code></pre>
+<h2><a name="-code-code-" class="anchor" href="#-code-code-"></a>这个奇怪的 <code>...</code> 标记是什么？<a  class="hash-link" href="#-code-code-">#</a></h2><p>这个 <code>...</code> 操作符（增强的操作符）已经被 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator">ES6 数组</a> 支持。相关的还有 ECMAScript 规范草案中的 <a href="https://github.com/sebmarkbage/ecmascript-rest-spread">Object 剩余和展开属性（Rest and Spread Properties）</a>。我们利用了这些还在制定中标准中已经被支持的特性来使 JSX 拥有更优雅的语法。</p>
 
-            <div class="docs-prevnext"><a href="/docs/tutorial.html" class="prev">← 上一条 </a><a class="next" href="/docs/conferences.html">下一条 →</a></div>
-		</div>
-    </div>
+            <div class="docs-prevnext"><a href="/docs/jsx-in-depth.html" class="prev">← 上一条 </a><a class="next" href="/docs/jsx-gotchas.html">下一条 →</a></div>
+		</div> 
+	</div>
     <div class="docnav">
     <div class="nav-docs-section">
       <h3>快速入门</h3>
@@ -89,7 +85,7 @@
             <a href="/docs/complementary-tools.html" >辅助工具</a>
           </li>
           <li>
-            <a href="/docs/examples.html" class="active">react例子</a>
+            <a href="/docs/examples.html" >react例子</a>
           </li>
       </ul>
     </div>
@@ -107,7 +103,7 @@
                   </li>
                 
                   <li>
-                    <a href="/docs/jsx-spread.html" >JSX 展开属性</a>
+                    <a href="/docs/jsx-spread.html" class="active">JSX 展开属性</a>
                   </li>
                 
                   <li>

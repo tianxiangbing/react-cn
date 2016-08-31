@@ -207,6 +207,7 @@ pre {
  	}
  	p{
  		line-height: 1.6;
+		 margin:10px 0;
  	}
 	.rightContainer{
 		width:100%;
@@ -346,4 +347,12 @@ h1,h2,h3,h4,h5{
 			}
 		}
 	}
+}
+blockquote{
+	margin:0;
+}
+ p code {
+    color: #555;
+    background-color: rgba(0,0,0,0.04);
+    padding: 1px 3px;
 }

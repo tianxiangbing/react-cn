@@ -85,7 +85,7 @@ new webpack.DefinePlugin({
 </html>
 ```
 
-在 JavaScript 代码里写着 XML 格式的代码称为 JSX；可以去 [JSX 语法](/react/docs/jsx-in-depth.html) 里学习更多 JSX 相关的知识。为了把 JSX 转成标准的 JavaScript，我们用 `<script type="text/babel">` 标签，并引入 Babel 来完成在浏览器里的代码转换。在浏览器里打开这个html，你应该可以看到成功的消息！
+在 JavaScript 代码里写着 XML 格式的代码称为 JSX；可以去 [JSX 语法](/docs/jsx-in-depth.html) 里学习更多 JSX 相关的知识。为了把 JSX 转成标准的 JavaScript，我们用 `<script type="text/babel">` 标签，并引入 Babel 来完成在浏览器里的代码转换。在浏览器里打开这个html，你应该可以看到成功的消息！
 
 ### 分离文件
 
@@ -156,7 +156,7 @@ ReactDOM.render(
 
 ## 下一步
 
-去看看[入门教程](/react/docs/tutorial.html) 和入门教程包 `examples` 目录下的其它例子学习更多。
+去看看[入门教程](/docs/tutorial.html) 和入门教程包 `examples` 目录下的其它例子学习更多。
 
 我们还有一个社区开发者共建的 Wiki：[workflows, UI-components, routing, data management etc.](https://github.com/facebook/react/wiki/Complementary-Tools)
 

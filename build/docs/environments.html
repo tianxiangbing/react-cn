@@ -2,11 +2,11 @@
 <html lang="zh">
 <head>
 	<meta charset="UTF-8">
-	<title>react的例子-React中国</title>
+	<title>会议-React中国</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="renderer" content="webkit|ie-comp|ie-stand">
-	<meta name="keywords" content="react的例子" />
-	<meta name="description" content="使用react的例子" />
+	<meta name="keywords" content="reactjs快速入门教程" />
+	<meta name="description" content="reactjs社区资源" />
 	<link rel="stylesheet" href="/css/css.css">
 	<link rel="shortcut icon" href="/favicon.ico">
 </head>
@@ -26,41 +26,67 @@
 		<a href="/reactnative/index.html">React Native中文资料</a>
 	</div>
 </header>
-
 <div class="container documentationContent">
-    <div class="rightContainer">
+	<div class="rightContainer">
 		<div class="inner">
-            <a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/docs/md/examples.md" target="_blank">在github上编辑这篇文章</a>
-            <h1><a name="react-" class="anchor" href="#react-"></a>react例子<a  class="hash-link" href="#react-">#</a></h1><h2><a name="sample-code" class="anchor" href="#sample-code"></a>Sample Code<a  class="hash-link" href="#sample-code">#</a></h2><ul>
-<li><strong><a href="https://facebook.github.io/react/downloads.html">React starter kit</a></strong> Includes several examples which you can <a href="https://github.com/facebook/react/tree/master/examples/">view online in our GitHub repository</a>.</li>
-<li><strong><a href="https://github.com/petehunt/react-one-hour-email">React one-hour email</a></strong> Goes step-by-step from a static HTML mock to an interactive email reader, written in just one hour!</li>
-<li><strong><a href="http://www.reactstarterkit.com/">React Starter Kit</a></strong> A skeleton project for building isomorphic web applications on top of React, Flux, Express.js (for SSR), Gulp, Webpack (see <a href="https://github.com/kriasoft/react-starter-kit">source code</a>, <a href="http://demo.reactstarterkit.com/">demo</a>)</li>
-<li><strong><a href="https://github.com/mhart/react-server-example">React server rendering example</a></strong> Demonstrates how to use React&#39;s server rendering capabilities.</li>
-<li><strong><a href="https://github.com/yiminghe/learning-react">React tutorials and sample code for starter</a></strong> Include some articles and sample code for starter.</li>
-<li><strong><a href="https://github.com/code0wl/react-example-es2015">Thinking in React using ES2015</a></strong> Include the thinking in React example using latest technologies so late beginners can use ECMAScript 2015 by example.</li>
-<li><strong><a href="https://github.com/pierreavizou/universal-routed-flux-demo">Universal-routed-flux-demo</a></strong> A skeleton to get started building universal flux applications, with Reactjs, React Router and es6.</li>
-</ul>
-<h2><a name="open-source-demos" class="anchor" href="#open-source-demos"></a>Open-Source Demos<a  class="hash-link" href="#open-source-demos">#</a></h2><ul>
-<li><strong><a href="https://github.com/ruanyf/react-demos">React Demos</a></strong> a collection of simple demos of React.js</li>
-<li><strong><a href="https://maaamba.herokuapp.com/">Mamba</a></strong> a classical game built with <a href="https://github.com/facebook/flux">Flux</a>, <a href="https://github.com/facebook/react">React.js</a>, and <a href="https://github.com/facebook/immutable-js">immutable-js</a></li>
-<li><strong><a href="http://facebook.github.io/flux/docs/todo-list.html">TodoMVC</a></strong></li>
-<li><strong><a href="https://github.com/khan/perseus">Khan Academy question editor</a></strong> (Browse their GitHub account for many more production apps!)</li>
-<li><strong><a href="https://github.com/jaredly/github-issues-viewer">github-issue-viewer</a></strong></li>
-<li><strong><a href="https://github.com/prabirshrestha/hn-react">hn-react</a></strong> Dead-simple Hacker News client.</li>
-<li><strong><a href="https://github.com/IvanVergiliev/2048-react">2048-react</a></strong> A clone of the 2048 game.</li>
-<li><strong><a href="https://github.com/kureikain/git-trash/">Git-Trash</a></strong> A way to remove junk/dead/fork repository on Github quickly.</li>
-<li><strong><a href="http://www.openmindedinnovations.com/blogs/backbone-react-component-with-middleman">Backbone-React-Component Tutorial</a></strong> A simple tutorial showing off how to use backbone with react.</li>
-<li><strong><a href="http://www.openmindedinnovations.com/blogs/react-animations-with-react-tweenstate">React-Tween-State Tutorial</a></strong> Animations in react using the react-tween-state library.</li>
-<li><strong><a href="http://www.openmindedinnovations.com/blogs/backbone-react-sortable-table">Backbone React Sortable Table Tutorial</a></strong> Shows you how to use Backbone and React to make a sortable table using a custom React mixin.</li>
-<li><strong><a href="https://github.com/ihaolin/react-ratchet-gulp">React-Ratchet-Gulp</a></strong> An app demo build with Gulp, React, Ratchet.</li>
-<li><strong><a href="https://github.com/fatiherikli/fil">Fil</a></strong> A playground for in-browser interpreters. Built with React/Redux. </li>
-<li><strong><a href="https://github.com/LeoAJ/react-iTunes-search">react-iTunes-search</a></strong> simple web app for iTunes Search implemented with React</li>
-<li><strong><a href="https://github.com/jeffschwartz/react-typescript-quickstart/">React/TypeScript Quickstart</a></strong> Supports project development using React, NPM, TypeScript, ESLint and Webpack.</li>
-</ul>
+			<a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/docs/md/environments.md" target="_blank">在github上编辑这篇文章</a>
+			<h1><a name="-" class="anchor" href="#-"></a>服务端环境<a  class="hash-link" href="#-">#</a></h1><p>One of the great things about React is that it doesn&#39;t require the DOM as a dependency, which means it is possible to render a React application on the server and send the HTML markup down to the client. There are a few things that React expects, so this guide will help you get started in your preferred environment.</p>
+<h2><a name="node-js" class="anchor" href="#node-js"></a>Node.js<a  class="hash-link" href="#node-js">#</a></h2><p><a href="http://nodejs.org/">Node.js</a> is a popular JavaScript runtime that comes with an extensive core library and support for installing packages from npm to expand on the basic functionality. As we&#39;ve described elsewhere in the documentation, you can install <code>react</code> and <code>react-dom</code> from npm.</p>
+<p>Example:</p>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> React = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react'</span>);
+<span class="hljs-keyword">var</span> ReactDOMServer = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react-dom/server'</span>);
 
-            <div class="docs-prevnext"><a href="/docs/tutorial.html" class="prev">← 上一条 </a><a class="next" href="/docs/conferences.html">下一条 →</a></div>
+<span class="hljs-keyword">var</span> element = React.createElement(<span class="hljs-string">'div'</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">'Hello World!'</span>);
+<span class="hljs-built_in">console</span>.log(ReactDOMServer.renderToString(element));
+</code></pre>
+<p>If you use JSX, you may want to pre-compile your components. Alternatively you may want to consider using <a href="https://babeljs.io/docs/usage/require/">Babel&#39;s require hook</a> or <a href="https://babeljs.io/docs/usage/cli/#babel-node"><code>babel-node</code></a>.</p>
+<blockquote>
+<p>Note:</p>
+<p>Some versions of Node.js have an <code>Object.assign</code> implementation that does not preserve key order. This can cause errors when validating the markup, creating a warning that says &quot;React attempted to reuse markup in a container but the checksum was invalid&quot;. If you run into this issue, you can override <code>Object.assign</code> to use a polyfill that preserves key order. For more details, see <a href="https://github.com/facebook/react/issues/6451">Issue #6451</a>.</p>
+</blockquote>
+<h1><a name="c-" class="anchor" href="#c-"></a>C#<a  class="hash-link" href="#c-">#</a></h1><p>Support for server-side component rendering and JSX compilation (via Babel) in a .NET Framework / ASP.NET environment is provided through our <a href="http://reactjs.net/">ReactJS.NET</a> project.</p>
+<h2><a name="nashorn" class="anchor" href="#nashorn"></a>Nashorn<a  class="hash-link" href="#nashorn">#</a></h2><p>Nashorn is a lightweight high-performance JavaScript runtime that runs within the JVM. React should run out of the box in Java 8+.</p>
+<p>Example:</p>
+<pre><code class="lang-java"><span class="hljs-preprocessor"><span class="hljs-keyword">import</span> java.io.IOException;</span>
+<span class="hljs-preprocessor"><span class="hljs-keyword">import</span> java.io.InputStream;</span>
+<span class="hljs-preprocessor"><span class="hljs-keyword">import</span> java.io.FileReader;</span>
+
+<span class="hljs-preprocessor"><span class="hljs-keyword">import</span> javax.script.ScriptEngine;</span>
+<span class="hljs-preprocessor"><span class="hljs-keyword">import</span> javax.script.ScriptEngineManager;</span>
+<span class="hljs-preprocessor"><span class="hljs-keyword">import</span> javax.script.ScriptException;</span>
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ReactRender</span>
+</span>{
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> main(String[] args) throws ScriptException, IOException {
+    ScriptEngine nashorn = <span class="hljs-keyword">new</span> ScriptEngineManager().getEngineByName(<span class="hljs-string">"nashorn"</span>);
+
+    <span class="hljs-comment">// These files can be downloaded as a part of the starter kit</span>
+    <span class="hljs-comment">// from https://facebook.github.io/react</span>
+    nashorn.eval(<span class="hljs-keyword">new</span> FileReader(<span class="hljs-string">"path/to/react.js"</span>));
+    nashorn.eval(<span class="hljs-keyword">new</span> FileReader(<span class="hljs-string">"path/to/react-dom-server.js"</span>));
+
+    System.out.println(nashorn.eval(
+      <span class="hljs-string">"ReactDOMServer.renderToString("</span> +
+        <span class="hljs-string">"React.createElement('div', null, 'Hello World!')"</span> +
+      <span class="hljs-string">");"</span>
+    ));
+  }
+}
+</code></pre>
+<p>If your application uses npm packages, or you want to transform JSX in Nashorn, you will need to do some additional environment setup. The following resources may be helpful in getting you started:</p>
+<ul>
+<li><a href="http://winterbe.com/posts/2015/02/16/isomorphic-react-webapps-on-the-jvm/">http://winterbe.com/posts/2015/02/16/isomorphic-react-webapps-on-the-jvm/</a></li>
+<li><a href="https://github.com/nodyn/jvm-npm">https://github.com/nodyn/jvm-npm</a></li>
+<li><a href="https://gist.github.com/aesteve/883e0fd33390451cb8eb">https://gist.github.com/aesteve/883e0fd33390451cb8eb</a></li>
+</ul>
+<blockquote>
+<p>Note:</p>
+<p>Using Babel within Nashorn will require Java 8u72+, as update 72 fixed <a href="https://bugs.openjdk.java.net/browse/JDK-8135190">JDK-8135190</a>.</p>
+</blockquote>
+
+            <div class="docs-prevnext"><a href="/docs/package-management.html" class="prev">← 上一条 </a><a class="next" href="/docs/addons.html">下一条 →</a></div>
 		</div>
-    </div>
+	</div>
     <div class="docnav">
     <div class="nav-docs-section">
       <h3>快速入门</h3>
@@ -89,7 +115,7 @@
             <a href="/docs/complementary-tools.html" >辅助工具</a>
           </li>
           <li>
-            <a href="/docs/examples.html" class="active">react例子</a>
+            <a href="/docs/examples.html" >react例子</a>
           </li>
       </ul>
     </div>
@@ -149,7 +175,7 @@
                   </li>
                 
                   <li>
-                    <a href="/docs/environments.html" >服务端环境</a>
+                    <a href="/docs/environments.html" class="active">服务端环境</a>
                   </li>
                 
               </ul>

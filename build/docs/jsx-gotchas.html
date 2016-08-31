@@ -2,11 +2,11 @@
 <html lang="zh">
 <head>
 	<meta charset="UTF-8">
-	<title>react的例子-React中国</title>
+	<title>JSX 陷阱-React中国</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="renderer" content="webkit|ie-comp|ie-stand">
-	<meta name="keywords" content="react的例子" />
-	<meta name="description" content="使用react的例子" />
+	<meta name="keywords" content="jsx,bug,陷阱" />
+	<meta name="description" content="JSX 陷阱" />
 	<link rel="stylesheet" href="/css/css.css">
 	<link rel="shortcut icon" href="/favicon.ico">
 </head>
@@ -26,41 +26,48 @@
 		<a href="/reactnative/index.html">React Native中文资料</a>
 	</div>
 </header>
-
 <div class="container documentationContent">
-    <div class="rightContainer">
+	<div class="rightContainer">
 		<div class="inner">
-            <a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/docs/md/examples.md" target="_blank">在github上编辑这篇文章</a>
-            <h1><a name="react-" class="anchor" href="#react-"></a>react例子<a  class="hash-link" href="#react-">#</a></h1><h2><a name="sample-code" class="anchor" href="#sample-code"></a>Sample Code<a  class="hash-link" href="#sample-code">#</a></h2><ul>
-<li><strong><a href="https://facebook.github.io/react/downloads.html">React starter kit</a></strong> Includes several examples which you can <a href="https://github.com/facebook/react/tree/master/examples/">view online in our GitHub repository</a>.</li>
-<li><strong><a href="https://github.com/petehunt/react-one-hour-email">React one-hour email</a></strong> Goes step-by-step from a static HTML mock to an interactive email reader, written in just one hour!</li>
-<li><strong><a href="http://www.reactstarterkit.com/">React Starter Kit</a></strong> A skeleton project for building isomorphic web applications on top of React, Flux, Express.js (for SSR), Gulp, Webpack (see <a href="https://github.com/kriasoft/react-starter-kit">source code</a>, <a href="http://demo.reactstarterkit.com/">demo</a>)</li>
-<li><strong><a href="https://github.com/mhart/react-server-example">React server rendering example</a></strong> Demonstrates how to use React&#39;s server rendering capabilities.</li>
-<li><strong><a href="https://github.com/yiminghe/learning-react">React tutorials and sample code for starter</a></strong> Include some articles and sample code for starter.</li>
-<li><strong><a href="https://github.com/code0wl/react-example-es2015">Thinking in React using ES2015</a></strong> Include the thinking in React example using latest technologies so late beginners can use ECMAScript 2015 by example.</li>
-<li><strong><a href="https://github.com/pierreavizou/universal-routed-flux-demo">Universal-routed-flux-demo</a></strong> A skeleton to get started building universal flux applications, with Reactjs, React Router and es6.</li>
-</ul>
-<h2><a name="open-source-demos" class="anchor" href="#open-source-demos"></a>Open-Source Demos<a  class="hash-link" href="#open-source-demos">#</a></h2><ul>
-<li><strong><a href="https://github.com/ruanyf/react-demos">React Demos</a></strong> a collection of simple demos of React.js</li>
-<li><strong><a href="https://maaamba.herokuapp.com/">Mamba</a></strong> a classical game built with <a href="https://github.com/facebook/flux">Flux</a>, <a href="https://github.com/facebook/react">React.js</a>, and <a href="https://github.com/facebook/immutable-js">immutable-js</a></li>
-<li><strong><a href="http://facebook.github.io/flux/docs/todo-list.html">TodoMVC</a></strong></li>
-<li><strong><a href="https://github.com/khan/perseus">Khan Academy question editor</a></strong> (Browse their GitHub account for many more production apps!)</li>
-<li><strong><a href="https://github.com/jaredly/github-issues-viewer">github-issue-viewer</a></strong></li>
-<li><strong><a href="https://github.com/prabirshrestha/hn-react">hn-react</a></strong> Dead-simple Hacker News client.</li>
-<li><strong><a href="https://github.com/IvanVergiliev/2048-react">2048-react</a></strong> A clone of the 2048 game.</li>
-<li><strong><a href="https://github.com/kureikain/git-trash/">Git-Trash</a></strong> A way to remove junk/dead/fork repository on Github quickly.</li>
-<li><strong><a href="http://www.openmindedinnovations.com/blogs/backbone-react-component-with-middleman">Backbone-React-Component Tutorial</a></strong> A simple tutorial showing off how to use backbone with react.</li>
-<li><strong><a href="http://www.openmindedinnovations.com/blogs/react-animations-with-react-tweenstate">React-Tween-State Tutorial</a></strong> Animations in react using the react-tween-state library.</li>
-<li><strong><a href="http://www.openmindedinnovations.com/blogs/backbone-react-sortable-table">Backbone React Sortable Table Tutorial</a></strong> Shows you how to use Backbone and React to make a sortable table using a custom React mixin.</li>
-<li><strong><a href="https://github.com/ihaolin/react-ratchet-gulp">React-Ratchet-Gulp</a></strong> An app demo build with Gulp, React, Ratchet.</li>
-<li><strong><a href="https://github.com/fatiherikli/fil">Fil</a></strong> A playground for in-browser interpreters. Built with React/Redux. </li>
-<li><strong><a href="https://github.com/LeoAJ/react-iTunes-search">react-iTunes-search</a></strong> simple web app for iTunes Search implemented with React</li>
-<li><strong><a href="https://github.com/jeffschwartz/react-typescript-quickstart/">React/TypeScript Quickstart</a></strong> Supports project development using React, NPM, TypeScript, ESLint and Webpack.</li>
-</ul>
+			<a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/docs/md/jsx-gotchas.md" target="_blank">在github上编辑这篇文章</a>
+			<h1><a name="jsx-" class="anchor" href="#jsx-"></a>JSX 陷阱<a  class="hash-link" href="#jsx-">#</a></h1><p>JSX 与 HTML 非常相似，但是有些关键区别要注意。</p>
+<blockquote>
+<p>注意:</p>
+<p>关于 DOM 的区别，如行内样式属性 <code>style</code>，参考 <a href="/docs/dom-differences.html">DOM 区别</a></p>
+</blockquote>
+<h2><a name="html-" class="anchor" href="#html-"></a>HTML 实体<a  class="hash-link" href="#html-">#</a></h2><p>HTML 实体可以插入到 JSX 的文本中。</p>
+<pre><code class="lang-javascript">&lt;<span class="hljs-keyword">div</span>&gt;First &amp;middot; Second&lt;/<span class="hljs-keyword">div</span>&gt;
+</code></pre>
+<p>如果想在 JSX 表达式中显示 HTML 实体，可以会遇到二次转义的问题，因为 React 默认会转义所有字符串，为了防止各种 XSS 攻击。</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// 错误: 会显示 “First &amp;middot; Second”</span>
+&lt;<span class="hljs-keyword">div</span>&gt;{<span class="hljs-string">'First &amp;middot; Second'</span>}&lt;/<span class="hljs-keyword">div</span>&gt;
+</code></pre>
+<p>有多种绕过的方法。最简单的是直接用 Unicode 字符。这时要确保文件是 UTF-8 编码且网页也指定为 UTF-8 编码。</p>
+<pre><code class="lang-javascript">&lt;<span class="hljs-keyword">div</span>&gt;{<span class="hljs-string">'First · Second'</span>}&lt;/<span class="hljs-keyword">div</span>&gt;
+</code></pre>
+<p>安全的做法是先找到 <a href="http://www.fileformat.info/info/unicode/char/b7/index.htm">实体的 Unicode 编号</a> ，然后在 JavaScript 字符串里使用。</p>
+<pre><code class="lang-javascript">&lt;<span class="hljs-keyword">div</span>&gt;{<span class="hljs-string">'First \u00b7 Second'</span>}&lt;/<span class="hljs-keyword">div</span>&gt;
+&lt;<span class="hljs-keyword">div</span>&gt;{<span class="hljs-string">'First '</span> + String.fromCharCode(<span class="hljs-number">183</span>) + <span class="hljs-string">' Second'</span>}&lt;/<span class="hljs-keyword">div</span>&gt;
+</code></pre>
+<p>可以在数组里混合使用字符串和 JSX 元素。</p>
+<pre><code class="lang-javascript"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>{['First ', <span class="hljs-tag">&lt;<span class="hljs-title">span</span>&gt;</span>&amp;middot;<span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>, ' Second']}<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+</code></pre>
+<p>万不得已，可以直接<a href="/react/tips/dangerously-set-inner-html.html">插入原始HTML</a>。</p>
+<pre><code class="lang-javascript">&lt;div dangerouslySetInnerHTML={{<span class="hljs-string">'{{'</span>}}__html: <span class="hljs-string">'First &amp;middot; Second'</span>}} /&gt;
+</code></pre>
+<h2><a name="-html-" class="anchor" href="#-html-"></a>自定义 HTML 属性<a  class="hash-link" href="#-html-">#</a></h2><p>如果往原生 HTML 元素里传入 HTML 规范里不存在的属性，React 不会显示它们。如果需要使用自定义属性，要加 <code>data-</code> 前缀。</p>
+<pre><code class="lang-javascript">&lt;<span class="hljs-tag">div</span> data-custom-attribute=<span class="hljs-string">"foo"</span> /&gt;
+</code></pre>
+<p>然而，在自定义元素中任意的属性都是被支持的 （那些在tag名里带有连接符或者 <code>is=&quot;...&quot;</code> 属性的）</p>
+<pre><code class="lang-javascript">&lt;x-my-<span class="hljs-keyword">component</span> custom-<span class="hljs-keyword">attribute</span>=<span class="hljs-string">"foo"</span> /&gt;
+</code></pre>
+<p>以 <code>aria-</code> 开头的 <a href="http://www.w3.org/WAI/intro/aria">网络无障碍</a> 属性可以正常使用。</p>
+<pre><code class="lang-javascript">&lt;<span class="hljs-keyword">div</span> aria-hidden={<span class="hljs-constant">true</span>} /&gt;
+</code></pre>
 
-            <div class="docs-prevnext"><a href="/docs/tutorial.html" class="prev">← 上一条 </a><a class="next" href="/docs/conferences.html">下一条 →</a></div>
+            <div class="docs-prevnext"><a href="/docs/jsx-spread.html" class="prev">← 上一条 </a><a class="next" href="/docs/interactivity-and-dynamic-uis.html">下一条 →</a></div>
 		</div>
-    </div>
+	</div>
     <div class="docnav">
     <div class="nav-docs-section">
       <h3>快速入门</h3>
@@ -89,7 +96,7 @@
             <a href="/docs/complementary-tools.html" >辅助工具</a>
           </li>
           <li>
-            <a href="/docs/examples.html" class="active">react例子</a>
+            <a href="/docs/examples.html" >react例子</a>
           </li>
       </ul>
     </div>
@@ -111,7 +118,7 @@
                   </li>
                 
                   <li>
-                    <a href="/docs/jsx-gotchas.html" >JSX 陷阱</a>
+                    <a href="/docs/jsx-gotchas.html" class="active">JSX 陷阱</a>
                   </li>
               </ul>
           </li>

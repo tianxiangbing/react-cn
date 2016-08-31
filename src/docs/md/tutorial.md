@@ -112,7 +112,7 @@ ReactDOM.render(
 );
 ```
 
-它的使用是可选的，但是我们发现 JSX 语法比单纯的 JavaScript 更加容易使用。阅读更多关于[JSX 语法的文章](/react/docs/jsx-in-depth-zh-CN.html)。
+它的使用是可选的，但是我们发现 JSX 语法比单纯的 JavaScript 更加容易使用。阅读更多关于[JSX 语法的文章](/docs/jsx-in-depth-zh-CN.html)。
 
 #### What's going on
 
@@ -482,7 +482,7 @@ var CommentForm = React.createClass({
 
 对于传统的 DOM， `input` 元素被渲染并且浏览器管理它的状态（它的渲染值）。结果是，DOM的实际值会和组件不同。这是不理想的，因为视图的值会和组件的值不同。在React中，组件应该总是表示视图的值而不只是在初始化时。
 
-因此，我们将使用 `this.state` 来在用户输入时保存输入。我们定义一个初始 `state`，它带有 `author` 和 `text` 两个属性并将他们设置为空字符串。在我们的 `<input>` 元素里，我们设置 `value` prop 来反映组件的 `state` 并给他们附加 `onChange` 事件处理。这些带有设置了 `value` 的  `<input>` 元素被称为受控组件。更多关于受控组件请阅读 [Forms article](/react/docs/forms.html#controlled-components)。
+因此，我们将使用 `this.state` 来在用户输入时保存输入。我们定义一个初始 `state`，它带有 `author` 和 `text` 两个属性并将他们设置为空字符串。在我们的 `<input>` 元素里，我们设置 `value` prop 来反映组件的 `state` 并给他们附加 `onChange` 事件处理。这些带有设置了 `value` 的  `<input>` 元素被称为受控组件。更多关于受控组件请阅读 [Forms article](/docs/forms.html#controlled-components)。
 
 ```javascript{3-11,15-26}
 // tutorial16.js
@@ -778,4 +778,4 @@ var CommentBox = React.createClass({
 
 ### 祝贺!
 
-你刚刚通过几个简单的步骤建立了一个评论框。学习更多关于[为什么使用 React](/react/docs/why-react-zh-CN.html), 或者深入 [API 参考](/react/docs/top-level-api.html) 开始钻研！祝你好运！
+你刚刚通过几个简单的步骤建立了一个评论框。学习更多关于[为什么使用 React](/docs/why-react-zh-CN.html), 或者深入 [API 参考](/docs/top-level-api.html) 开始钻研！祝你好运！

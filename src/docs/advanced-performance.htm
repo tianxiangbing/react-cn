@@ -1,0 +1,20 @@
+@@include('../component/header.htm', {
+    "context":{
+        "title": "先进的性能",
+        "keywords": "react的性能,虚拟dom",
+        "desc": "react的性能,虚拟dom",
+        "menu":"doc"
+    }
+  })
+
+<div class="container documentationContent">
+    <div class="rightContainer">
+		<div class="inner">
+            <a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/docs/md/advanced-performance.md" target="_blank">在github上编辑这篇文章</a>
+            @@include(markdown('./md/advanced-performance.md'))
+            <div class="docs-prevnext"><a href="/docs/shallow-compare.html" class="prev">← 上一条 </a><a class="next" href="/docs/context.html">下一条 →</a></div>
+		</div>
+    </div>
+    @@include('../component/docnav.htm',{"context":{"focus":"advanced-performance"}})
+</div>
+@@include('../component/footer.htm')

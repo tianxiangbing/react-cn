@@ -1,19 +1,19 @@
 @@include('../component/header.htm', {
     "context":{
     	"title": "react插件",
-    	"keywords": "jsx,表单组件",
-    	"desc": "表单组件",
-    	"menu":"doc"
+    	"keywords": "react,插件",
+    	"desc": "reactjs插件列表",
+    	"menu":"addons"
     }
   })
 <div class="container documentationContent">
 	<div class="rightContainer">
 		<div class="inner">
-			<a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/docs/md/index.md" target="_blank">在github上编辑这篇文章</a>
+			<a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/addons/md/index.md" target="_blank">在github上编辑这篇文章</a>
 			@@include(markdown('./md/index.md'))
             <div class="docs-prevnext"><a href="/docs/tooling-integration.html" class="prev">← 上一条 </a><a class="next" href="/docs/animation.html">下一条 →</a></div>
 		</div> 
 	</div>
-    @@include('../component/docnav.htm',{"context":{"focus":"index"}})
+    @@include('../component/addonsnav.htm',{"context":{"focus":"addons"}})
 </div>
 @@include('../component/footer.htm')

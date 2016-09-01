@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<title>性能工具-React中国</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+	<meta name="keywords" content="react,插件" />
+	<meta name="description" content="性能工具" />
+	<link rel="stylesheet" href="/css/css.css">
+	<link rel="shortcut icon" href="/favicon.ico">
+</head>
+<body>
+<header>
+	<h1><a class="logo" href="http://www.react-cn.com/"><img class="nav-logo" src="/logo.svg" width="36" height="36">React</a></h1>
+	<div class="menu">
+		<a href="/index.html" >首页</a>
+		<a href="/downloads.html" >下载</a>
+		<a href="/docs/getting-started.html" >中文文档</a>
+		<a href="/addons/index.html" class="active">react 插件</a>
+		<a href="/docs/examples.html" >例子</a>
+	</div>
+	<div class="submenu">
+		<a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=db86a206a1e04f114217ccffd92ee11f5faca14d283a71d97817937ee3cf9d00"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="reactjs、reactnative技术群" title="reactjs、reactnative技术群"></a>
+		<a href="/about.html">关于我们</a>
+		<a href="/reactnative/index.html">React Native中文资料</a>
+	</div>
+</header>
+<div class="container documentationContent">
+	<div class="rightContainer">
+		<div class="inner">
+			<a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/addons/md/perf.md" target="_blank">在github上编辑这篇文章</a>
+			<h1><a name="-" class="anchor" href="#-"></a>性能工具<a  class="hash-link" href="#-">#</a></h1><p>React 通常是相当快的。然而，在你需要压榨你的 app 的每一分性能的情况下，它提供了一个<a href="/react/docs/component-specs.html#updating-shouldcomponentupdate">shouldComponentUpdate</a> 钩子，在此你可以添加优化提示到 React 的 diff 算法里。</p>
+<p>除了给予你一个你的 app 的整体性能概览外，ReactPerf 还是一个准确告诉你，你需要在哪里放置这些钩子的分析工具。</p>
+<h2><a name="general-api" class="anchor" href="#general-api"></a>General API<a  class="hash-link" href="#general-api">#</a></h2><p>这里陈述的 <code>Perf</code> 对象被用 <code>require(&#39;react-addons-perf&#39;)</code> 暴露，并且只能被使用在 React 的开发模式。你不应在生产环境下在你的 app 包含这个包。</p>
+<blockquote>
+<p>注意:</p>
+<p>开发版的 React 慢于生产版，因为所有额外提供的逻辑，例如，React 的友好的控制台警告 （在生产版中被除去）。因此，分析工具仅服务于指示你的 app <em>相对</em> 昂贵的部分。</p>
+</blockquote>
+<h3><a name="-code-perf-start-code-and-code-perf-stop-code-" class="anchor" href="#-code-perf-start-code-and-code-perf-stop-code-"></a><code>Perf.start()</code> and <code>Perf.stop()</code><a  class="hash-link" href="#-code-perf-start-code-and-code-perf-stop-code-">#</a></h3><p>开始/停止测量。其间的React操作被记录用于之后的分析。产生无关紧要时间的操作被忽略。</p>
+<p>在停止以后，你将需要 <code>Perf.getLastMeasurements()</code> （下面将介绍）来获取测量结果。</p>
+<h3><a name="-code-perf-printinclusive-measurements-code-" class="anchor" href="#-code-perf-printinclusive-measurements-code-"></a><code>Perf.printInclusive(measurements)</code><a  class="hash-link" href="#-code-perf-printinclusive-measurements-code-">#</a></h3><p>打印总体花费的时间。如果没有传入参数，默认是从上次记录的所有测量数据。它在控制台里打印良好格式化的结果，像这样：</p>
+<p><img src="/img/docs/perf-inclusive.png" alt=""></p>
+<h3><a name="-code-perf-printexclusive-measurements-code-" class="anchor" href="#-code-perf-printexclusive-measurements-code-"></a><code>Perf.printExclusive(measurements)</code><a  class="hash-link" href="#-code-perf-printexclusive-measurements-code-">#</a></h3><p>&quot;独占的&quot;时间不包括花费于加载组件的时间： 处理 props, <code>getInitialState</code>, 调用 <code>componentWillMount</code> 及 <code>componentDidMount</code>, 等等。</p>
+<p><img src="/img/docs/perf-exclusive.png" alt=""></p>
+<h3><a name="-code-perf-printwasted-measurements-code-" class="anchor" href="#-code-perf-printwasted-measurements-code-"></a><code>Perf.printWasted(measurements)</code><a  class="hash-link" href="#-code-perf-printwasted-measurements-code-">#</a></h3><p><strong>分析工具里最有用的部分</strong>.</p>
+<p>&quot;垃圾&quot;时间是花费在组件上实际没有绘制任何东西的时间，例如渲染结果总是相同，所以 DOM 没有被触碰到。</p>
+<p><img src="/img/docs/perf-wasted.png" alt=""></p>
+<h3><a name="-code-perf-printdom-measurements-code-" class="anchor" href="#-code-perf-printdom-measurements-code-"></a><code>Perf.printDOM(measurements)</code><a  class="hash-link" href="#-code-perf-printdom-measurements-code-">#</a></h3><p>打印底层的 DOM 操纵，例如 &quot;set innerHTML&quot; 和 &quot;remove&quot;.</p>
+<p><img src="/img/docs/perf-dom.png" alt=""></p>
+<h2><a name="advanced-api" class="anchor" href="#advanced-api"></a>Advanced API<a  class="hash-link" href="#advanced-api">#</a></h2><p>以上的打印方法使用 <code>Perf.getLastMeasurements()</code> 来美观的打印结果。</p>
+<h3><a name="-code-perf-getlastmeasurements-code-" class="anchor" href="#-code-perf-getlastmeasurements-code-"></a><code>Perf.getLastMeasurements()</code><a  class="hash-link" href="#-code-perf-getlastmeasurements-code-">#</a></h3><p>从最后的 start-stop 会话获取测量数据数据。这个数组包含对象，每个看起来像这样：</p>
+<pre><code class="lang-js">{
+  <span class="hljs-comment">// The term "inclusive" and "exclusive" are explained below</span>
+  <span class="hljs-string">"exclusive"</span>: {},
+  <span class="hljs-comment">// '.0.0' is the React ID of the node</span>
+  <span class="hljs-string">"inclusive"</span>: {<span class="hljs-string">".0.0"</span>: <span class="hljs-number">0.0670000008540228</span>, <span class="hljs-string">".0"</span>: <span class="hljs-number">0.3259999939473346</span>},
+  <span class="hljs-string">"render"</span>: {<span class="hljs-string">".0"</span>: <span class="hljs-number">0.036999990697950125</span>, <span class="hljs-string">".0.0"</span>: <span class="hljs-number">0.010000003385357559</span>},
+  <span class="hljs-comment">// Number of instances</span>
+  <span class="hljs-string">"counts"</span>: {<span class="hljs-string">".0"</span>: <span class="hljs-number">1</span>, <span class="hljs-string">".0.0"</span>: <span class="hljs-number">1</span>},
+  <span class="hljs-comment">// DOM touches</span>
+  <span class="hljs-string">"writes"</span>: {},
+  <span class="hljs-comment">// Extra debugging info</span>
+  <span class="hljs-string">"displayNames"</span>: {
+    <span class="hljs-string">".0"</span>: {<span class="hljs-string">"current"</span>: <span class="hljs-string">"App"</span>, <span class="hljs-string">"owner"</span>: <span class="hljs-string">"&lt;root&gt;"</span>},
+    <span class="hljs-string">".0.0"</span>: {<span class="hljs-string">"current"</span>: <span class="hljs-string">"Box"</span>, <span class="hljs-string">"owner"</span>: <span class="hljs-string">"App"</span>}
+  },
+  <span class="hljs-string">"totalTime"</span>: <span class="hljs-number">0.48499999684281647</span>
+}
+</code></pre>
+
+            <div class="docs-prevnext"><a href="/docs/pure-render-mixin.html" class="prev">← 上一条 </a><a class="next" href="/docs/shallow-compare.html">下一条 →</a></div>
+		</div> 
+	</div>
+    <div class="docnav">
+    <div class="nav-docs-section">
+      <h3>react插件</h3>
+      <ul>
+            <li>
+            <a href="/addons/animation.html" >动画</a>
+            </li>
+            <li>
+            <a href="/addons/two-way-binding-helpers.html" >双向绑定辅助</a>
+            </li>
+            <li>
+            <a href="/addons/test-utils.html" >测试工具</a>
+            </li>
+            <li>
+            <a href="/addons/clone-with-props.html" >克隆 ReactElements</a>
+            </li>
+        
+            <li>
+            <a href="/addons/create-fragment.html" >Keyed Fragments</a>
+            </li>
+            <li>
+            <a href="/addons/update.html" >immutability 助手</a>
+            </li>
+            <li>
+            <a href="/addons/pure-render-mixin.html" >PureRenderMixin</a>
+            </li>
+            <li>
+            <a href="/addons/perf.html" class="active">性能工具</a>
+            </li>
+            <li>
+            <a href="/addons/shallow-compare.html" >浅比较</a>
+            </li>
+      </ul>
+    </div>
+</div>
+</div>
+
+<footer>
+<p>友情链接：<a href="https://facebook.github.io/react/" target="_blank">react</a> <a href="http://www.lovewebgames.com/" target="_blank">javascript JY</a> <a href="http://www.lovewebgames.com/jsmodule/index.html" target="_blank">js组件</a><a href="http://www.react-cn.com/">react中国</a></p>
+<p>© 2016-2017 <a href="http://www.react-cn.com">react-cn.com</a> 版权所有 ICP证：浙ICP备09082150号-3</p>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+</footer>
+</body>
+</html>

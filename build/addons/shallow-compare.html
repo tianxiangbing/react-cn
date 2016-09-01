@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<title>react浅比较-React中国</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+	<meta name="keywords" content="react,插件" />
+	<meta name="description" content="reactjs插件列表" />
+	<link rel="stylesheet" href="/css/css.css">
+	<link rel="shortcut icon" href="/favicon.ico">
+</head>
+<body>
+<header>
+	<h1><a class="logo" href="http://www.react-cn.com/"><img class="nav-logo" src="/logo.svg" width="36" height="36">React</a></h1>
+	<div class="menu">
+		<a href="/index.html" >首页</a>
+		<a href="/downloads.html" >下载</a>
+		<a href="/docs/getting-started.html" >中文文档</a>
+		<a href="/addons/index.html" class="active">react 插件</a>
+		<a href="/docs/examples.html" >例子</a>
+	</div>
+	<div class="submenu">
+		<a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=db86a206a1e04f114217ccffd92ee11f5faca14d283a71d97817937ee3cf9d00"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="reactjs、reactnative技术群" title="reactjs、reactnative技术群"></a>
+		<a href="/about.html">关于我们</a>
+		<a href="/reactnative/index.html">React Native中文资料</a>
+	</div>
+</header>
+<div class="container documentationContent">
+	<div class="rightContainer">
+		<div class="inner">
+			<a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/addons/md/shallow-compare.md" target="_blank">在github上编辑这篇文章</a>
+			<h1><a name="-" class="anchor" href="#-"></a>浅比较<a  class="hash-link" href="#-">#</a></h1><p><code>shallowCompare</code> 是一个辅助函数 在以ES6类使用React时，完成和 <code>PureRenderMixin</code> 相同的功能。</p>
+<p>如果你的React组件的绘制函数是 “干净的” （换句话说，它在给定的 props 和 state 下绘制相同的结果）,你可以使用这个辅助函数以在某些情况下提升性能。</p>
+<p>例如:</p>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> shallowCompare = require(<span class="hljs-symbol">'react</span>-addons-shallow-compare');
+export <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SampleComponent</span> <span class="hljs-keyword"><span class="hljs-keyword">extends</span></span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> {</span>
+  shouldComponentUpdate(nextProps, nextState) {
+    <span class="hljs-keyword">return</span> shallowCompare(<span class="hljs-keyword">this</span>, nextProps, nextState);
+  }
+
+  render() {
+    <span class="hljs-keyword">return</span> &lt;div className={<span class="hljs-keyword">this</span>.props.className}&gt;foo&lt;/div&gt;;
+  }
+}
+</code></pre>
+<p><code>shallowCompare</code> 对当前的 <code>props</code> 和 <code>nextProps</code>对象 执行一个浅的相等检查，同样对于 <code>state</code> 和 <code>nextState</code>对象。
+它 通过迭代比较对象的keys 并在 对象的key值不严格相等时返回false 实现此功能.</p>
+<p><code>shallowCompare</code> 返回 <code>true</code> 如果对 props 或 state的浅比较失败，因此组件应该更新。
+<code>shallowCompare</code> 返回 <code>false</code> 如果对 props 或 state的浅比较都通过了，因此组件不应该更新。</p>
+
+            <div class="docs-prevnext"><a href="/docs/perf.html" class="prev">← 上一条 </a></div>
+		</div> 
+	</div>
+    <div class="docnav">
+    <div class="nav-docs-section">
+      <h3>react插件</h3>
+      <ul>
+            <li>
+            <a href="/addons/animation.html" >动画</a>
+            </li>
+            <li>
+            <a href="/addons/two-way-binding-helpers.html" >双向绑定辅助</a>
+            </li>
+            <li>
+            <a href="/addons/test-utils.html" >测试工具</a>
+            </li>
+            <li>
+            <a href="/addons/clone-with-props.html" >克隆 ReactElements</a>
+            </li>
+        
+            <li>
+            <a href="/addons/create-fragment.html" >Keyed Fragments</a>
+            </li>
+            <li>
+            <a href="/addons/update.html" >immutability 助手</a>
+            </li>
+            <li>
+            <a href="/addons/pure-render-mixin.html" >PureRenderMixin</a>
+            </li>
+            <li>
+            <a href="/addons/perf.html" >性能工具</a>
+            </li>
+            <li>
+            <a href="/addons/shallow-compare.html" class="active">浅比较</a>
+            </li>
+      </ul>
+    </div>
+</div>
+</div>
+
+<footer>
+<p>友情链接：<a href="https://facebook.github.io/react/" target="_blank">react</a> <a href="http://www.lovewebgames.com/" target="_blank">javascript JY</a> <a href="http://www.lovewebgames.com/jsmodule/index.html" target="_blank">js组件</a><a href="http://www.react-cn.com/">react中国</a></p>
+<p>© 2016-2017 <a href="http://www.react-cn.com">react-cn.com</a> 版权所有 ICP证：浙ICP备09082150号-3</p>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+</footer>
+</body>
+</html>

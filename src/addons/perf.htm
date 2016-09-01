@@ -1,0 +1,19 @@
+@@include('../component/header.htm', {
+    "context":{
+    	"title": "性能工具",
+    	"keywords": "react,插件",
+    	"desc": "性能工具",
+    	"menu":"addons"
+    }
+  })
+<div class="container documentationContent">
+	<div class="rightContainer">
+		<div class="inner">
+			<a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/addons/md/perf.md" target="_blank">在github上编辑这篇文章</a>
+			@@include(markdown('./md/perf.md'))
+            <div class="docs-prevnext"><a href="/docs/pure-render-mixin.html" class="prev">← 上一条 </a><a class="next" href="/docs/shallow-compare.html">下一条 →</a></div>
+		</div> 
+	</div>
+    @@include('../component/addonsnav.htm',{"context":{"focus":"perf"}})
+</div>
+@@include('../component/footer.htm')

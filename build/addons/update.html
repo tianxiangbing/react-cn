@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<title>双向绑定辅助-React中国</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+	<meta name="keywords" content="react,binding" />
+	<meta name="description" content="动画" />
+	<link rel="stylesheet" href="/css/css.css">
+	<link rel="shortcut icon" href="/favicon.ico">
+</head>
+<body>
+<header>
+	<h1><a class="logo" href="http://www.react-cn.com/"><img class="nav-logo" src="/logo.svg" width="36" height="36">React</a></h1>
+	<div class="menu">
+		<a href="/index.html" >首页</a>
+		<a href="/downloads.html" >下载</a>
+		<a href="/docs/getting-started.html" >中文文档</a>
+		<a href="/addons/index.html" class="active">react 插件</a>
+		<a href="/docs/examples.html" >例子</a>
+	</div>
+	<div class="submenu">
+		<a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=db86a206a1e04f114217ccffd92ee11f5faca14d283a71d97817937ee3cf9d00"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="reactjs、reactnative技术群" title="reactjs、reactnative技术群"></a>
+		<a href="/about.html">关于我们</a>
+		<a href="/reactnative/index.html">React Native中文资料</a>
+	</div>
+</header>
+<div class="container documentationContent">
+	<div class="rightContainer">
+		<div class="inner">
+			<a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/addons/md/update.md" target="_blank">在github上编辑这篇文章</a>
+			<h1><a name="immutability-" class="anchor" href="#immutability-"></a>immutability 助手<a  class="hash-link" href="#immutability-">#</a></h1><p>React 让你可以使用任何你想要的数据管理方式，包括 mutation。然而，如果你可以在你的应用的性能关键性部分里使用 immutable 数据，将会易于实现一个快速的 <code>shouldComponentUpdate()</code> 方法来显著加速你的 app。</p>
+<p>在 JavaScript 里处理 immutable 数据比在为此设计的语言中要难的多，比如 <a href="http://clojure.org/">Clojure</a>。然而，我们提供了一个简单的 immutability 助手，<code>update()</code>，它使处理这类数据容易多了，<em>不用</em> 根本性的改变你的数据的表达方式。你也同样可以看一看 Facebook 的 <a href="https://facebook.github.io/immutable-js/docs/">Immutable-js</a> 和<a href="/react/docs/advanced-performance.html">Advanced Performance</a> 了解更多关于 Immutable-js 的信息。</p>
+<h2><a name="-" class="anchor" href="#-"></a>主要的思路<a  class="hash-link" href="#-">#</a></h2><p>如果你像这样变动数据：</p>
+<pre><code class="lang-js">myData.x.y.z = <span class="hljs-number">7</span>;
+<span class="hljs-comment">// or...</span>
+myData.a.b.push(<span class="hljs-number">9</span>);
+</code></pre>
+<p>你将没有任何办法决定哪个数据被改变了，因为之前的拷贝已经被覆盖。作为替代，你需要创建一个新的 <code>myData</code> 的拷贝并且只修改需要改变的地方。然后你可以用三个等于在 <code>shouldComponentUpdate()</code>  里比较旧的 <code>myData</code> 拷贝与新的拷贝：</p>
+<pre><code class="lang-js">var newData = deepCopy(myData)<span class="hljs-comment">;</span>
+newData.x.y.z = 7<span class="hljs-comment">;</span>
+newData.a.b.push(9)<span class="hljs-comment">;</span>
+</code></pre>
+<p>不幸的是，深拷贝很昂贵，并且有时候不可能。你可以通过仅仅拷贝需要被改变和重用没有改变的对象来缓解这个情况。不幸的是，在当今的 JavaScript 里这会很笨重：</p>
+<pre><code class="lang-js">var newData = extend<span class="hljs-list">(<span class="hljs-keyword">myData</span>, {
+  x: extend<span class="hljs-list">(<span class="hljs-keyword">myData</span>.x, {
+    y: extend<span class="hljs-list">(<span class="hljs-keyword">myData</span>.x.y, {z: <span class="hljs-number">7</span>})</span>,
+  })</span>,
+  a: extend<span class="hljs-list">(<span class="hljs-keyword">myData</span>.a, {b: myData.a.b.concat<span class="hljs-list">(<span class="hljs-number">9</span>)</span>})</span>
+})</span><span class="hljs-comment">;</span>
+</code></pre>
+<p>虽然这相当高性能（因为只对 <code>log n</code> 的对象进行了浅拷贝并重用了剩下的），但它写起来很痛苦。看看所有重复的代码！这不仅仅是烦人的，同时也提供了一大片 bugs 区域。</p>
+<p><code>update()</code> 提供了这个模式的简单语法糖来使写这类代码更容易。上面的代码变成：</p>
+<pre><code class="lang-js">var <span class="hljs-keyword">update</span> = require(<span class="hljs-string">'react-addons-update'</span>);
+
+var newData = <span class="hljs-keyword">update</span>(myData, {
+  x: {y: {z: {<span class="hljs-variable">$set</span>: <span class="hljs-number">7</span>}}},
+  a: {b: {<span class="hljs-variable">$push</span>: [<span class="hljs-number">9</span>]}}
+});
+</code></pre>
+<p>虽然这个语法需要花一些时间来适应（它的灵感来自于 <a href="http://docs.mongodb.org/manual/core/crud-introduction/#query">MongoDB&#39;s query language</a>），但是没有冗余，它可静态分析并且没有 mutative 版本那么多键入。</p>
+<p><code>$</code>-前缀的 keys 被称为 <em>命令</em>。被 &quot;变动的&quot; 数据结构被称为 <em>目标</em>。</p>
+<h2><a name="-" class="anchor" href="#-"></a>有效的命令<a  class="hash-link" href="#-">#</a></h2><ul>
+<li><code>{$push: array}</code> 在目标上 <code>push()</code> 所有 <code>array</code> 里的项目。</li>
+<li><code>{$unshift: array}</code> 在目标上 <code>unshift()</code> 所有 <code>array</code> 里的项目。</li>
+<li><code>{$splice: array of arrays}</code> 在目标上对于每一个 <code>arrays</code> 里的项目使用项目提供的参数调用 <code>splice()</code>。</li>
+<li><code>{$set: any}</code> 整个替换目标.</li>
+<li><code>{$merge: object}</code> 合并 目标和 <code>object</code> 的 keys.</li>
+<li><code>{$apply: function}</code> 传递当前的值给 function 并用返回值更新它。</li>
+</ul>
+<h2><a name="-" class="anchor" href="#-"></a>例子<a  class="hash-link" href="#-">#</a></h2><h3><a name="-push" class="anchor" href="#-push"></a>简单的 push<a  class="hash-link" href="#-push">#</a></h3><pre><code class="lang-js">var initialArray = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+var newArray = <span class="hljs-keyword">update</span>(initialArray, {<span class="hljs-variable">$push</span>: [<span class="hljs-number">4</span>]}); // =&gt; [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]
+</code></pre>
+<p><code>initialArray</code> is still <code>[1, 2, 3]</code>.</p>
+<h3><a name="-collections" class="anchor" href="#-collections"></a>嵌套的 collections<a  class="hash-link" href="#-collections">#</a></h3><pre><code class="lang-js">var collection = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, {a: [<span class="hljs-number">12</span>, <span class="hljs-number">17</span>, <span class="hljs-number">15</span>]}];
+var newCollection = update(collection, {<span class="hljs-number">2</span>: {a: {$splice: [[<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">13</span>, <span class="hljs-number">14</span>]]}}});
+<span class="hljs-comment">// =&gt; [1, 2, {a: [12, 13, 14, 15]}]</span>
+</code></pre>
+<p>本例访问了 <code>collection</code> 的<code>2</code>索引下的键<code>a</code>，并且拼接了一个从索引<code>1</code>开始（移除<code>17</code>）并插入<code>13</code>和<code>14</code>的项目。</p>
+<h3><a name="-" class="anchor" href="#-"></a>基于当前的值更新新值<a  class="hash-link" href="#-">#</a></h3><pre><code class="lang-js">var obj = {a: <span class="hljs-number">5</span>, b: <span class="hljs-number">3</span>};
+var newObj = <span class="hljs-keyword">update</span>(obj, {b: {<span class="hljs-variable">$apply</span>: function(x) {return x * <span class="hljs-number">2</span>;}}});
+// =&gt; {a: <span class="hljs-number">5</span>, b: <span class="hljs-number">6</span>}
+// This is equivalent, but gets verbose <span class="hljs-keyword">for</span> deeply nested collections:
+var newObj2 = <span class="hljs-keyword">update</span>(obj, {b: {<span class="hljs-variable">$set</span>: obj.b * <span class="hljs-number">2</span>}});
+</code></pre>
+<h3><a name="-" class="anchor" href="#-"></a>(浅) 合并<a  class="hash-link" href="#-">#</a></h3><pre><code class="lang-js">var obj = {a: <span class="hljs-number">5</span>, b: <span class="hljs-number">3</span>};
+var newObj = <span class="hljs-keyword">update</span>(obj, {<span class="hljs-variable">$merge</span>: {b: <span class="hljs-number">6</span>, c: <span class="hljs-number">7</span>}}); // =&gt; {a: <span class="hljs-number">5</span>, b: <span class="hljs-number">6</span>, c: <span class="hljs-number">7</span>}
+</code></pre>
+
+            <div class="docs-prevnext"><a href="create-fragment.html" class="prev">← 上一条 </a><a class="next" href="pure-render-mixin.html">下一条 →</a></div>
+		</div> 
+	</div>
+    <div class="docnav">
+    <div class="nav-docs-section">
+      <h3>react插件</h3>
+      <ul>
+            <li>
+            <a href="/addons/animation.html" >动画</a>
+            </li>
+            <li>
+            <a href="/addons/two-way-binding-helpers.html" >双向绑定辅助</a>
+            </li>
+            <li>
+            <a href="/addons/test-utils.html" >测试工具</a>
+            </li>
+            <li>
+            <a href="/addons/clone-with-props.html" >克隆 ReactElements</a>
+            </li>
+        
+            <li>
+            <a href="/addons/create-fragment.html" >Keyed Fragments</a>
+            </li>
+            <li>
+            <a href="/addons/update.html" class="active">immutability 助手</a>
+            </li>
+            <li>
+            <a href="/addons/pure-render-mixin.html" >PureRenderMixin</a>
+            </li>
+            <li>
+            <a href="/addons/perf.html" >性能工具</a>
+            </li>
+            <li>
+            <a href="/addons/shallow-compare.html" >浅比较</a>
+            </li>
+      </ul>
+    </div>
+</div>
+</div>
+
+<footer>
+<p>友情链接：<a href="https://facebook.github.io/react/" target="_blank">react</a> <a href="http://www.lovewebgames.com/" target="_blank">javascript JY</a> <a href="http://www.lovewebgames.com/jsmodule/index.html" target="_blank">js组件</a><a href="http://www.react-cn.com/">react中国</a></p>
+<p>© 2016-2017 <a href="http://www.react-cn.com">react-cn.com</a> 版权所有 ICP证：浙ICP备09082150号-3</p>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+</footer>
+</body>
+</html>

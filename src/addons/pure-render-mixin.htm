@@ -1,0 +1,19 @@
+@@include('../component/header.htm', {
+    "context":{
+    	"title": "react插件",
+    	"keywords": "react,插件",
+    	"desc": "reactjs插件列表",
+    	"menu":"addons"
+    }
+  })
+<div class="container documentationContent">
+	<div class="rightContainer">
+		<div class="inner">
+			<a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/addons/md/pure-render-mixin.md" target="_blank">在github上编辑这篇文章</a>
+			@@include(markdown('./md/pure-render-mixin.md'))
+            <div class="docs-prevnext"><a href="/docs/update.html" class="prev">← 上一条 </a><a class="next" href="/docs/perf.html">下一条 →</a></div>
+		</div> 
+	</div>
+    @@include('../component/addonsnav.htm',{"context":{"focus":"pure-render-mixin"}})
+</div>
+@@include('../component/footer.htm')

@@ -517,6 +517,7 @@ h1:hover .hash-link, h2:hover .hash-link, h3:hover .hash-link, h4:hover .hash-li
 #todo .preview {
   opacity: .6;
   height: 20px;
+  width: 153px;
   line-height: 20px;
   background-color: rgba(0, 0, 0, 0.1);
   font-style: italic; }

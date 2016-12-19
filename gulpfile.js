@@ -5,7 +5,7 @@ var sass = require('gulp-ruby-sass');
 //var eslint = require('gulp-eslint');
 //var scss =require('gulp-sass');
 // var markdown = require('gulp-markdown');
-
+var replace = require('gulp-replace');
 var marked = require('marked');
 var ext_replace = require('gulp-ext-replace'); //改扩展名
 var lighlightjs = require('highlightjs/highlight.pack.js');
@@ -42,6 +42,7 @@ gulp.task('html', function() {
 			prefix: "@@",
 			basepath: 'src/component/'
 		}))
+		.pipe(replace('%baseDomain%', 'https://tianxiangbing.github.io/react-cn/'))
 		.pipe(gulp.dest('./docs'))
 		.pipe(livereload());
 });

@@ -7,22 +7,22 @@
 	<meta name="renderer" content="webkit|ie-comp|ie-stand">
 	<meta name="keywords" content="@@if(!context.keywords){React,React Native}@@if(context.keywords){@@context.keywords}" />
 	<meta name="description" content="@@if(!context.desc){React中文教程,React Native,Reactjs下载,jsx语法}@@if(context.desc){@@context.desc}" />
-	<link rel="stylesheet" href="/css/css.css">
-	<link rel="shortcut icon" href="/favicon.ico">
+	<link rel="stylesheet" href="%baseDomain%css/css.css">
+	<link rel="shortcut icon" href="%baseDomain%favicon.ico">
 </head>
 <body>
 <header>
-	<h1><a class="logo" href="http://www.react-cn.com/"><img class="nav-logo" src="/logo.svg" width="36" height="36">React中文网</a></h1>
+	<h1><a class="logo" href="%baseDomain%"><img class="nav-logo" src="/logo.svg" width="36" height="36">React中文网</a></h1>
 	<nav class="menu">
-		<a href="/index.html" @@if(context.menu=='home'||!context.menu){class="active"}>首页</a>
-		<a href="/downloads.html" @@if(context.menu=='download'){class="active"}>下载</a>
-		<a href="/docs/getting-started.html" @@if(context.menu=='doc'){class="active"}>中文文档</a>
-		<a href="/addons/index.html" @@if(context.menu=='addons'){class="active"}>react 插件</a>
-		<a href="/docs/examples.html" @@if(context.menu=='examples'){class="active"}>例子</a>
+		<a href="%baseDomain%index.html" @@if(context.menu=='home'||!context.menu){class="active"}>首页</a>
+		<a href="%baseDomain%downloads.html" @@if(context.menu=='download'){class="active"}>下载</a>
+		<a href="%baseDomain%docs/getting-started.html" @@if(context.menu=='doc'){class="active"}>中文文档</a>
+		<a href="%baseDomain%addons/index.html" @@if(context.menu=='addons'){class="active"}>react 插件</a>
+		<a href="%baseDomain%docs/examples.html" @@if(context.menu=='examples'){class="active"}>例子</a>
 	</nav>
 	<div class="submenu">
 		<a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=db86a206a1e04f114217ccffd92ee11f5faca14d283a71d97817937ee3cf9d00"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="reactjs、reactnative技术群" title="reactjs、reactnative技术群"></a>
-		<a href="/about.html">关于我们</a>
-		<a href="/reactnative/index.html">React Native中文资料</a>
+		<a href="%baseDomain%about.html">关于我们</a>
+		<a href="%baseDomain%reactnative/index.html">React Native中文资料</a>
 	</div>
 </header>

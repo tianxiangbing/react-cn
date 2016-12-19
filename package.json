@@ -26,6 +26,7 @@
     "gulp-file-include": "^0.13.0",
     "gulp-livereload": "^3.8.1",
     "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.4",
     "gulp-ruby-sass": "^2.0.6",
     "gulp-to-markdown": "^1.0.0",
     "gulp-uglify": "^2.0.0",

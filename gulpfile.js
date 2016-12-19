@@ -70,6 +70,7 @@ gulp.task('md', function() {
 				}
 			}
 		}))
+		.pipe(replace('%baseDomain%', 'https://tianxiangbing.github.io/react-cn/'))
 		.pipe(ext_replace('.html'))
 		.pipe(gulp.dest('./docs'))
 		.pipe(livereload())

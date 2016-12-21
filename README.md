@@ -1,2 +1,2 @@
 # react-cn
-[react中国](http://www.react-cn.com/index.html)
+[react中国](https://tianxiangbing.github.io/react-cn/)

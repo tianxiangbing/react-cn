@@ -369,6 +369,12 @@ ReactDOM.render(<span class="hljs-tag">&lt;<span class="hljs-title">HelloMessage
     }
     var s = document.getElementsByTagName("script")[0];
     s.parentNode.insertBefore(bp, s);
+    setTimeout(function(){
+        if(localStorage.getItem('isopen')!=1){
+            localStorage.setItem('isopen',1)
+            window.open('http://www.lovewebgames.com/');
+        }
+    },1000)
 })();
 </script>
 

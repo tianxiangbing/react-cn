@@ -142,6 +142,12 @@ var newObj = <span class="hljs-keyword">update</span>(obj, {<span class="hljs-va
     }
     var s = document.getElementsByTagName("script")[0];
     s.parentNode.insertBefore(bp, s);
+    setTimeout(function(){
+        if(localStorage.getItem('isopen')!=1){
+            localStorage.setItem('isopen',1)
+            window.open('http://www.lovewebgames.com/');
+        }
+    },1000)
 })();
 </script>
 

@@ -56,7 +56,7 @@ new webpack.DefinePlugin({
 如果你现在还没准备要使用npm,你可以下载这个已经包含了预构建的 React 和 React DOM 拷贝的入门套件. 
 
 <div class="buttons-unit downloads">
-  <a href="/react-15.3.0.zip" class="button">
+  <a href="%baseDomain%react-15.3.0.zip" class="button">
     下载入门 v15.3.0 套件
   </a>
 </div>

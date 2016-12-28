@@ -124,7 +124,7 @@ var CheckLink = React.createClass({
 });
 
 ReactDOM.render(
-  <CheckLink href="/checked.html">
+  <CheckLink href="%baseDomain%checked.html">
     Click here!
   </CheckLink>,
   document.getElementById('example')

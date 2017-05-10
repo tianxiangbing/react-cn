@@ -42,7 +42,8 @@ gulp.task('html', function() {
 			prefix: "@@",
 			basepath: 'src/component/'
 		}))
-		.pipe(replace('%baseDomain%', 'https://tianxiangbing.github.io/react-cn/'))
+		// .pipe(replace('%baseDomain%', 'https://tianxiangbing.github.io/react-cn/'))
+		.pipe(replace('%baseDomain%', 'http://www.react-cn.com/'))
 		.pipe(gulp.dest('./docs'))
 		.pipe(livereload());
 });
@@ -70,7 +71,8 @@ gulp.task('md', function() {
 				}
 			}
 		}))
-		.pipe(replace('%baseDomain%', 'https://tianxiangbing.github.io/react-cn/'))
+		// .pipe(replace('%baseDomain%', 'https://tianxiangbing.github.io/react-cn/'))
+		.pipe(replace('%baseDomain%', 'http://www.react-cn.com/'))
 		.pipe(ext_replace('.html'))
 		.pipe(gulp.dest('./docs'))
 		.pipe(livereload())

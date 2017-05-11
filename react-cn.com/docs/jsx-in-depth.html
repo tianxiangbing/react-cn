@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<title>深入jsx-React中国</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+	<meta name="keywords" content="jsx,深入" />
+	<meta name="description" content="深入jsx" />
+	<link rel="stylesheet" href="http://www.react-cn.com/css/css.css">
+	<link rel="shortcut icon" href="http://www.react-cn.com/favicon.ico">
+</head>
+<body>
+<header>
+	<h1><a class="logo" href="http://www.react-cn.com/"><img class="nav-logo" src="http://www.react-cn.com//logo.svg" width="36" height="36">React中国</a></h1>
+	<nav class="menu">
+		<a href="http://www.react-cn.com/index.html" >首页</a>
+		<a href="http://www.react-cn.com/downloads.html" >下载</a>
+		<a href="http://www.react-cn.com/docs/getting-started.html" class="active">中文文档</a>
+		<a href="http://www.react-cn.com/addons/index.html" >react 工具</a>
+		<a href="https://github.com/React-Plugin">react 插件</a>
+		<a href="http://www.react-cn.com/docs/examples.html" >例子</a>
+	</nav>
+	<div class="submenu">
+		<a target="_blank" href="http://www.react-cn.com//shang.qq.com/wpa/qunwpa?idkey=db86a206a1e04f114217ccffd92ee11f5faca14d283a71d97817937ee3cf9d00"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="reactjs、reactnative技术群" title="reactjs、reactnative技术群"></a>
+		<a href="http://www.react-cn.com/about.html">关于我们</a>
+		<a href="http://www.react-cn.com/reactnative/index.html">React Native中文资料</a>
+	</div>
+</header>
+<div class="container documentationContent">
+	<div class="rightContainer">
+		<div class="inner">
+			<a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/docs/md/jsx-in-depth.md" target="_blank">在github上编辑这篇文章</a>
+			<h1><a name="-jsx" class="anchor" href="#-jsx"></a>深入 JSX<a  class="hash-link" href="#-jsx">#</a></h1><p><a href="https://facebook.github.io/jsx/">JSX</a> 是一个看起来很像 XML 的 JavaScript 语法扩展。React 可以用来做简单的 JSX 句法转换。</p>
+<h2><a name="-jsx-" class="anchor" href="#-jsx-"></a>为什么要用 JSX？<a  class="hash-link" href="#-jsx-">#</a></h2><p>你不需要为了 React 使用 JSX，可以直接使用原生 JS。但是，我们建议使用 JSX 是因为它能精确，也是常用的定义包含属性的树状结构的语法。</p>
+<p>它对于非专职开发者比如设计师也比较熟悉。</p>
+<p>XML 有固定的标签开启和闭合的优点。这能让复杂的树更易于阅读，优于方法调用和对象字面量的形式。</p>
+<p>它没有修改 JavaScript 语义。</p>
+<h2><a name="html-react-" class="anchor" href="#html-react-"></a>HTML 标签对比 React 组件<a  class="hash-link" href="#html-react-">#</a></h2><p>React 可以渲染 HTML 标签 (strings) 或 React 组件 (classes)。</p>
+<p>要渲染 HTML 标签，只需在 JSX 里使用小写字母的标签名。</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> myDivElement = &lt;<span class="hljs-keyword">div</span> className=<span class="hljs-variable">"foo"</span> /&gt;;
+ReactDOM.render(myDivElement, document.getElementById(<span class="hljs-string">'example'</span>));
+</code></pre>
+<p>要渲染 React 组件，只需创建一个大写字母开头的本地变量。</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> MyComponent = React.createClass({<span class="hljs-comment">/*...*/</span>});
+<span class="hljs-keyword">var</span> myElement = &lt;MyComponent someProperty={<span class="hljs-keyword">true</span>} /&gt;;
+ReactDOM.render(myElement, <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'example'</span>));
+</code></pre>
+<p>React 的 JSX 使用大、小写的约定来区分本地组件的类和 HTML 标签。</p>
+<blockquote>
+<p>注意:</p>
+<p>由于 JSX 就是 JavaScript，一些标识符像 <code>class</code> 和 <code>for</code> 不建议作为 XML
+属性名。作为替代，React DOM 使用 <code>className</code> 和 <code>htmlFor</code> 来做对应的属性。</p>
+</blockquote>
+<h2><a name="-transform-" class="anchor" href="#-transform-"></a>转换（Transform）<a  class="hash-link" href="#-transform-">#</a></h2><p>JSX 把类 XML 的语法转成原生 JavaScript，XML 元素、属性和子节点被转换成 <code>React.createElement</code> 的参数。</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> Nav;
+<span class="hljs-comment">// 输入 (JSX):</span>
+<span class="hljs-keyword">var</span> <span class="hljs-keyword">app</span> = &lt;Nav color=<span class="hljs-string">"blue"</span> /&gt;;
+<span class="hljs-comment">// 输出 (JS):</span>
+<span class="hljs-keyword">var</span> <span class="hljs-keyword">app</span> = React.createElement(Nav, {color:<span class="hljs-string">"blue"</span>});
+</code></pre>
+<p>注意，要想使用 <code>&lt;Nav /&gt;</code>，<code>Nav</code> 变量一定要在作用区间内。</p>
+<p>JSX 也支持使用 XML 语法定义子结点：</p>
+<pre><code class="lang-javascript"><span class="hljs-variable"><span class="hljs-keyword">var</span> Nav, Profile;
+// 输入 (JSX)</span>:
+<span class="hljs-variable"><span class="hljs-keyword">var</span> app</span> = <span class="hljs-type">&lt;Nav color="blue"&gt;</span><span class="hljs-type">&lt;Profile&gt;</span>click<span class="hljs-type">&lt;/Profile&gt;</span><span class="hljs-type">&lt;/Nav&gt;</span>;
+<span class="hljs-comment">// 输出 (JS):</span>
+<span class="hljs-variable"><span class="hljs-keyword">var</span> app</span> = React.createElement(
+  Nav,
+  {color:<span class="hljs-string">"blue"</span>},
+  React.createElement(Profile, <span class="hljs-literal">null</span>, <span class="hljs-string">"click"</span>)
+);
+</code></pre>
+<p>当显示名称没有定义时，JSX 会根据变量赋值来推断类的 <a href="/docs/component-specs.html#displayname">显示名称</a> :</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// 输入 (JSX):</span>
+<span class="hljs-variable"><span class="hljs-keyword">var</span> Nav</span> = React.createClass({ });
+<span class="hljs-comment">// 输出 (JS):</span>
+<span class="hljs-variable"><span class="hljs-keyword">var</span> Nav</span> = React.createClass({displayName: <span class="hljs-string">"Nav"</span>, });
+</code></pre>
+<p>使用 <a href="/react/jsx-compiler.html">JSX 编译器</a> 来试用 JSX 并理解它是如何转换到原生 JavaScript，还有 <a href="http://magic.reactjs.net/htmltojsx.htm">HTML 到 JSX 转换器</a> 来把现有 HTML 转成 JSX。</p>
+<p>如果你要使用 JSX，这篇 <a href="/docs/getting-started.html">新手入门</a> 教程来教你如何搭建环境。</p>
+<blockquote>
+<p>注意:</p>
+<p>JSX 表达式总是会当作 ReactElement 执行。具体的实际细节可能不同。一种优化
+的模式是把 ReactElement 当作一个行内的对象字面量形式来绕过
+<code>React.createElement</code> 里的校验代码。</p>
+</blockquote>
+<h2><a name="-namespaced-components-" class="anchor" href="#-namespaced-components-"></a>命名组件（Namespaced Components）<a  class="hash-link" href="#-namespaced-components-">#</a></h2><p>如果你正在构建一个有很多子组件的组件，比如表单，你也许会最终得到许多的变量声明。</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// 尴尬的变量声明块</span>
+<span class="hljs-keyword">var</span> <span class="hljs-keyword">Form</span> = MyFormComponent;
+<span class="hljs-keyword">var</span> FormRow = <span class="hljs-keyword">Form</span>.Row;
+<span class="hljs-keyword">var</span> FormLabel = <span class="hljs-keyword">Form</span>.<span class="hljs-keyword">Label</span>;
+<span class="hljs-keyword">var</span> FormInput = <span class="hljs-keyword">Form</span>.<span class="hljs-keyword">Input</span>;
+
+<span class="hljs-keyword">var</span> <span class="hljs-keyword">App</span> = (
+  &lt;<span class="hljs-keyword">Form</span>&gt;
+    &lt;FormRow&gt;
+      &lt;FormLabel /&gt;
+      &lt;FormInput /&gt;
+    &lt;/FormRow&gt;
+  &lt;/<span class="hljs-keyword">Form</span>&gt;
+);
+</code></pre>
+<p>为了使其更简单和容易，<em>命名组件</em>令你使用包含其他组件作为属性的单一的组件。</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> <span class="hljs-keyword">Form</span> = MyFormComponent;
+
+<span class="hljs-keyword">var</span> <span class="hljs-keyword">App</span> = (
+  &lt;<span class="hljs-keyword">Form</span>&gt;
+    &lt;<span class="hljs-keyword">Form</span>.Row&gt;
+      &lt;<span class="hljs-keyword">Form</span>.<span class="hljs-keyword">Label</span> /&gt;
+      &lt;<span class="hljs-keyword">Form</span>.<span class="hljs-keyword">Input</span> /&gt;
+    &lt;/<span class="hljs-keyword">Form</span>.Row&gt;
+  &lt;/<span class="hljs-keyword">Form</span>&gt;
+);
+</code></pre>
+<p>要做到这一点，你只需要把你的<em>&quot;子组件&quot;</em>创建为主组件的属性。</p>
+<pre><code class="lang-javascript">var MyFormComponent = React.createClass(<span class="hljs-list">{ ... }</span>);
+
+MyFormComponent.<span class="hljs-keyword">Row</span> = React.createClass(<span class="hljs-list">{ ... }</span>);
+MyFormComponent.<span class="hljs-keyword">Label</span> = React.createClass(<span class="hljs-list">{ ... }</span>);
+MyFormComponent.<span class="hljs-keyword">Input</span> = React.createClass(<span class="hljs-list">{ ... }</span>);
+</code></pre>
+<p>当编译你的代码时，JSX会恰当的进行处理。</p>
+<pre><code class="lang-javascript">var App = <span class="hljs-list">(
+  <span class="hljs-keyword">React</span>.createElement<span class="hljs-list">(<span class="hljs-keyword">Form</span>, null,
+    React.createElement<span class="hljs-list">(<span class="hljs-keyword">Form</span>.Row, null,
+      React.createElement<span class="hljs-list">(<span class="hljs-keyword">Form</span>.Label, null)</span>,
+      React.createElement<span class="hljs-list">(<span class="hljs-keyword">Form</span>.Input, null)</span>
+    )</span>
+  )</span>
+)</span><span class="hljs-comment">;</span>
+</code></pre>
+<blockquote>
+<p>注意:</p>
+<p>此特性在 <a href="/react/blog/2014/07/17/react-v0.11.html#jsx">v0.11</a> 及以上可用.</p>
+</blockquote>
+<h2><a name="javascript-" class="anchor" href="#javascript-"></a>JavaScript 表达式<a  class="hash-link" href="#javascript-">#</a></h2><h3><a name="-" class="anchor" href="#-"></a>属性表达式<a  class="hash-link" href="#-">#</a></h3><p>要使用 JavaScript 表达式作为属性值，只需把这个表达式用一对大括号 (<code>{}</code>) 包起来，不要用引号 (<code>&quot;&quot;</code>)。</p>
+<pre><code class="lang-javascript">// 输入 (JSX):
+var <span class="hljs-keyword">person</span> = &lt;<span class="hljs-keyword">Person</span> name={window.isLoggedIn ? window.name : ''} /&gt;;
+// 输出 (JS):
+var <span class="hljs-keyword">person</span> = React.createElement(
+  <span class="hljs-keyword">Person</span>,
+  {name: window.isLoggedIn ? window.name : ''}
+);
+</code></pre>
+<h3><a name="boolean-" class="anchor" href="#boolean-"></a>Boolean 属性<a  class="hash-link" href="#boolean-">#</a></h3><p>省略一个属性的值会导致JSX把它当做 <code>true</code>。要传值 <code>false</code>必须使用属性表达式。这常出现于使用HTML表单元素，含有属性如<code>disabled</code>, <code>required</code>, <code>checked</code> 和 <code>readOnly</code>。</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// 在JSX中，对于禁用按钮这二者是相同的。</span>
+&lt;input <span class="hljs-class"><span class="hljs-keyword">type</span></span>=<span class="hljs-string">"button"</span> disabled /&gt;;
+&lt;input <span class="hljs-class"><span class="hljs-keyword">type</span></span>=<span class="hljs-string">"button"</span> disabled={<span class="hljs-keyword">true</span>} /&gt;;
+
+<span class="hljs-comment">// 在JSX中，对于不禁用按钮这二者是相同的。</span>
+&lt;input <span class="hljs-class"><span class="hljs-keyword">type</span></span>=<span class="hljs-string">"button"</span> /&gt;;
+&lt;input <span class="hljs-class"><span class="hljs-keyword">type</span></span>=<span class="hljs-string">"button"</span> disabled={<span class="hljs-keyword">false</span>} /&gt;;
+</code></pre>
+<h3><a name="-" class="anchor" href="#-"></a>子节点表达式<a  class="hash-link" href="#-">#</a></h3><p>同样地，JavaScript 表达式可用于描述子结点：</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// 输入 (JSX):</span>
+<span class="hljs-keyword">var</span> content = &lt;Container&gt;{<span class="hljs-built_in">window</span>.isLoggedIn ? &lt;Nav /&gt; : &lt;Login /&gt;}&lt;/Container&gt;;
+<span class="hljs-comment">// 输出 (JS):</span>
+<span class="hljs-keyword">var</span> content = React.createElement(
+  Container,
+  <span class="hljs-keyword">null</span>,
+  <span class="hljs-built_in">window</span>.isLoggedIn ? React.createElement(Nav) : React.createElement(Login)
+);
+</code></pre>
+<h3><a name="-" class="anchor" href="#-"></a>注释<a  class="hash-link" href="#-">#</a></h3><p>JSX 里添加注释很容易；它们只是 JS 表达式而已。你仅仅需要小心的是当你在一个标签的子节点块时，要用 <code>{}</code> 包围要注释的部分。</p>
+<pre><code class="lang-javascript">var content = (
+  &lt;Nav&gt;
+    {/* child comment, 用 {} 包围 */}
+    &lt;<span class="hljs-keyword">Person</span>
+      /* 多
+         行
+         注释 */
+      name={window.isLoggedIn ? window.name : ''} // 行尾注释
+    /&gt;
+  &lt;/Nav&gt;
+);
+</code></pre>
+<blockquote>
+<p>注意:</p>
+<p>JSX 类似于 HTML，但不完全一样。参考 <a href="/docs/jsx-gotchas-zh-CN.html">JSX 陷阱</a> 了解主要不同。</p>
+</blockquote>
+
+            <div class="docs-prevnext"><a href="http://www.react-cn.com/docs/displaying-data.html" class="prev">← 上一条 </a><a class="next" href="http://www.react-cn.com/docs/complementary-tools.html">下一条 →</a></div>
+		</div>
+	</div>
+    <div class="docnav">
+    <div class="nav-docs-section">
+      <h3>快速入门</h3>
+      <ul>
+          <li>
+            <a href="http://www.react-cn.com/docs/getting-started.html" >快速开始</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/tutorial.html" >教程</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/thinking-in-react.html" >React编程思想</a>
+          </li>
+      </ul>
+    </div>
+    <div class="nav-docs-section">
+      <h3>导航</h3>
+      <ul>
+          <li>
+            <a href="http://www.react-cn.com/docs/why-react.html" >为什么使用React?</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/displaying-data.html" >显示数据</a>
+            <ul>
+                  <li>
+                    <a href="http://www.react-cn.com/docs/jsx-in-depth.html" class="active">深入 JSX</a>
+                  </li>
+                
+                  <li>
+                    <a href="http://www.react-cn.com/docs/jsx-spread.html" >JSX 展开属性</a>
+                  </li>
+                
+                  <li>
+                    <a href="http://www.react-cn.com/docs/jsx-gotchas.html" >JSX 陷阱</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/interactivity-and-dynamic-uis.html" >动态交互式用户界面</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/reusable-components.html" >可复用组件</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/transferring-props.html" >传递 Props</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/forms.html" >表单组件</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/working-with-the-browser.html" >与浏览器协作</a>
+              <ul>
+                <li>
+                  <a href="http://www.react-cn.com/docs/more-about-refs.html" >对组件的refs</a>
+                </li>
+              </ul>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/tooling-integration.html" >工具集成</a>
+            
+              <ul>
+                
+                  <li>
+                    <a href="http://www.react-cn.com/docs/language-tooling.html" >语言工具</a>
+                  </li>
+                
+                  <li>
+                    <a href="http://www.react-cn.com/docs/package-management.html" >包管理</a>
+                  </li>
+                
+                  <li>
+                    <a href="http://www.react-cn.com/docs/environments.html" >服务端环境</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a target="_blank" href="http://www.react-cn.com/addons/index.html" >插件</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/advanced-performance.html" >先进的性能</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/context.html" >Context</a>
+          </li>
+      </ul>
+    </div>
+    <div class="nav-docs-section">
+      <h3>社区资源</h3>
+      <ul>
+          <li>
+            <a href="http://www.react-cn.com/docs/conferences.html" >会议</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/videos.html" >视频</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/complementary-tools.html" >辅助工具</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/examples.html" >react例子</a>
+          </li>
+      </ul>
+    </div>
+</div>
+</div>
+<footer>
+<p>友情链接：<a href="https://facebook.github.io/react/" target="_blank">react</a> <a href="http://www.lovewebgames.com/" target="_blank">javascript JY</a> <a href="http://www.lovewebgames.com/jsmodule/index.html" target="_blank">js组件</a><a href="https://tianxiangbing.github.io/react-cn/">react中文文档</a></p>
+<p>© 2016-2017 <a href="https://tianxiangbing.github.io/react-cn/">react-cn.com</a> 版权所有 ICP证：浙ICP备09082150号-3</p>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+    // setTimeout(function(){
+    //     if(localStorage.getItem('isopen')!=1){
+    //         localStorage.setItem('isopen',1)
+    //         window.open('http://www.lovewebgames.com/');
+    //     }
+    // },1000)
+})();
+</script>
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"5","bdPos":"right","bdTop":"91.5"},"image":{"viewList":["qzone","tsina","tqq","weixin","tieba","sqq"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","weixin","tieba","sqq"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+</footer>
+</body>
+</html>

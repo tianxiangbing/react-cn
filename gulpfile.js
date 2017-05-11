@@ -12,7 +12,7 @@ var lighlightjs = require('highlightjs/highlight.pack.js');
 var uglify = require('gulp-uglify');
 
 marked.setOptions({
-	highlight: function(code) {
+	highlight: function (code) {
 		/*console.log(code)
 		console.log("============")
 		console.log(lighlightjs.highlightAuto(code).value)*/
@@ -23,7 +23,7 @@ marked.setOptions({
 
 var renderer = new marked.Renderer();
 
-renderer.heading = function(text, level) {
+renderer.heading = function (text, level) {
 	var escapedText = text.toLowerCase().replace(/[^\w]+/g, '-');
 	//console.log(text)
 	return '<h' + level + '><a name="' +
@@ -36,7 +36,18 @@ renderer.heading = function(text, level) {
 		'">#</a></h' + level + '>';
 }
 
-gulp.task('html', function() {
+gulp.task('html', function () {
+	gulp.src('src/**/*.html')
+		.pipe(fileinclude({
+			prefix: "@@",
+			basepath: 'src/component/'
+		}))
+		.pipe(replace('%baseDomain%', 'https://tianxiangbing.github.io/react-cn/'))
+		// .pipe(replace('%baseDomain%', 'http://www.react-cn.com/'))
+		.pipe(gulp.dest('./docs'))
+		.pipe(livereload());
+});
+gulp.task('reactcnhtml', function () {
 	gulp.src('src/**/*.html')
 		.pipe(fileinclude({
 			prefix: "@@",
@@ -44,26 +55,46 @@ gulp.task('html', function() {
 		}))
 		// .pipe(replace('%baseDomain%', 'https://tianxiangbing.github.io/react-cn/'))
 		.pipe(replace('%baseDomain%', 'http://www.react-cn.com/'))
-		.pipe(gulp.dest('./docs'))
+		.pipe(gulp.dest('./react-cn.com'))
 		.pipe(livereload());
 });
-gulp.task('css', function() {
+gulp.task('css', function () {
 	sass('src/**/css.scss')
 		.pipe(gulp.dest('./docs/'))
 		.on('error', sass.logError)
 		.pipe(livereload());
 });
-gulp.task('img', function() {
+gulp.task('img', function () {
 	gulp.src('src/**/*.png').pipe(gulp.dest('./docs'))
 		.pipe(livereload())
 });
 
-gulp.task('md', function() {
+gulp.task('md', function () {
 	return gulp.src('src/**/*.htm')
 		.pipe(fileinclude({
 			prefix: "@@",
 			filters: {
-				markdown: function(str) {
+				markdown: function (str) {
+					//console.log(marked(str, { renderer: renderer }))
+					return marked(str, {
+						renderer: renderer
+					})
+				}
+			}
+		}))
+		.pipe(replace('%baseDomain%', 'https://tianxiangbing.github.io/react-cn/'))
+		// .pipe(replace('%baseDomain%', 'http://www.react-cn.com/'))
+		.pipe(ext_replace('.html'))
+		.pipe(gulp.dest('./docs'))
+		.pipe(livereload())
+});
+
+gulp.task('reactcnmd', function () {
+	return gulp.src('src/**/*.htm')
+		.pipe(fileinclude({
+			prefix: "@@",
+			filters: {
+				markdown: function (str) {
 					//console.log(marked(str, { renderer: renderer }))
 					return marked(str, {
 						renderer: renderer
@@ -74,7 +105,7 @@ gulp.task('md', function() {
 		// .pipe(replace('%baseDomain%', 'https://tianxiangbing.github.io/react-cn/'))
 		.pipe(replace('%baseDomain%', 'http://www.react-cn.com/'))
 		.pipe(ext_replace('.html'))
-		.pipe(gulp.dest('./docs'))
+		.pipe(gulp.dest('./react-cn.com'))
 		.pipe(livereload())
 });
 
@@ -86,7 +117,7 @@ gulp.task('sass',function(){
 });
 */
 //watch
-gulp.task('watch', function() {
+gulp.task('watch', function () {
 	livereload.listen();
 	var server = livereload();
 	gulp.watch(['src/**/*.html', 'src/**/*.htm'], ['html', 'md']);
@@ -99,16 +130,16 @@ gulp.task('watch', function() {
 
 var toMarkdown = require('gulp-to-markdown');
 
-gulp.task('toMd', function() {
+gulp.task('toMd', function () {
 	return gulp.src('./src/getting-started.html')
 		.pipe(toMarkdown())
 		.pipe(gulp.dest('./dist'));
 });
-gulp.task('js', function() {
+gulp.task('js', function () {
 	gulp.src('src/**/*.js')
 		.pipe(uglify())
 		.pipe(gulp.dest('./docs'))
 		.pipe(livereload());
 });
 
-gulp.task('default', ['md', 'html', 'css', 'img', 'js'])
+gulp.task('default', ['md', 'html', 'reactcnhtml', 'reactcnmd', 'css', 'img', 'js'])

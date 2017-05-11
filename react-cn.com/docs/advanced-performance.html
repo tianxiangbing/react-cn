@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<title>先进的性能-React中国</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+	<meta name="keywords" content="react的性能,虚拟dom" />
+	<meta name="description" content="react的性能,虚拟dom" />
+	<link rel="stylesheet" href="http://www.react-cn.com/css/css.css">
+	<link rel="shortcut icon" href="http://www.react-cn.com/favicon.ico">
+</head>
+<body>
+<header>
+	<h1><a class="logo" href="http://www.react-cn.com/"><img class="nav-logo" src="http://www.react-cn.com//logo.svg" width="36" height="36">React中国</a></h1>
+	<nav class="menu">
+		<a href="http://www.react-cn.com/index.html" >首页</a>
+		<a href="http://www.react-cn.com/downloads.html" >下载</a>
+		<a href="http://www.react-cn.com/docs/getting-started.html" class="active">中文文档</a>
+		<a href="http://www.react-cn.com/addons/index.html" >react 工具</a>
+		<a href="https://github.com/React-Plugin">react 插件</a>
+		<a href="http://www.react-cn.com/docs/examples.html" >例子</a>
+	</nav>
+	<div class="submenu">
+		<a target="_blank" href="http://www.react-cn.com//shang.qq.com/wpa/qunwpa?idkey=db86a206a1e04f114217ccffd92ee11f5faca14d283a71d97817937ee3cf9d00"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="reactjs、reactnative技术群" title="reactjs、reactnative技术群"></a>
+		<a href="http://www.react-cn.com/about.html">关于我们</a>
+		<a href="http://www.react-cn.com/reactnative/index.html">React Native中文资料</a>
+	</div>
+</header>
+
+<div class="container documentationContent">
+    <div class="rightContainer">
+		<div class="inner">
+            <a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/docs/md/advanced-performance.md" target="_blank">在github上编辑这篇文章</a>
+            <h1><a name="-" class="anchor" href="#-"></a>先进的性能<a  class="hash-link" href="#-">#</a></h1><p>One of the first questions people ask when considering React for a project is whether their application will be as fast and responsive as an equivalent non-React version. The idea of re-rendering an entire subtree of components in response to every state change makes people wonder whether this process negatively impacts performance. React uses several clever techniques to minimize the number of costly DOM operations required to update the UI.</p>
+<h2><a name="use-the-production-build" class="anchor" href="#use-the-production-build"></a>Use the production build<a  class="hash-link" href="#use-the-production-build">#</a></h2><p>If you&#39;re benchmarking or experiencing performance problems in your React apps, make sure you&#39;re testing with the <a href="/react/downloads.html">minified production build</a>. The development build includes extra warnings that are helpful when building your apps, but it is slower due to the extra bookkeeping it does.</p>
+<h2><a name="avoiding-reconciling-the-dom" class="anchor" href="#avoiding-reconciling-the-dom"></a>Avoiding reconciling the DOM<a  class="hash-link" href="#avoiding-reconciling-the-dom">#</a></h2><p>React makes use of a <em>virtual DOM</em>, which is a descriptor of a DOM subtree rendered in the browser. This parallel representation allows React to avoid creating DOM nodes and accessing existing ones, which is slower than operations on JavaScript objects. When a component&#39;s props or state change, React decides whether an actual DOM update is necessary by constructing a new virtual DOM and comparing it to the old one. Only in the case they are not equal, will React <a href="/docs/reconciliation.html">reconcile</a> the DOM, applying as few mutations as possible.</p>
+<p>On top of this, React provides a component lifecycle function, <code>shouldComponentUpdate</code>, which is triggered before the re-rendering process starts (virtual DOM comparison and possible eventual DOM reconciliation), giving the developer the ability to short circuit this process. The default implementation of this function returns <code>true</code>, leaving React to perform the update:</p>
+<pre><code class="lang-javascript">shouldComponentUpdate: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(nextProps, nextState)</span> </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+}
+</code></pre>
+<p>Keep in mind that React will invoke this function pretty often, so the implementation has to be fast.</p>
+<p>Say you have a messaging application with several chat threads. Suppose only one of the threads has changed. If we implement <code>shouldComponentUpdate</code> on the <code>ChatThread</code> component, React can skip the rendering step for the other threads:</p>
+<pre><code class="lang-javascript">shouldComponentUpdate: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(nextProps, nextState)</span></span> {
+  // TODO: <span class="hljs-keyword">return</span> whether <span class="hljs-keyword">or</span> <span class="hljs-keyword">not</span> current chat thread is
+  // different to former one.
+}
+</code></pre>
+<p>So, in summary, React avoids carrying out expensive DOM operations required to reconcile subtrees of the DOM by allowing the user to short circuit the process using <code>shouldComponentUpdate</code>, and, for those which should update, by comparing virtual DOMs.</p>
+<h2><a name="shouldcomponentupdate-in-action" class="anchor" href="#shouldcomponentupdate-in-action"></a>shouldComponentUpdate in action<a  class="hash-link" href="#shouldcomponentupdate-in-action">#</a></h2><p>Here&#39;s a subtree of components. For each one is indicated what <code>shouldComponentUpdate</code> returned and whether or not the virtual DOMs were equivalent. Finally, the circle&#39;s color indicates whether the component had to be reconciled or not.</p>
+<figure><img src="/img/docs/should-component-update.png" /></figure>
+
+<p>In the example above, since <code>shouldComponentUpdate</code> returned <code>false</code> for the subtree rooted at C2, React had no need to generate the new virtual DOM, and therefore, it neither needed to reconcile the DOM. Note that React didn&#39;t even have to invoke <code>shouldComponentUpdate</code> on C4 and C5.</p>
+<p>For C1 and C3 <code>shouldComponentUpdate</code> returned <code>true</code>, so React had to go down to the leaves and check them. For C6 it returned <code>true</code>; since the virtual DOMs weren&#39;t equivalent it had to reconcile the DOM.
+The last interesting case is C8. For this node React had to compute the virtual DOM, but since it was equal to the old one, it didn&#39;t have to reconcile it&#39;s DOM.</p>
+<p>Note that React only had to do DOM mutations for C6, which was inevitable. For C8, it bailed out by comparing the virtual DOMs, and for C2&#39;s subtree and C7, it didn&#39;t even have to compute the virtual DOM as we bailed out on <code>shouldComponentUpdate</code>.</p>
+<p>So, how should we implement <code>shouldComponentUpdate</code>? Say that you have a component that just renders a string value:</p>
+<pre><code class="lang-javascript"><span class="hljs-tag">React</span><span class="hljs-class">.createClass</span>(<span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">propTypes</span>:<span class="hljs-value"> {
+    value: React.PropTypes.string.isRequired
+  },
+
+  render: <span class="hljs-function">function</span>() {
+    return &lt;div&gt;{this.props.value}&lt;/div&gt;</span></span>;
+  }</span>
+});
+</code></pre>
+<p>We could easily implement <code>shouldComponentUpdate</code> as follows:</p>
+<pre><code class="lang-javascript">shouldComponentUpdate: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(nextProps, nextState)</span> </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.props.value !== nextProps.value;
+}
+</code></pre>
+<p>So far so good, dealing with such simple props/state structures is easy. We could even generalize an implementation based on shallow equality and mix it into components. In fact, React already provides such implementation: <a href="/docs/pure-render-mixin.html">PureRenderMixin</a>.</p>
+<p>But what if your components&#39; props or state are mutable data structures? Say the prop the component receives, instead of being a string like <code>&#39;bar&#39;</code>, is a JavaScript object that contains a string such as, <code>{ foo: &#39;bar&#39; }</code>:</p>
+<pre><code class="lang-javascript">React.createClass({
+  propTypes: {
+    <span class="hljs-keyword">value</span>: React.PropTypes.<span class="hljs-keyword">object</span>.isRequired
+  },
+
+  render: <span class="hljs-keyword">function</span>() {
+    <span class="hljs-keyword">return</span> &lt;div&gt;{<span class="hljs-keyword">this</span>.props.<span class="hljs-keyword">value</span>.foo}&lt;/div&gt;;
+  }
+});
+</code></pre>
+<p>The implementation of <code>shouldComponentUpdate</code> we had before wouldn&#39;t always work as expected:</p>
+<pre><code class="lang-javascript">// assume this.props.<span class="hljs-keyword">value</span> is { foo: <span class="hljs-string">'bar'</span> }
+// assume nextProps.<span class="hljs-keyword">value</span> is { foo: <span class="hljs-string">'bar'</span> },
+// but this reference is different <span class="hljs-keyword">to</span> this.props.<span class="hljs-keyword">value</span>
+this.props.<span class="hljs-keyword">value</span> !== nextProps.<span class="hljs-keyword">value</span>; // <span class="hljs-literal">true</span>
+</code></pre>
+<p>The problem is <code>shouldComponentUpdate</code> will return <code>true</code> when the prop actually didn&#39;t change. To fix this, we could come up with this alternative implementation:</p>
+<pre><code class="lang-javascript">shouldComponentUpdate: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(nextProps, nextState)</span> </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.props.value.foo !== nextProps.value.foo;
+}
+</code></pre>
+<p>Basically, we ended up doing a deep comparison to make sure we properly track changes. In terms of performance, this approach is pretty expensive. It doesn&#39;t scale as we would have to write different deep equality code for each model. On top of that, it might not even work if we don&#39;t carefully manage object references. Say this component is used by a parent:</p>
+<pre><code class="lang-javascript">React.createClass({
+  getInitialState: <span class="hljs-keyword">function</span>() {
+    <span class="hljs-keyword">return</span> { <span class="hljs-keyword">value</span>: { foo: <span class="hljs-string">'bar'</span> } };
+  },
+
+  onClick: <span class="hljs-keyword">function</span>() {
+    var <span class="hljs-keyword">value</span> = <span class="hljs-keyword">this</span>.state.<span class="hljs-keyword">value</span>;
+    <span class="hljs-keyword">value</span>.foo += <span class="hljs-string">'bar'</span>; <span class="hljs-comment">// ANTI-PATTERN!</span>
+    <span class="hljs-keyword">this</span>.setState({ <span class="hljs-keyword">value</span>: <span class="hljs-keyword">value</span> });
+  },
+
+  render: <span class="hljs-keyword">function</span>() {
+    <span class="hljs-keyword">return</span> (
+      &lt;div&gt;
+        &lt;InnerComponent <span class="hljs-keyword">value</span>={<span class="hljs-keyword">this</span>.state.<span class="hljs-keyword">value</span>} /&gt;
+        &lt;a onClick={<span class="hljs-keyword">this</span>.onClick}&gt;Click me&lt;/a&gt;
+      &lt;/div&gt;
+    );
+  }
+});
+</code></pre>
+<p>The first time the inner component gets rendered, it will have <code>{ foo: &#39;bar&#39; }</code> as the value prop. If the user clicks on the anchor, the parent component&#39;s state will get updated to <code>{ value: { foo: &#39;barbar&#39; } }</code>, triggering the re-rendering process of the inner component, which will receive <code>{ foo: &#39;barbar&#39; }</code> as the new value for the prop.</p>
+<p>The problem is that since the parent and inner components share a reference to the same object, when the object gets mutated on line 2 of the <code>onClick</code> function, the prop the inner component had will change. So, when the re-rendering process starts, and <code>shouldComponentUpdate</code> gets invoked, <code>this.props.value.foo</code> will be equal to <code>nextProps.value.foo</code>, because in fact, <code>this.props.value</code> references the same object as <code>nextProps.value</code>.</p>
+<p>Consequently, since we&#39;ll miss the change on the prop and short circuit the re-rendering process, the UI won&#39;t get updated from <code>&#39;bar&#39;</code> to <code>&#39;barbar&#39;</code>.</p>
+<h2><a name="immutable-js-to-the-rescue" class="anchor" href="#immutable-js-to-the-rescue"></a>Immutable-js to the rescue<a  class="hash-link" href="#immutable-js-to-the-rescue">#</a></h2><p><a href="https://github.com/facebook/immutable-js">Immutable-js</a> is a JavaScript collections library written by Lee Byron, which Facebook recently open-sourced. It provides <em>immutable persistent</em> collections via <em>structural sharing</em>. Let&#39;s see what these properties mean:</p>
+<ul>
+<li><em>Immutable</em>: once created, a collection cannot be altered at another point in time.</li>
+<li><em>Persistent</em>: new collections can be created from a previous collection and a mutation such as set. The original collection is still valid after the new collection is created.</li>
+<li><em>Structural Sharing</em>: new collections are created using as much of the same structure as the original collection as possible, reducing copying to a minimum to achieve space efficiency and acceptable performance. If the new collection is equal to the original, the original is often returned.</li>
+</ul>
+<p>Immutability makes tracking changes cheap; a change will always result in a new object so we only need to check if the reference to the object has changed. For example, in this regular JavaScript code:</p>
+<pre><code class="lang-javascript"><span class="hljs-variable"><span class="hljs-keyword">var</span> x</span> = { foo: <span class="hljs-string">"bar"</span> };
+<span class="hljs-variable"><span class="hljs-keyword">var</span> y</span> = x;
+y.foo = <span class="hljs-string">"baz"</span>;
+x === y; <span class="hljs-comment">// true</span>
+</code></pre>
+<p>Although <code>y</code> was edited, since it&#39;s a reference to the same object as <code>x</code>, this comparison returns <code>true</code>. However, this code could be written using immutable-js as follows:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> SomeRecord = Immutable.Record({ foo: <span class="hljs-literal">null</span> });
+<span class="hljs-keyword">var</span> x = <span class="hljs-keyword">new</span> SomeRecord({ foo: <span class="hljs-string">'bar'</span>  });
+<span class="hljs-keyword">var</span> y = x.<span class="hljs-keyword">set</span>(<span class="hljs-string">'foo'</span>, <span class="hljs-string">'baz'</span>);
+x === y; <span class="hljs-comment">// false</span>
+</code></pre>
+<p>In this case, since a new reference is returned when mutating <code>x</code>, we can safely assume that <code>x</code> has changed.</p>
+<p>Another possible way to track changes could be doing dirty checking by having a flag set by setters. A problem with this approach is that it forces you to use setters and, either write a lot of additional code, or somehow instrument your classes. Alternatively, you could deep copy the object just before the mutations and deep compare to determine whether there was a change or not. A problem with this approach is both deepCopy and deepCompare are expensive operations.</p>
+<p>So, Immutable data structures provides you a cheap and less verbose way to track changes on objects, which is all we need to implement <code>shouldComponentUpdate</code>. Therefore, if we model props and state attributes using the abstractions provided by immutable-js we&#39;ll be able to use <code>PureRenderMixin</code> and get a nice boost in perf.</p>
+<h2><a name="immutable-js-and-flux" class="anchor" href="#immutable-js-and-flux"></a>Immutable-js and Flux<a  class="hash-link" href="#immutable-js-and-flux">#</a></h2><p>If you&#39;re using <a href="https://facebook.github.io/flux/">Flux</a>, you should start writing your stores using immutable-js. Take a look at the <a href="https://facebook.github.io/immutable-js/docs/#/">full API</a>.</p>
+<p>Let&#39;s see one possible way to model the thread example using Immutable data structures. First, we need to define a <code>Record</code> for each of the entities we&#39;re trying to model. Records are just immutable containers that hold values for a specific set of fields:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> User = Immutable.Record({
+  id: <span class="hljs-literal">undefined</span>,
+  name: <span class="hljs-literal">undefined</span>,
+  email: <span class="hljs-literal">undefined</span>
+});
+
+<span class="hljs-keyword">var</span> Message = Immutable.Record({
+  timestamp: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(),
+  sender: <span class="hljs-literal">undefined</span>,
+  text: <span class="hljs-string">''</span>
+});
+</code></pre>
+<p>The <code>Record</code> function receives an object that defines the fields the object has and its default values.</p>
+<p>The messages <em>store</em> could keep track of the users and messages using two lists:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">this</span>.users = Immutable.<span class="hljs-built_in">List</span>();
+<span class="hljs-keyword">this</span>.messages = Immutable.<span class="hljs-built_in">List</span>();
+</code></pre>
+<p>It should be pretty straightforward to implement functions to process each <em>payload</em> type. For instance, when the store sees a payload representing a new message,  we can just create a new record and append it to the messages list:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">this</span>.messages = <span class="hljs-keyword">this</span>.messages.push(<span class="hljs-keyword">new</span> Message({
+  timestamp: payload.timestamp,
+  sender: payload.sender,
+  <span class="hljs-built_in">text</span>: payload.<span class="hljs-built_in">text</span>
+});
+</code></pre>
+<p>Note that since the data structures are immutable, we need to assign the result of the push function to <code>this.messages</code>.</p>
+<p>On the React side, if we also use immutable-js data structures to hold the components&#39; state, we could mix <code>PureRenderMixin</code> into all our components and short circuit the re-rendering process.</p>
+
+            <div class="docs-prevnext"><a href="http://www.react-cn.com/docs/shallow-compare.html" class="prev">← 上一条 </a><a class="next" href="http://www.react-cn.com/docs/context.html">下一条 →</a></div>
+		</div>
+    </div>
+    <div class="docnav">
+    <div class="nav-docs-section">
+      <h3>快速入门</h3>
+      <ul>
+          <li>
+            <a href="http://www.react-cn.com/docs/getting-started.html" >快速开始</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/tutorial.html" >教程</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/thinking-in-react.html" >React编程思想</a>
+          </li>
+      </ul>
+    </div>
+    <div class="nav-docs-section">
+      <h3>导航</h3>
+      <ul>
+          <li>
+            <a href="http://www.react-cn.com/docs/why-react.html" >为什么使用React?</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/displaying-data.html" >显示数据</a>
+            <ul>
+                  <li>
+                    <a href="http://www.react-cn.com/docs/jsx-in-depth.html" >深入 JSX</a>
+                  </li>
+                
+                  <li>
+                    <a href="http://www.react-cn.com/docs/jsx-spread.html" >JSX 展开属性</a>
+                  </li>
+                
+                  <li>
+                    <a href="http://www.react-cn.com/docs/jsx-gotchas.html" >JSX 陷阱</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/interactivity-and-dynamic-uis.html" >动态交互式用户界面</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/reusable-components.html" >可复用组件</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/transferring-props.html" >传递 Props</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/forms.html" >表单组件</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/working-with-the-browser.html" >与浏览器协作</a>
+              <ul>
+                <li>
+                  <a href="http://www.react-cn.com/docs/more-about-refs.html" >对组件的refs</a>
+                </li>
+              </ul>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/tooling-integration.html" >工具集成</a>
+            
+              <ul>
+                
+                  <li>
+                    <a href="http://www.react-cn.com/docs/language-tooling.html" >语言工具</a>
+                  </li>
+                
+                  <li>
+                    <a href="http://www.react-cn.com/docs/package-management.html" >包管理</a>
+                  </li>
+                
+                  <li>
+                    <a href="http://www.react-cn.com/docs/environments.html" >服务端环境</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a target="_blank" href="http://www.react-cn.com/addons/index.html" >插件</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/advanced-performance.html" class="active">先进的性能</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/context.html" >Context</a>
+          </li>
+      </ul>
+    </div>
+    <div class="nav-docs-section">
+      <h3>社区资源</h3>
+      <ul>
+          <li>
+            <a href="http://www.react-cn.com/docs/conferences.html" >会议</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/videos.html" >视频</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/complementary-tools.html" >辅助工具</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/examples.html" >react例子</a>
+          </li>
+      </ul>
+    </div>
+</div>
+</div>
+<footer>
+<p>友情链接：<a href="https://facebook.github.io/react/" target="_blank">react</a> <a href="http://www.lovewebgames.com/" target="_blank">javascript JY</a> <a href="http://www.lovewebgames.com/jsmodule/index.html" target="_blank">js组件</a><a href="https://tianxiangbing.github.io/react-cn/">react中文文档</a></p>
+<p>© 2016-2017 <a href="https://tianxiangbing.github.io/react-cn/">react-cn.com</a> 版权所有 ICP证：浙ICP备09082150号-3</p>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+    // setTimeout(function(){
+    //     if(localStorage.getItem('isopen')!=1){
+    //         localStorage.setItem('isopen',1)
+    //         window.open('http://www.lovewebgames.com/');
+    //     }
+    // },1000)
+})();
+</script>
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"5","bdPos":"right","bdTop":"91.5"},"image":{"viewList":["qzone","tsina","tqq","weixin","tieba","sqq"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","weixin","tieba","sqq"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+</footer>
+</body>
+</html>

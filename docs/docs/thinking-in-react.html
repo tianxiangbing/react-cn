@@ -7,24 +7,24 @@
 	<meta name="renderer" content="webkit|ie-comp|ie-stand">
 	<meta name="keywords" content="react的思路" />
 	<meta name="description" content="使用react的编程思想" />
-	<link rel="stylesheet" href="http://www.react-cn.com/css/css.css">
-	<link rel="shortcut icon" href="http://www.react-cn.com/favicon.ico">
+	<link rel="stylesheet" href="https://tianxiangbing.github.io/react-cn/css/css.css">
+	<link rel="shortcut icon" href="https://tianxiangbing.github.io/react-cn/favicon.ico">
 </head>
 <body>
 <header>
-	<h1><a class="logo" href="http://www.react-cn.com/"><img class="nav-logo" src="http://www.react-cn.com//logo.svg" width="36" height="36">React中国</a></h1>
+	<h1><a class="logo" href="https://tianxiangbing.github.io/react-cn/"><img class="nav-logo" src="https://tianxiangbing.github.io/react-cn//logo.svg" width="36" height="36">React中国</a></h1>
 	<nav class="menu">
-		<a href="http://www.react-cn.com/index.html" >首页</a>
-		<a href="http://www.react-cn.com/downloads.html" >下载</a>
-		<a href="http://www.react-cn.com/docs/getting-started.html" class="active">中文文档</a>
-		<a href="http://www.react-cn.com/addons/index.html" >react 工具</a>
+		<a href="https://tianxiangbing.github.io/react-cn/index.html" >首页</a>
+		<a href="https://tianxiangbing.github.io/react-cn/downloads.html" >下载</a>
+		<a href="https://tianxiangbing.github.io/react-cn/docs/getting-started.html" class="active">中文文档</a>
+		<a href="https://tianxiangbing.github.io/react-cn/addons/index.html" >react 工具</a>
 		<a href="https://github.com/React-Plugin">react 插件</a>
-		<a href="http://www.react-cn.com/docs/examples.html" >例子</a>
+		<a href="https://tianxiangbing.github.io/react-cn/docs/examples.html" >例子</a>
 	</nav>
 	<div class="submenu">
-		<a target="_blank" href="http://www.react-cn.com//shang.qq.com/wpa/qunwpa?idkey=db86a206a1e04f114217ccffd92ee11f5faca14d283a71d97817937ee3cf9d00"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="reactjs、reactnative技术群" title="reactjs、reactnative技术群"></a>
-		<a href="http://www.react-cn.com/about.html">关于我们</a>
-		<a href="http://www.react-cn.com/reactnative/index.html">React Native中文资料</a>
+		<a target="_blank" href="https://tianxiangbing.github.io/react-cn//shang.qq.com/wpa/qunwpa?idkey=db86a206a1e04f114217ccffd92ee11f5faca14d283a71d97817937ee3cf9d00"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="reactjs、reactnative技术群" title="reactjs、reactnative技术群"></a>
+		<a href="https://tianxiangbing.github.io/react-cn/about.html">关于我们</a>
+		<a href="https://tianxiangbing.github.io/react-cn/reactnative/index.html">React Native中文资料</a>
 	</div>
 </header>
 
@@ -36,7 +36,7 @@
 <p>在我看来，React 是构建大型，快速 Web app 的首选方式。它已经在 Facebook 和 Instagram 被我们有了广泛的应用。</p>
 <p>React 许多优秀的部分之一，是它使得你在构建 app 的过程中不断思考。在本文里，我将带你经历一次使用 React 构建可搜索的商品数据表的思考过程。</p>
 <h2><a name="-mock-" class="anchor" href="#-mock-"></a>从模型（mock）开始<a  class="hash-link" href="#-mock-">#</a></h2><p>想象我们已经有个一个 JSON API 和一个来自设计师的模型。我们的设计师显然做得不够好，因为模型看起来像这样：</p>
-<p><img src="http://www.react-cn.com/img/blog/thinking-in-react-mock.png" alt="Mockup"></p>
+<p><img src="https://tianxiangbing.github.io/react-cn/img/blog/thinking-in-react-mock.png" alt="Mockup"></p>
 <p>我们的 JSON API 返回一些看起来像这样的数据：</p>
 <pre><code>[
   {<span class="hljs-string">category:</span> <span class="hljs-string">"Sporting Goods"</span>, <span class="hljs-string">price:</span> <span class="hljs-string">"$49.99"</span>, <span class="hljs-string">stocked:</span> <span class="hljs-literal">true</span>, <span class="hljs-string">name:</span> <span class="hljs-string">"Football"</span>},
@@ -49,7 +49,7 @@
 </code></pre><h2><a name="-ui-" class="anchor" href="#-ui-"></a>第一步：把UI拆分为一个组件的层级<a  class="hash-link" href="#-ui-">#</a></h2><p>首先你想要做的，是在模型里的每一个组件周围绘制边框，并给它们命名。如果你和设计师一起工作，他们应该已经完成这步了，所以去和他们谈谈！他们的 Photoshop 图层名也许最终会成为你的 React 组件名。</p>
 <p>但是你如何知道什么东西应该是独立的组件？只需在你创建一个函数或者对象时，根据是否使用过相同技术来做决定。一种这样的技术是<a href="https://en.wikipedia.org/wiki/Single_responsibility_principle">单一功能原则（single responsibility principle）</a>，也就是一个组件在理想情况下只做一件事情。如果它最终增长了，它就应该被分解为更小的组件。</p>
 <p>既然你频繁显示一个 JSON 的数据模型给用户，你会发现，如果你的模型构建正确，你的 UI（因此也有你的组件结构）就将映射良好。那是因为 UI 和数据模型趋向附着于相同的 <em>信息架构</em>，这意味着，把你的 UI 分离为组件的工作通常是琐碎的，只需把 UI 拆分成能准确对应数据模型的每块组件。</p>
-<p><img src="http://www.react-cn.com/img/blog/thinking-in-react-components.png" alt="Component diagram"></p>
+<p><img src="https://tianxiangbing.github.io/react-cn/img/blog/thinking-in-react-components.png" alt="Component diagram"></p>
 <p>在这里你会看到，在我们的简单 APP 里有五个组件。我用斜体表示每个组件的数据。</p>
 <ol>
 <li><strong><code>FilterableProductTable</code> (橙色):</strong> 包含示例的整体</li>
@@ -128,7 +128,7 @@
 <p>虽然这听起来复杂，但是实际上只是数行代码。并且这明确显示出了数据在应用中从始至终是如何流动的。</p>
 <h2><a name="-" class="anchor" href="#-"></a>好了，就是这样<a  class="hash-link" href="#-">#</a></h2><p>希望这给了你一个怎样思考用React构建组件和应用的概念。虽然可能比你过往的习惯要多敲一点代码，但记住，读代码的时间远比写代码的时间多，并且阅读这种模块化的、显式的代码是极为容易的。当你开始构建大型组件库时，你会非常感激这种清晰性和模块化，并且随着代码的重用，你的代码行数将会开始缩减。:)</p>
 
-            <div class="docs-prevnext"><a href="http://www.react-cn.com/docs/tutorial.html" class="prev">← 上一条 </a><a class="next" href="http://www.react-cn.com/docs/conferences.html">下一条 →</a></div>
+            <div class="docs-prevnext"><a href="https://tianxiangbing.github.io/react-cn/docs/tutorial.html" class="prev">← 上一条 </a><a class="next" href="https://tianxiangbing.github.io/react-cn/docs/conferences.html">下一条 →</a></div>
 		</div>
     </div>
     <div class="docnav">
@@ -136,13 +136,13 @@
       <h3>快速入门</h3>
       <ul>
           <li>
-            <a href="http://www.react-cn.com/docs/getting-started.html" >快速开始</a>
+            <a href="https://tianxiangbing.github.io/react-cn/docs/getting-started.html" >快速开始</a>
           </li>
           <li>
-            <a href="http://www.react-cn.com/docs/tutorial.html" >教程</a>
+            <a href="https://tianxiangbing.github.io/react-cn/docs/tutorial.html" >教程</a>
           </li>
           <li>
-            <a href="http://www.react-cn.com/docs/thinking-in-react.html" class="active">React编程思想</a>
+            <a href="https://tianxiangbing.github.io/react-cn/docs/thinking-in-react.html" class="active">React编程思想</a>
           </li>
       </ul>
     </div>
@@ -150,70 +150,70 @@
       <h3>导航</h3>
       <ul>
           <li>
-            <a href="http://www.react-cn.com/docs/why-react.html" >为什么使用React?</a>
+            <a href="https://tianxiangbing.github.io/react-cn/docs/why-react.html" >为什么使用React?</a>
           </li>
           <li>
-            <a href="http://www.react-cn.com/docs/displaying-data.html" >显示数据</a>
+            <a href="https://tianxiangbing.github.io/react-cn/docs/displaying-data.html" >显示数据</a>
             <ul>
                   <li>
-                    <a href="http://www.react-cn.com/docs/jsx-in-depth.html" >深入 JSX</a>
+                    <a href="https://tianxiangbing.github.io/react-cn/docs/jsx-in-depth.html" >深入 JSX</a>
                   </li>
                 
                   <li>
-                    <a href="http://www.react-cn.com/docs/jsx-spread.html" >JSX 展开属性</a>
+                    <a href="https://tianxiangbing.github.io/react-cn/docs/jsx-spread.html" >JSX 展开属性</a>
                   </li>
                 
                   <li>
-                    <a href="http://www.react-cn.com/docs/jsx-gotchas.html" >JSX 陷阱</a>
+                    <a href="https://tianxiangbing.github.io/react-cn/docs/jsx-gotchas.html" >JSX 陷阱</a>
                   </li>
               </ul>
           </li>
           <li>
-            <a href="http://www.react-cn.com/docs/interactivity-and-dynamic-uis.html" >动态交互式用户界面</a>
+            <a href="https://tianxiangbing.github.io/react-cn/docs/interactivity-and-dynamic-uis.html" >动态交互式用户界面</a>
           </li>
           <li>
-            <a href="http://www.react-cn.com/docs/reusable-components.html" >可复用组件</a>
+            <a href="https://tianxiangbing.github.io/react-cn/docs/reusable-components.html" >可复用组件</a>
           </li>
           <li>
-            <a href="http://www.react-cn.com/docs/transferring-props.html" >传递 Props</a>
+            <a href="https://tianxiangbing.github.io/react-cn/docs/transferring-props.html" >传递 Props</a>
           </li>
           <li>
-            <a href="http://www.react-cn.com/docs/forms.html" >表单组件</a>
+            <a href="https://tianxiangbing.github.io/react-cn/docs/forms.html" >表单组件</a>
           </li>
           <li>
-            <a href="http://www.react-cn.com/docs/working-with-the-browser.html" >与浏览器协作</a>
+            <a href="https://tianxiangbing.github.io/react-cn/docs/working-with-the-browser.html" >与浏览器协作</a>
               <ul>
                 <li>
-                  <a href="http://www.react-cn.com/docs/more-about-refs.html" >对组件的refs</a>
+                  <a href="https://tianxiangbing.github.io/react-cn/docs/more-about-refs.html" >对组件的refs</a>
                 </li>
               </ul>
           </li>
           <li>
-            <a href="http://www.react-cn.com/docs/tooling-integration.html" >工具集成</a>
+            <a href="https://tianxiangbing.github.io/react-cn/docs/tooling-integration.html" >工具集成</a>
             
               <ul>
                 
                   <li>
-                    <a href="http://www.react-cn.com/docs/language-tooling.html" >语言工具</a>
+                    <a href="https://tianxiangbing.github.io/react-cn/docs/language-tooling.html" >语言工具</a>
                   </li>
                 
                   <li>
-                    <a href="http://www.react-cn.com/docs/package-management.html" >包管理</a>
+                    <a href="https://tianxiangbing.github.io/react-cn/docs/package-management.html" >包管理</a>
                   </li>
                 
                   <li>
-                    <a href="http://www.react-cn.com/docs/environments.html" >服务端环境</a>
+                    <a href="https://tianxiangbing.github.io/react-cn/docs/environments.html" >服务端环境</a>
                   </li>
               </ul>
           </li>
           <li>
-            <a target="_blank" href="http://www.react-cn.com/addons/index.html" >插件</a>
+            <a target="_blank" href="https://tianxiangbing.github.io/react-cn/addons/index.html" >插件</a>
           </li>
           <li>
-            <a href="http://www.react-cn.com/docs/advanced-performance.html" >先进的性能</a>
+            <a href="https://tianxiangbing.github.io/react-cn/docs/advanced-performance.html" >先进的性能</a>
           </li>
           <li>
-            <a href="http://www.react-cn.com/docs/context.html" >Context</a>
+            <a href="https://tianxiangbing.github.io/react-cn/docs/context.html" >Context</a>
           </li>
       </ul>
     </div>
@@ -221,16 +221,16 @@
       <h3>社区资源</h3>
       <ul>
           <li>
-            <a href="http://www.react-cn.com/docs/conferences.html" >会议</a>
+            <a href="https://tianxiangbing.github.io/react-cn/docs/conferences.html" >会议</a>
           </li>
           <li>
-            <a href="http://www.react-cn.com/docs/videos.html" >视频</a>
+            <a href="https://tianxiangbing.github.io/react-cn/docs/videos.html" >视频</a>
           </li>
           <li>
-            <a href="http://www.react-cn.com/docs/complementary-tools.html" >辅助工具</a>
+            <a href="https://tianxiangbing.github.io/react-cn/docs/complementary-tools.html" >辅助工具</a>
           </li>
           <li>
-            <a href="http://www.react-cn.com/docs/examples.html" >react例子</a>
+            <a href="https://tianxiangbing.github.io/react-cn/docs/examples.html" >react例子</a>
           </li>
       </ul>
     </div>

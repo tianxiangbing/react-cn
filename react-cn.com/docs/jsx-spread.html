@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<title>jsx展开属性-React中国</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+	<meta name="keywords" content="jsx,props,属性,数据" />
+	<meta name="description" content="jsx展开属性" />
+	<link rel="stylesheet" href="http://www.react-cn.com/css/css.css">
+	<link rel="shortcut icon" href="http://www.react-cn.com/favicon.ico">
+</head>
+<body>
+<header>
+	<h1><a class="logo" href="http://www.react-cn.com/"><img class="nav-logo" src="http://www.react-cn.com//logo.svg" width="36" height="36">React中国</a></h1>
+	<nav class="menu">
+		<a href="http://www.react-cn.com/index.html" >首页</a>
+		<a href="http://www.react-cn.com/downloads.html" >下载</a>
+		<a href="http://www.react-cn.com/docs/getting-started.html" class="active">中文文档</a>
+		<a href="http://www.react-cn.com/addons/index.html" >react 工具</a>
+		<a href="https://github.com/React-Plugin">react 插件</a>
+		<a href="http://www.react-cn.com/docs/examples.html" >例子</a>
+	</nav>
+	<div class="submenu">
+		<a target="_blank" href="http://www.react-cn.com//shang.qq.com/wpa/qunwpa?idkey=db86a206a1e04f114217ccffd92ee11f5faca14d283a71d97817937ee3cf9d00"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="reactjs、reactnative技术群" title="reactjs、reactnative技术群"></a>
+		<a href="http://www.react-cn.com/about.html">关于我们</a>
+		<a href="http://www.react-cn.com/reactnative/index.html">React Native中文资料</a>
+	</div>
+</header>
+<div class="container documentationContent">
+	<div class="rightContainer">
+		<div class="inner">
+			<a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/docs/md/jsx-spread.md" target="_blank">在github上编辑这篇文章</a>
+			<h1><a name="jsx-" class="anchor" href="#jsx-"></a>JSX 展开属性<a  class="hash-link" href="#jsx-">#</a></h1><p>如果你事先知道组件需要的全部 Props（属性），JSX 很容易地这样写：</p>
+<pre><code class="lang-javascript">  var component = <span class="hljs-tag">&lt;<span class="hljs-title">Component</span> <span class="hljs-attribute">foo</span>=<span class="hljs-value">{x}</span> <span class="hljs-attribute">bar</span>=<span class="hljs-value">{y}</span> /&gt;</span>;
+</code></pre>
+<h2><a name="-props-" class="anchor" href="#-props-"></a>修改 Props 是不好的，明白吗<a  class="hash-link" href="#-props-">#</a></h2><p>如果你不知道要设置哪些 Props，那么现在最好不要设置它：</p>
+<pre><code class="lang-javascript">  <span class="hljs-variable"><span class="hljs-keyword">var</span> component</span> = <span class="hljs-type">&lt;Component /&gt;</span>;
+  component.props.foo = x; <span class="hljs-comment">// 不好</span>
+  component.props.bar = y; <span class="hljs-comment">// 同样不好</span>
+</code></pre>
+<p>这样是反模式，因为 React 不能帮你检查属性类型（propTypes）。这样即使你的 属性类型有错误也不能得到清晰的错误提示。</p>
+<p>Props 应该被认为是不可变的。在别处修改 props 对象可能会导致预料之外的结果，所以原则上这将是一个冻结的对象。</p>
+<h2><a name="-spread-attributes-" class="anchor" href="#-spread-attributes-"></a>展开属性（Spread Attributes）<a  class="hash-link" href="#-spread-attributes-">#</a></h2><p>现在你可以使用 JSX 的新特性 - 展开属性：</p>
+<pre><code class="lang-javascript">  var props = {}<span class="hljs-comment">;</span>
+  props.foo = x<span class="hljs-comment">;</span>
+  props.bar = y<span class="hljs-comment">;</span>
+  var component = &lt;Component {...props} /&gt;<span class="hljs-comment">;</span>
+</code></pre>
+<p>传入对象的属性会被复制到组件内。</p>
+<p>它能被多次使用，也可以和其它属性一起用。注意顺序很重要，后面的会覆盖掉前面的。</p>
+<pre><code class="lang-javascript">  <span class="hljs-built_in">var</span> props = { foo: <span class="hljs-string">'default'</span> };
+  <span class="hljs-built_in">var</span> component = &lt;Component {<span class="hljs-attribute">...</span>props} foo={<span class="hljs-string">'override'</span>} /&gt;;
+  console<span class="hljs-built_in">.</span><span class="hljs-keyword">log</span>(component<span class="hljs-built_in">.</span>props<span class="hljs-built_in">.</span>foo); <span class="hljs-comment">// 'override'</span>
+</code></pre>
+<h2><a name="-code-code-" class="anchor" href="#-code-code-"></a>这个奇怪的 <code>...</code> 标记是什么？<a  class="hash-link" href="#-code-code-">#</a></h2><p>这个 <code>...</code> 操作符（增强的操作符）已经被 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator">ES6 数组</a> 支持。相关的还有 ECMAScript 规范草案中的 <a href="https://github.com/sebmarkbage/ecmascript-rest-spread">Object 剩余和展开属性（Rest and Spread Properties）</a>。我们利用了这些还在制定中标准中已经被支持的特性来使 JSX 拥有更优雅的语法。</p>
+
+            <div class="docs-prevnext"><a href="http://www.react-cn.com/docs/jsx-in-depth.html" class="prev">← 上一条 </a><a class="next" href="http://www.react-cn.com/docs/jsx-gotchas.html">下一条 →</a></div>
+		</div> 
+	</div>
+    <div class="docnav">
+    <div class="nav-docs-section">
+      <h3>快速入门</h3>
+      <ul>
+          <li>
+            <a href="http://www.react-cn.com/docs/getting-started.html" >快速开始</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/tutorial.html" >教程</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/thinking-in-react.html" >React编程思想</a>
+          </li>
+      </ul>
+    </div>
+    <div class="nav-docs-section">
+      <h3>导航</h3>
+      <ul>
+          <li>
+            <a href="http://www.react-cn.com/docs/why-react.html" >为什么使用React?</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/displaying-data.html" >显示数据</a>
+            <ul>
+                  <li>
+                    <a href="http://www.react-cn.com/docs/jsx-in-depth.html" >深入 JSX</a>
+                  </li>
+                
+                  <li>
+                    <a href="http://www.react-cn.com/docs/jsx-spread.html" class="active">JSX 展开属性</a>
+                  </li>
+                
+                  <li>
+                    <a href="http://www.react-cn.com/docs/jsx-gotchas.html" >JSX 陷阱</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/interactivity-and-dynamic-uis.html" >动态交互式用户界面</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/reusable-components.html" >可复用组件</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/transferring-props.html" >传递 Props</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/forms.html" >表单组件</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/working-with-the-browser.html" >与浏览器协作</a>
+              <ul>
+                <li>
+                  <a href="http://www.react-cn.com/docs/more-about-refs.html" >对组件的refs</a>
+                </li>
+              </ul>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/tooling-integration.html" >工具集成</a>
+            
+              <ul>
+                
+                  <li>
+                    <a href="http://www.react-cn.com/docs/language-tooling.html" >语言工具</a>
+                  </li>
+                
+                  <li>
+                    <a href="http://www.react-cn.com/docs/package-management.html" >包管理</a>
+                  </li>
+                
+                  <li>
+                    <a href="http://www.react-cn.com/docs/environments.html" >服务端环境</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a target="_blank" href="http://www.react-cn.com/addons/index.html" >插件</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/advanced-performance.html" >先进的性能</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/context.html" >Context</a>
+          </li>
+      </ul>
+    </div>
+    <div class="nav-docs-section">
+      <h3>社区资源</h3>
+      <ul>
+          <li>
+            <a href="http://www.react-cn.com/docs/conferences.html" >会议</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/videos.html" >视频</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/complementary-tools.html" >辅助工具</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/examples.html" >react例子</a>
+          </li>
+      </ul>
+    </div>
+</div>
+</div>
+<footer>
+<p>友情链接：<a href="https://facebook.github.io/react/" target="_blank">react</a> <a href="http://www.lovewebgames.com/" target="_blank">javascript JY</a> <a href="http://www.lovewebgames.com/jsmodule/index.html" target="_blank">js组件</a><a href="https://tianxiangbing.github.io/react-cn/">react中文文档</a></p>
+<p>© 2016-2017 <a href="https://tianxiangbing.github.io/react-cn/">react-cn.com</a> 版权所有 ICP证：浙ICP备09082150号-3</p>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+    // setTimeout(function(){
+    //     if(localStorage.getItem('isopen')!=1){
+    //         localStorage.setItem('isopen',1)
+    //         window.open('http://www.lovewebgames.com/');
+    //     }
+    // },1000)
+})();
+</script>
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"5","bdPos":"right","bdTop":"91.5"},"image":{"viewList":["qzone","tsina","tqq","weixin","tieba","sqq"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","weixin","tieba","sqq"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+</footer>
+</body>
+</html>

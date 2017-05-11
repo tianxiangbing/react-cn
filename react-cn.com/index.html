@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<title>React中国-Reactjs中文教程-React中文资料-react中文文档-react中文api</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+	<meta name="keywords" content="React,React Native" />
+	<meta name="description" content="React中文教程,React Native,Reactjs下载,jsx语法" />
+	<link rel="stylesheet" href="http://www.react-cn.com/css/css.css">
+	<link rel="shortcut icon" href="http://www.react-cn.com/favicon.ico">
+</head>
+<body>
+<header>
+	<h1><a class="logo" href="http://www.react-cn.com/"><img class="nav-logo" src="http://www.react-cn.com//logo.svg" width="36" height="36">React中国</a></h1>
+	<nav class="menu">
+		<a href="http://www.react-cn.com/index.html" class="active">首页</a>
+		<a href="http://www.react-cn.com/downloads.html" >下载</a>
+		<a href="http://www.react-cn.com/docs/getting-started.html" >中文文档</a>
+		<a href="http://www.react-cn.com/addons/index.html" >react 工具</a>
+		<a href="https://github.com/React-Plugin">react 插件</a>
+		<a href="http://www.react-cn.com/docs/examples.html" >例子</a>
+	</nav>
+	<div class="submenu">
+		<a target="_blank" href="http://www.react-cn.com//shang.qq.com/wpa/qunwpa?idkey=db86a206a1e04f114217ccffd92ee11f5faca14d283a71d97817937ee3cf9d00"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="reactjs、reactnative技术群" title="reactjs、reactnative技术群"></a>
+		<a href="http://www.react-cn.com/about.html">关于我们</a>
+		<a href="http://www.react-cn.com/reactnative/index.html">React Native中文资料</a>
+	</div>
+</header> 
+	    <div class="hero">
+	        <h2>React</h2>
+	        <div class="desc">
+	          用于构建用户界面的Javascript库
+	        </div>
+	        <div class="buttons-unit">
+	          <a href="http://www.react-cn.com/docs/getting-started.html" class="button">快速入门</a>
+	          <a href="http://www.react-cn.com/downloads.html" class="button">下载 React v15.5.4</a>
+	        </div>
+	    </div>
+	<div class="container">
+		<section class="marketing">
+			<div class="marketing-row">
+				<div class="marketing-col">
+					<h3>状态机</h3>
+					<p>React适合非常轻松的创建交互界面. 设计一个简单的状态机在你的应用程序里,当数据发生改变时,可以有效及正确的更新和呈现你的组件.</p>
+				</div>
+				<div class="marketing-col">
+					<h3>基于组件的</h3>
+					<p>构建封装你的组件，管理好你的状态state,使其变成一个多个组件组成的复杂交互界面。</p>
+					<p>因为是使用的jsx语法，js和html是在一起的.可以更好的控制状态来更新DOM。</p>
+				</div>
+				<div class="marketing-col">
+					<h3>学习一次，到处使用</h3>
+					<p>这里我想说的是，学会了react的原理，就可以做很多以前不能做的事了，比如游戏，它本身也是个状态机，又比如使用React Native开发app应用。</p>
+				</div>
+			</div>
+		</section>
+		<section class="demo">
+			<h3>Reactjs示例TODO</h3>
+			<div class="desc">
+				<p>使用Reactjs的state可以很轻松的实现mvvm模式，而且入口更单一可控性更强。</p>
+				<p>再使用Reactjs的约束性组件，可以很好的限制用户的任何输入。基本上原来很复杂的验证都可以在onChange里完成，通过虚拟DOM来更新页面，基本上无障碍的反应在ui界面上.</p>
+				<a href="https://github.com/tianxiangbing/react-todo" target="_blank">在github上查看源码 → </a>
+				<pre><code>export <span class="hljs-keyword">default</span> class App extends Component{
+  constructor(props){
+    super(props);
+    this.<span class="hljs-keyword">state</span>={list:[{title:<span class="hljs-string">"点我进入编辑模式"</span>}],title:''};
+  }
+  addHandle(e){
+    let list = this.<span class="hljs-keyword">state</span>.list;
+    list = list.concat([{title:this.<span class="hljs-keyword">state</span>.title}]);
+    this.<span class="hljs-built_in">set</span>State({list:list,title:''});
+  }
+  changeHandle(e){
+    this.<span class="hljs-built_in">set</span>State({title:e.target.value});
+  }
+  delHandle(index){
+    console.<span class="hljs-keyword">log</span>(index)
+    let list = this.<span class="hljs-keyword">state</span>.list;
+    list.splice(index,<span class="hljs-number">1</span>);
+    this.<span class="hljs-built_in">set</span>State();
+  }
+  changeItem(item,e){
+    item.title = e.target.value;
+    this.<span class="hljs-built_in">set</span>State();
+  }
+  blurHandle(item){
+    item.edit = !item.edit;
+    this.<span class="hljs-built_in">set</span>State();
+  }
+  <span class="hljs-keyword">to</span>Edit(item){
+    item.edit=!item.edit;
+    console.<span class="hljs-keyword">log</span>(this.refs.txtedit)
+    this.<span class="hljs-built_in">set</span>State();
+  }
+  render(){
+    return (
+      <span class="hljs-variable">&lt;div&gt;</span>
+        <span class="hljs-variable">&lt;div&gt;</span><span class="hljs-variable">&lt;input type="text" value={this.state.title} onKeyDown={(e)=&gt;</span>{e.keyCode==<span class="hljs-number">13</span>?this.addHandle(e):undefined}} placeholder=<span class="hljs-string">"请输入标题"</span> <span class="hljs-keyword">on</span>Change={this.changeHandle.bind(this)}/&gt;<span class="hljs-variable">&lt;button onClick={this.addHandle.bind(this)}&gt;</span>添加<span class="hljs-variable">&lt;/button&gt;</span><span class="hljs-variable">&lt;/div&gt;</span>
+        <span class="hljs-variable">&lt;div className="preview"&gt;</span>{this.<span class="hljs-keyword">state</span>.title}<span class="hljs-variable">&lt;/div&gt;</span>
+        <span class="hljs-variable">&lt;div className="list"&gt;</span>
+          {
+            this.<span class="hljs-keyword">state</span>.list.map((item,index)=&gt;{
+              return (
+                  <span class="hljs-variable">&lt;a key={index}&gt;</span>
+                    {item.edit?<span class="hljs-variable">&lt;input type="text" onKeyDown={(e)=&gt;</span>{e.keyCode==<span class="hljs-number">13</span>?this.<span class="hljs-keyword">to</span>Edit(item):undefined}} <span class="hljs-keyword">on</span>Blur={this.blurHandle.bind(this,item)} <span class="hljs-keyword">on</span>Change={this.changeItem.bind(this,item)} value={item.title}/&gt;:<span class="hljs-variable">&lt;span onClick={this.toEdit.bind(this,item)}&gt;</span>{item.title}<span class="hljs-variable">&lt;/span&gt;</span>}
+                    <span class="hljs-variable">&lt;button onClick={this.delHandle.bind(this,index)}&gt;</span>删除<span class="hljs-variable">&lt;/button&gt;</span>
+                  <span class="hljs-variable">&lt;/a&gt;</span>
+                )
+            })
+          }
+        <span class="hljs-variable">&lt;/div&gt;</span>
+      <span class="hljs-variable">&lt;/div&gt;</span>
+    );
+  }
+}
+</code></pre>
+			</div>
+			<div class="dm" id="todo"></div>
+		</section>
+    </div>
+    <script type="text/javascript" src="js/base.js"></script>
+    <script type="text/javascript" src="js/44ee5c3b.app.js"></script>
+<footer>
+<p>友情链接：<a href="https://facebook.github.io/react/" target="_blank">react</a> <a href="http://www.lovewebgames.com/" target="_blank">javascript JY</a> <a href="http://www.lovewebgames.com/jsmodule/index.html" target="_blank">js组件</a><a href="https://tianxiangbing.github.io/react-cn/">react中文文档</a></p>
+<p>© 2016-2017 <a href="https://tianxiangbing.github.io/react-cn/">react-cn.com</a> 版权所有 ICP证：浙ICP备09082150号-3</p>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+    // setTimeout(function(){
+    //     if(localStorage.getItem('isopen')!=1){
+    //         localStorage.setItem('isopen',1)
+    //         window.open('http://www.lovewebgames.com/');
+    //     }
+    // },1000)
+})();
+</script>
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"5","bdPos":"right","bdTop":"91.5"},"image":{"viewList":["qzone","tsina","tqq","weixin","tieba","sqq"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","weixin","tieba","sqq"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+</footer>
+</body>
+</html>

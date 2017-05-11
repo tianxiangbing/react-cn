@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<title>双向绑定辅助-React中国</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+	<meta name="keywords" content="react,binding" />
+	<meta name="description" content="动画" />
+	<link rel="stylesheet" href="http://www.react-cn.com/css/css.css">
+	<link rel="shortcut icon" href="http://www.react-cn.com/favicon.ico">
+</head>
+<body>
+<header>
+	<h1><a class="logo" href="http://www.react-cn.com/"><img class="nav-logo" src="http://www.react-cn.com//logo.svg" width="36" height="36">React中国</a></h1>
+	<nav class="menu">
+		<a href="http://www.react-cn.com/index.html" >首页</a>
+		<a href="http://www.react-cn.com/downloads.html" >下载</a>
+		<a href="http://www.react-cn.com/docs/getting-started.html" >中文文档</a>
+		<a href="http://www.react-cn.com/addons/index.html" class="active">react 工具</a>
+		<a href="https://github.com/React-Plugin">react 插件</a>
+		<a href="http://www.react-cn.com/docs/examples.html" >例子</a>
+	</nav>
+	<div class="submenu">
+		<a target="_blank" href="http://www.react-cn.com//shang.qq.com/wpa/qunwpa?idkey=db86a206a1e04f114217ccffd92ee11f5faca14d283a71d97817937ee3cf9d00"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="reactjs、reactnative技术群" title="reactjs、reactnative技术群"></a>
+		<a href="http://www.react-cn.com/about.html">关于我们</a>
+		<a href="http://www.react-cn.com/reactnative/index.html">React Native中文资料</a>
+	</div>
+</header>
+<div class="container documentationContent">
+	<div class="rightContainer">
+		<div class="inner">
+			<a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/addons/md/two-way-binding-helpers.md" target="_blank">在github上编辑这篇文章</a>
+			<h1><a name="-" class="anchor" href="#-"></a>双向绑定辅助<a  class="hash-link" href="#-">#</a></h1><p><code>ReactLink</code> 是一个用React表达双向绑定的简单方法。</p>
+<blockquote>
+<p>注意：</p>
+<p>在 React v15 中 ReactLink 被弃用了。推荐明确的设置值和变动的处理，而不是使用 ReactLink。</p>
+</blockquote>
+<p>在React里，数据单向流动： 从拥有者到子级。这是因为数据只单向流动<a href="https://en.wikipedia.org/wiki/Von_Neumann_architecture">the Von Neumann model of computing</a>。你可以把它想象为 “单向数据绑定”。</p>
+<p>然而，有很多应用需要你去读某些数据并回流他们到你的程序。例如，当开发forms，你会常常想更新一些React <code>state</code> 当你收到用户输入的时候。或者也许你想在JavaScript完成布局并相应一些DOM元素大小的变化。</p>
+<p>在React里，你可以用监听 &quot;change&quot; 事件来实现它，从你的数据源（通常是DOM）读取并在你的某个组件调用 <code>setState()</code> 。明确的&quot;Closing the data flow loop&quot; 致使了更容易理解和维护的程序。更多信息见<a href="/docs/forms.html">our forms documentation</a>.</p>
+<p>双向绑定 -- 隐含的强迫DOM里的某些值总是和某些React <code>state</code> 同步 -- 简洁并支持大量多样的应用。 我们提供了 <code>ReactLink</code>：设置如上描述的通用数据回流模式的语法糖，或者 &quot;linking&quot; 某些数据结构到 React <code>state</code>.</p>
+<blockquote>
+<p>注意:</p>
+<p><code>ReactLink</code> 只是一层对 <code>onChange</code>/<code>setState()</code> 模式的薄包装。它没有根本性的改变你的React应用里数据如何流动。</p>
+</blockquote>
+<h2><a name="reactlink-" class="anchor" href="#reactlink-"></a>ReactLink: 之前和之后<a  class="hash-link" href="#reactlink-">#</a></h2><p>这里有一个简单的 不用 <code>ReactLink</code> 的 form 例子：</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> NoLink = React.createClass({
+  getInitialState: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">return</span> {message: <span class="hljs-string">'Hello!'</span>};
+  },
+  handleChange: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(event)</span> </span>{
+    <span class="hljs-keyword">this</span>.setState({message: event.target.value});
+  },
+  render: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">var</span> message = <span class="hljs-keyword">this</span>.state.message;
+    <span class="hljs-keyword">return</span> &lt;input type=<span class="hljs-string">"text"</span> value={message} onChange={<span class="hljs-keyword">this</span>.handleChange} /&gt;;
+  }
+});
+</code></pre>
+<p>这个工作的很好并且数据如何流动很清晰，然而，当有大量的 form fields时，可能会有些冗长。让我们使用  <code>ReactLink</code> 来节省我们的输入：</p>
+<pre><code class="lang-javascript{4,9}"><span class="hljs-keyword">var</span> LinkedStateMixin = require(<span class="hljs-string">'react-addons-linked-state-mixin'</span>);
+
+<span class="hljs-keyword">var</span> WithLink = React.createClass({
+  mixins: [LinkedStateMixin],
+  getInitialState: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">return</span> {message: <span class="hljs-string">'Hello!'</span>};
+  },
+  render: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">return</span> &lt;input type=<span class="hljs-string">"text"</span> valueLink={<span class="hljs-keyword">this</span>.linkState(<span class="hljs-string">'message'</span>)} /&gt;;
+  }
+});
+</code></pre>
+<p><code>LinkedStateMixin</code> 添加了一个 <code>linkState()</code> 方法到你的React组件。<code>linkState()</code> 返回一个 <code>ReactLink</code> 包含当前React state值的对象和一个改变它的回调函数。</p>
+<p><code>ReactLink</code> 对象可以作为props在树中上下传递，所以很容易（显示的）在深层次的组件和高层次的state之间 设置双向绑定。</p>
+<p>注意 checkboxes 有一个关于他们 <code>value</code> 属性的特殊行为，这个行为是 如果checkbox被选中 值会在表单提交时被发送。 <code>value</code> 不会 checkbox 选中或是不选中时更新。对于checkboxes，你应该用<code>checkedLink</code> 代替 <code>valueLink</code>:</p>
+<pre><code>&lt;input <span class="hljs-class"><span class="hljs-keyword">type</span>=</span><span class="hljs-string">"checkbox"</span> checkedLink={<span class="hljs-keyword">this</span>.linkState(<span class="hljs-symbol">'booleanValu</span>e')} /&gt;
+</code></pre><h2><a name="-" class="anchor" href="#-"></a>引擎盖下<a  class="hash-link" href="#-">#</a></h2><p>这里对 <code>ReactLink</code>有两方面：创建<code>ReactLink</code>的实例以及使用它的地方。为了证明<code>ReactLink</code>有多简单，让我们重写两方面一边更好的理解。</p>
+<h3><a name="reactlink-without-linkedstatemixin" class="anchor" href="#reactlink-without-linkedstatemixin"></a>ReactLink Without LinkedStateMixin<a  class="hash-link" href="#reactlink-without-linkedstatemixin">#</a></h3><pre><code class="lang-javascript{5-7,9-12}"><span class="hljs-keyword">var</span> WithoutMixin = React.createClass({
+  getInitialState: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">return</span> {message: <span class="hljs-string">'Hello!'</span>};
+  },
+  handleChange: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(newValue)</span> </span>{
+    <span class="hljs-keyword">this</span>.setState({message: newValue});
+  },
+  render: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">var</span> valueLink = {
+      value: <span class="hljs-keyword">this</span>.state.message,
+      requestChange: <span class="hljs-keyword">this</span>.handleChange
+    };
+    <span class="hljs-keyword">return</span> &lt;input type=<span class="hljs-string">"text"</span> valueLink={valueLink} /&gt;;
+  }
+});
+</code></pre>
+<p>正如你所见，<code>ReactLink</code>对象是非常简单,只有<code>value</code>和<code>requestChange</code>属性.并且<code>LinkStateMixin</code>也很简单:它只是作用(populates)于<code>this.state</code>的元素值并且回调名为<code>this.setState()</code>的函数.</p>
+<h3><a name="reactlink-without-valuelink" class="anchor" href="#reactlink-without-valuelink"></a>ReactLink Without valueLink<a  class="hash-link" href="#reactlink-without-valuelink">#</a></h3><pre><code class="lang-javascript"><span class="hljs-keyword">var</span> LinkedStateMixin = require(<span class="hljs-string">'react-addons-linked-state-mixin'</span>);
+
+<span class="hljs-keyword">var</span> WithoutLink = React.createClass({
+  mixins: [LinkedStateMixin],
+  getInitialState: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">return</span> {message: <span class="hljs-string">'Hello!'</span>};
+  },
+  render: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">var</span> valueLink = <span class="hljs-keyword">this</span>.linkState(<span class="hljs-string">'message'</span>);
+    <span class="hljs-keyword">var</span> handleChange = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(e)</span> </span>{
+      valueLink.requestChange(e.target.value);
+    };
+    <span class="hljs-keyword">return</span> &lt;input type=<span class="hljs-string">"text"</span> value={valueLink.value} onChange={handleChange} /&gt;;
+  }
+});
+</code></pre>
+<p>对于<code>valueLink</code>的属性同样也很简单,它只是简单的处理<code>onChange</code>事件,调用<code>this.props.valueLink.requestChange()</code>的时候也使用<code>this.props.valueLink.requestChange()</code>代替<code>this.props.value</code>.这就是双向绑定!</p>
+
+            <div class="docs-prevnext"><a href="animation.html" class="prev">← 上一条 </a><a class="next" href="test-utils.html">下一条 →</a></div>
+		</div> 
+	</div>
+    <div class="docnav">
+    <div class="nav-docs-section">
+      <h3>react插件</h3>
+      <ul>
+            <li>
+            <a href="http://www.react-cn.com/addons/animation.html" >动画</a>
+            </li>
+            <li>
+            <a href="http://www.react-cn.com/addons/two-way-binding-helpers.html" class="active">双向绑定辅助</a>
+            </li>
+            <li>
+            <a href="http://www.react-cn.com/addons/test-utils.html" >测试工具</a>
+            </li>
+            <li>
+            <a href="http://www.react-cn.com/addons/clone-with-props.html" >克隆 ReactElements</a>
+            </li>
+        
+            <li>
+            <a href="http://www.react-cn.com/addons/create-fragment.html" >Keyed Fragments</a>
+            </li>
+            <li>
+            <a href="http://www.react-cn.com/addons/update.html" >immutability 助手</a>
+            </li>
+            <li>
+            <a href="http://www.react-cn.com/addons/pure-render-mixin.html" >PureRenderMixin</a>
+            </li>
+            <li>
+            <a href="http://www.react-cn.com/addons/perf.html" >性能工具</a>
+            </li>
+            <li>
+            <a href="http://www.react-cn.com/addons/shallow-compare.html" >浅比较</a>
+            </li>
+      </ul>
+    </div>
+</div>
+</div>
+<footer>
+<p>友情链接：<a href="https://facebook.github.io/react/" target="_blank">react</a> <a href="http://www.lovewebgames.com/" target="_blank">javascript JY</a> <a href="http://www.lovewebgames.com/jsmodule/index.html" target="_blank">js组件</a><a href="https://tianxiangbing.github.io/react-cn/">react中文文档</a></p>
+<p>© 2016-2017 <a href="https://tianxiangbing.github.io/react-cn/">react-cn.com</a> 版权所有 ICP证：浙ICP备09082150号-3</p>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+    // setTimeout(function(){
+    //     if(localStorage.getItem('isopen')!=1){
+    //         localStorage.setItem('isopen',1)
+    //         window.open('http://www.lovewebgames.com/');
+    //     }
+    // },1000)
+})();
+</script>
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"5","bdPos":"right","bdTop":"91.5"},"image":{"viewList":["qzone","tsina","tqq","weixin","tieba","sqq"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","weixin","tieba","sqq"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+</footer>
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<title>会议-React中国</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+	<meta name="keywords" content="reactjs快速入门教程" />
+	<meta name="description" content="reactjs社区资源" />
+	<link rel="stylesheet" href="http://www.react-cn.com/css/css.css">
+	<link rel="shortcut icon" href="http://www.react-cn.com/favicon.ico">
+</head>
+<body>
+<header>
+	<h1><a class="logo" href="http://www.react-cn.com/"><img class="nav-logo" src="http://www.react-cn.com//logo.svg" width="36" height="36">React中国</a></h1>
+	<nav class="menu">
+		<a href="http://www.react-cn.com/index.html" >首页</a>
+		<a href="http://www.react-cn.com/downloads.html" >下载</a>
+		<a href="http://www.react-cn.com/docs/getting-started.html" class="active">中文文档</a>
+		<a href="http://www.react-cn.com/addons/index.html" >react 工具</a>
+		<a href="https://github.com/React-Plugin">react 插件</a>
+		<a href="http://www.react-cn.com/docs/examples.html" >例子</a>
+	</nav>
+	<div class="submenu">
+		<a target="_blank" href="http://www.react-cn.com//shang.qq.com/wpa/qunwpa?idkey=db86a206a1e04f114217ccffd92ee11f5faca14d283a71d97817937ee3cf9d00"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="reactjs、reactnative技术群" title="reactjs、reactnative技术群"></a>
+		<a href="http://www.react-cn.com/about.html">关于我们</a>
+		<a href="http://www.react-cn.com/reactnative/index.html">React Native中文资料</a>
+	</div>
+</header>
+<div class="container documentationContent">
+	<div class="rightContainer">
+		<div class="inner">
+			<a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/docs/md/environments.md" target="_blank">在github上编辑这篇文章</a>
+			<h1><a name="-" class="anchor" href="#-"></a>服务端环境<a  class="hash-link" href="#-">#</a></h1><p>One of the great things about React is that it doesn&#39;t require the DOM as a dependency, which means it is possible to render a React application on the server and send the HTML markup down to the client. There are a few things that React expects, so this guide will help you get started in your preferred environment.</p>
+<h2><a name="node-js" class="anchor" href="#node-js"></a>Node.js<a  class="hash-link" href="#node-js">#</a></h2><p><a href="http://nodejs.org/">Node.js</a> is a popular JavaScript runtime that comes with an extensive core library and support for installing packages from npm to expand on the basic functionality. As we&#39;ve described elsewhere in the documentation, you can install <code>react</code> and <code>react-dom</code> from npm.</p>
+<p>Example:</p>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> React = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react'</span>);
+<span class="hljs-keyword">var</span> ReactDOMServer = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react-dom/server'</span>);
+
+<span class="hljs-keyword">var</span> element = React.createElement(<span class="hljs-string">'div'</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">'Hello World!'</span>);
+<span class="hljs-built_in">console</span>.log(ReactDOMServer.renderToString(element));
+</code></pre>
+<p>If you use JSX, you may want to pre-compile your components. Alternatively you may want to consider using <a href="https://babeljs.io/docs/usage/require/">Babel&#39;s require hook</a> or <a href="https://babeljs.io/docs/usage/cli/#babel-node"><code>babel-node</code></a>.</p>
+<blockquote>
+<p>Note:</p>
+<p>Some versions of Node.js have an <code>Object.assign</code> implementation that does not preserve key order. This can cause errors when validating the markup, creating a warning that says &quot;React attempted to reuse markup in a container but the checksum was invalid&quot;. If you run into this issue, you can override <code>Object.assign</code> to use a polyfill that preserves key order. For more details, see <a href="https://github.com/facebook/react/issues/6451">Issue #6451</a>.</p>
+</blockquote>
+<h1><a name="c-" class="anchor" href="#c-"></a>C#<a  class="hash-link" href="#c-">#</a></h1><p>Support for server-side component rendering and JSX compilation (via Babel) in a .NET Framework / ASP.NET environment is provided through our <a href="http://reactjs.net/">ReactJS.NET</a> project.</p>
+<h2><a name="nashorn" class="anchor" href="#nashorn"></a>Nashorn<a  class="hash-link" href="#nashorn">#</a></h2><p>Nashorn is a lightweight high-performance JavaScript runtime that runs within the JVM. React should run out of the box in Java 8+.</p>
+<p>Example:</p>
+<pre><code class="lang-java"><span class="hljs-preprocessor"><span class="hljs-keyword">import</span> java.io.IOException;</span>
+<span class="hljs-preprocessor"><span class="hljs-keyword">import</span> java.io.InputStream;</span>
+<span class="hljs-preprocessor"><span class="hljs-keyword">import</span> java.io.FileReader;</span>
+
+<span class="hljs-preprocessor"><span class="hljs-keyword">import</span> javax.script.ScriptEngine;</span>
+<span class="hljs-preprocessor"><span class="hljs-keyword">import</span> javax.script.ScriptEngineManager;</span>
+<span class="hljs-preprocessor"><span class="hljs-keyword">import</span> javax.script.ScriptException;</span>
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ReactRender</span>
+</span>{
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> main(String[] args) throws ScriptException, IOException {
+    ScriptEngine nashorn = <span class="hljs-keyword">new</span> ScriptEngineManager().getEngineByName(<span class="hljs-string">"nashorn"</span>);
+
+    <span class="hljs-comment">// These files can be downloaded as a part of the starter kit</span>
+    <span class="hljs-comment">// from https://facebook.github.io/react</span>
+    nashorn.eval(<span class="hljs-keyword">new</span> FileReader(<span class="hljs-string">"path/to/react.js"</span>));
+    nashorn.eval(<span class="hljs-keyword">new</span> FileReader(<span class="hljs-string">"path/to/react-dom-server.js"</span>));
+
+    System.out.println(nashorn.eval(
+      <span class="hljs-string">"ReactDOMServer.renderToString("</span> +
+        <span class="hljs-string">"React.createElement('div', null, 'Hello World!')"</span> +
+      <span class="hljs-string">");"</span>
+    ));
+  }
+}
+</code></pre>
+<p>If your application uses npm packages, or you want to transform JSX in Nashorn, you will need to do some additional environment setup. The following resources may be helpful in getting you started:</p>
+<ul>
+<li><a href="http://winterbe.com/posts/2015/02/16/isomorphic-react-webapps-on-the-jvm/">http://winterbe.com/posts/2015/02/16/isomorphic-react-webapps-on-the-jvm/</a></li>
+<li><a href="https://github.com/nodyn/jvm-npm">https://github.com/nodyn/jvm-npm</a></li>
+<li><a href="https://gist.github.com/aesteve/883e0fd33390451cb8eb">https://gist.github.com/aesteve/883e0fd33390451cb8eb</a></li>
+</ul>
+<blockquote>
+<p>Note:</p>
+<p>Using Babel within Nashorn will require Java 8u72+, as update 72 fixed <a href="https://bugs.openjdk.java.net/browse/JDK-8135190">JDK-8135190</a>.</p>
+</blockquote>
+
+            <div class="docs-prevnext"><a href="http://www.react-cn.com/docs/package-management.html" class="prev">← 上一条 </a><a class="next" href="http://www.react-cn.com/docs/addons.html">下一条 →</a></div>
+		</div>
+	</div>
+    <div class="docnav">
+    <div class="nav-docs-section">
+      <h3>快速入门</h3>
+      <ul>
+          <li>
+            <a href="http://www.react-cn.com/docs/getting-started.html" >快速开始</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/tutorial.html" >教程</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/thinking-in-react.html" >React编程思想</a>
+          </li>
+      </ul>
+    </div>
+    <div class="nav-docs-section">
+      <h3>导航</h3>
+      <ul>
+          <li>
+            <a href="http://www.react-cn.com/docs/why-react.html" >为什么使用React?</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/displaying-data.html" >显示数据</a>
+            <ul>
+                  <li>
+                    <a href="http://www.react-cn.com/docs/jsx-in-depth.html" >深入 JSX</a>
+                  </li>
+                
+                  <li>
+                    <a href="http://www.react-cn.com/docs/jsx-spread.html" >JSX 展开属性</a>
+                  </li>
+                
+                  <li>
+                    <a href="http://www.react-cn.com/docs/jsx-gotchas.html" >JSX 陷阱</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/interactivity-and-dynamic-uis.html" >动态交互式用户界面</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/reusable-components.html" >可复用组件</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/transferring-props.html" >传递 Props</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/forms.html" >表单组件</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/working-with-the-browser.html" >与浏览器协作</a>
+              <ul>
+                <li>
+                  <a href="http://www.react-cn.com/docs/more-about-refs.html" >对组件的refs</a>
+                </li>
+              </ul>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/tooling-integration.html" >工具集成</a>
+            
+              <ul>
+                
+                  <li>
+                    <a href="http://www.react-cn.com/docs/language-tooling.html" >语言工具</a>
+                  </li>
+                
+                  <li>
+                    <a href="http://www.react-cn.com/docs/package-management.html" >包管理</a>
+                  </li>
+                
+                  <li>
+                    <a href="http://www.react-cn.com/docs/environments.html" class="active">服务端环境</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a target="_blank" href="http://www.react-cn.com/addons/index.html" >插件</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/advanced-performance.html" >先进的性能</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/context.html" >Context</a>
+          </li>
+      </ul>
+    </div>
+    <div class="nav-docs-section">
+      <h3>社区资源</h3>
+      <ul>
+          <li>
+            <a href="http://www.react-cn.com/docs/conferences.html" >会议</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/videos.html" >视频</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/complementary-tools.html" >辅助工具</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/examples.html" >react例子</a>
+          </li>
+      </ul>
+    </div>
+</div>
+</div>
+<footer>
+<p>友情链接：<a href="https://facebook.github.io/react/" target="_blank">react</a> <a href="http://www.lovewebgames.com/" target="_blank">javascript JY</a> <a href="http://www.lovewebgames.com/jsmodule/index.html" target="_blank">js组件</a><a href="https://tianxiangbing.github.io/react-cn/">react中文文档</a></p>
+<p>© 2016-2017 <a href="https://tianxiangbing.github.io/react-cn/">react-cn.com</a> 版权所有 ICP证：浙ICP备09082150号-3</p>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+    // setTimeout(function(){
+    //     if(localStorage.getItem('isopen')!=1){
+    //         localStorage.setItem('isopen',1)
+    //         window.open('http://www.lovewebgames.com/');
+    //     }
+    // },1000)
+})();
+</script>
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"5","bdPos":"right","bdTop":"91.5"},"image":{"viewList":["qzone","tsina","tqq","weixin","tieba","sqq"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","weixin","tieba","sqq"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+</footer>
+</body>
+</html>

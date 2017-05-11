@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<title>与浏览器协作-React中国</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+	<meta name="keywords" content="与浏览器协作" />
+	<meta name="description" content="与浏览器协作" />
+	<link rel="stylesheet" href="http://www.react-cn.com/css/css.css">
+	<link rel="shortcut icon" href="http://www.react-cn.com/favicon.ico">
+</head>
+<body>
+<header>
+	<h1><a class="logo" href="http://www.react-cn.com/"><img class="nav-logo" src="http://www.react-cn.com//logo.svg" width="36" height="36">React中国</a></h1>
+	<nav class="menu">
+		<a href="http://www.react-cn.com/index.html" >首页</a>
+		<a href="http://www.react-cn.com/downloads.html" >下载</a>
+		<a href="http://www.react-cn.com/docs/getting-started.html" class="active">中文文档</a>
+		<a href="http://www.react-cn.com/addons/index.html" >react 工具</a>
+		<a href="https://github.com/React-Plugin">react 插件</a>
+		<a href="http://www.react-cn.com/docs/examples.html" >例子</a>
+	</nav>
+	<div class="submenu">
+		<a target="_blank" href="http://www.react-cn.com//shang.qq.com/wpa/qunwpa?idkey=db86a206a1e04f114217ccffd92ee11f5faca14d283a71d97817937ee3cf9d00"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="reactjs、reactnative技术群" title="reactjs、reactnative技术群"></a>
+		<a href="http://www.react-cn.com/about.html">关于我们</a>
+		<a href="http://www.react-cn.com/reactnative/index.html">React Native中文资料</a>
+	</div>
+</header>
+<div class="container documentationContent">
+	<div class="rightContainer">
+		<div class="inner">
+			<a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/docs/md/working-with-the-browser.md" target="_blank">在github上编辑这篇文章</a>
+			<h1><a name="-" class="anchor" href="#-"></a>与浏览器协作<a  class="hash-link" href="#-">#</a></h1><p>React提供了强大的抽象机制使你在大多数情况下免于直接接触DOM，但有时你仅仅只需要访问底层API，也许是为了与第三方库或者已有的代码协作。</p>
+<h2><a name="-dom" class="anchor" href="#-dom"></a>虚拟 DOM<a  class="hash-link" href="#-dom">#</a></h2><p>React非常快速是因为它从不直接操作DOM。React维持了一个快速的内存中的DOM表示。<code>render()</code> 方法实际上返回一个对DOM的<em>描述</em>，然后React能将其与内存中的“描述”进行比较，以计算出最快速的方式更新浏览器。</p>
+<p>此外，React实现了一个完备的合成事件（synthetic event）系统，以使得所有的事件对象都被保证符合W3C细则，而不论各个浏览器的怪癖，并且所有事件跨浏览器地一致并高效的冒泡（bubbles），你甚至能在IE8里使用一些HTML5事件！</p>
+<p>大多数时间你应该和React的&quot;伪造浏览器&quot;呆在一起，因为它更高性能并且容易推理。然而，有时你只需要访问底层API，或许是为了与第三方库比如一个jQuery插件协作。React为你提供了安全舱口来直接使用底层API。</p>
+<h2><a name="refs-finddomnode-" class="anchor" href="#refs-finddomnode-"></a>Refs 和 findDOMNode()<a  class="hash-link" href="#refs-finddomnode-">#</a></h2><p>为了与浏览器互动，你需要一个指向DOM node的引用。你可以连接一个 <code>ref</code> 到任何的元素，这允许你引用组件的 <strong>backing instance</strong>  。如果你需要在组件上调用命令式函数，或者想访问底层的DOM节点，它很有用。要了解更多关于 refs，包括更有效使用他们的方法，请查看我们的 <a href="/react/docs/more-about-refs-zh-CN.html">关于Refs的更多内容</a> 文档。</p>
+<h2><a name="-" class="anchor" href="#-"></a>组件的生命周期<a  class="hash-link" href="#-">#</a></h2><p>组件的生命周期有三个主要部分：</p>
+<ul>
+<li><strong>挂载:</strong> 组件被注入DOM。</li>
+<li><strong>更新:</strong> 组件被重新渲染来决定DOM是否应被更新。</li>
+<li><strong>卸载:</strong> 组件从DOM中被移除。</li>
+</ul>
+<p>React提供生命周期方法，以便你可以指定钩挂到这个过程上。我们提供了 <strong>will</strong> 方法，该方法在某事发生前被调用，<strong>did</strong>方法，在某事发生后被调用。</p>
+<h3><a name="-" class="anchor" href="#-"></a>挂载<a  class="hash-link" href="#-">#</a></h3><ul>
+<li><code>getInitialState(): object</code> 在组件挂载前被调用。有状态组件(Stateful components) 应该实现此函数并返回初始state的数据。</li>
+<li><code>componentWillMount()</code> 在挂载发生前被立即调用。</li>
+<li><code>componentDidMount()</code> 在挂载发生后被立即调用。 需要DOM node的初始化应该放在这里。</li>
+</ul>
+<h3><a name="-" class="anchor" href="#-"></a>更新<a  class="hash-link" href="#-">#</a></h3><ul>
+<li><code>componentWillReceiveProps(object nextProps)</code> 当挂载的组件接收到新的props时被调用。此方法应该被用于比较<code>this.props</code> 和 <code>nextProps</code>以用于使用<code>this.setState()</code>执行状态转换。</li>
+<li><code>shouldComponentUpdate(object nextProps, object nextState): boolean</code> 当组件决定任何改变是否要更新到DOM时被调用。作为一个优化实现比较<code>this.props</code> 和 <code>nextProps</code> 、<code>this.state</code> 和 <code>nextState</code> ，如果React应该跳过更新，返回<code>false</code>。</li>
+<li><code>componentWillUpdate(object nextProps, object nextState)</code> 在更新发生前被立即调用。你不能在此调用<code>this.setState()</code>。</li>
+<li><code>componentDidUpdate(object prevProps, object prevState)</code> 在更新发生后被立即调用。</li>
+</ul>
+<h3><a name="-" class="anchor" href="#-"></a>卸载<a  class="hash-link" href="#-">#</a></h3><ul>
+<li><code>componentWillUnmount()</code> 在组件被卸载和摧毁前被立即调用。清理应该放在这里。</li>
+</ul>
+<h3><a name="-" class="anchor" href="#-"></a>已挂载的方法<a  class="hash-link" href="#-">#</a></h3><p><em>Mounted</em> 复合组件同样支持以下方法:</p>
+<ul>
+<li><code>component.forceUpdate()</code> 可以在任何已挂载的组件上调用，在你知道某些深处的组件状态在未使用 <code>this.setState()</code> 就被改变了时。</li>
+</ul>
+<h2><a name="-" class="anchor" href="#-"></a>浏览器支持<a  class="hash-link" href="#-">#</a></h2><p>React 支持绝大多数流行的浏览器，包括 Internet Explorer 9 及以上。</p>
+<p>（我们不支持那些不支持 ES5 methods 的更老的浏览器，但你可能发现如果你的页面包含了类似 <a href="https://github.com/es-shims/es5-shim">es5-shim and es5-sham</a> 的填充物时是可以在更老的浏览器上运行的。是否做这一步取决于你自己。）</p>
+
+            <div class="docs-prevnext"><a href="http://www.react-cn.com/docs/forms.html" class="prev">← 上一条 </a><a class="next" href="http://www.react-cn.com/docs/more-about-refs.html">下一条 →</a></div>
+		</div>
+	</div>
+    <div class="docnav">
+    <div class="nav-docs-section">
+      <h3>快速入门</h3>
+      <ul>
+          <li>
+            <a href="http://www.react-cn.com/docs/getting-started.html" >快速开始</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/tutorial.html" >教程</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/thinking-in-react.html" >React编程思想</a>
+          </li>
+      </ul>
+    </div>
+    <div class="nav-docs-section">
+      <h3>导航</h3>
+      <ul>
+          <li>
+            <a href="http://www.react-cn.com/docs/why-react.html" >为什么使用React?</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/displaying-data.html" >显示数据</a>
+            <ul>
+                  <li>
+                    <a href="http://www.react-cn.com/docs/jsx-in-depth.html" >深入 JSX</a>
+                  </li>
+                
+                  <li>
+                    <a href="http://www.react-cn.com/docs/jsx-spread.html" >JSX 展开属性</a>
+                  </li>
+                
+                  <li>
+                    <a href="http://www.react-cn.com/docs/jsx-gotchas.html" >JSX 陷阱</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/interactivity-and-dynamic-uis.html" >动态交互式用户界面</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/reusable-components.html" >可复用组件</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/transferring-props.html" >传递 Props</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/forms.html" >表单组件</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/working-with-the-browser.html" class="active">与浏览器协作</a>
+              <ul>
+                <li>
+                  <a href="http://www.react-cn.com/docs/more-about-refs.html" >对组件的refs</a>
+                </li>
+              </ul>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/tooling-integration.html" >工具集成</a>
+            
+              <ul>
+                
+                  <li>
+                    <a href="http://www.react-cn.com/docs/language-tooling.html" >语言工具</a>
+                  </li>
+                
+                  <li>
+                    <a href="http://www.react-cn.com/docs/package-management.html" >包管理</a>
+                  </li>
+                
+                  <li>
+                    <a href="http://www.react-cn.com/docs/environments.html" >服务端环境</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a target="_blank" href="http://www.react-cn.com/addons/index.html" >插件</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/advanced-performance.html" >先进的性能</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/context.html" >Context</a>
+          </li>
+      </ul>
+    </div>
+    <div class="nav-docs-section">
+      <h3>社区资源</h3>
+      <ul>
+          <li>
+            <a href="http://www.react-cn.com/docs/conferences.html" >会议</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/videos.html" >视频</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/complementary-tools.html" >辅助工具</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/examples.html" >react例子</a>
+          </li>
+      </ul>
+    </div>
+</div>
+</div>
+<footer>
+<p>友情链接：<a href="https://facebook.github.io/react/" target="_blank">react</a> <a href="http://www.lovewebgames.com/" target="_blank">javascript JY</a> <a href="http://www.lovewebgames.com/jsmodule/index.html" target="_blank">js组件</a><a href="https://tianxiangbing.github.io/react-cn/">react中文文档</a></p>
+<p>© 2016-2017 <a href="https://tianxiangbing.github.io/react-cn/">react-cn.com</a> 版权所有 ICP证：浙ICP备09082150号-3</p>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+    // setTimeout(function(){
+    //     if(localStorage.getItem('isopen')!=1){
+    //         localStorage.setItem('isopen',1)
+    //         window.open('http://www.lovewebgames.com/');
+    //     }
+    // },1000)
+})();
+</script>
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"5","bdPos":"right","bdTop":"91.5"},"image":{"viewList":["qzone","tsina","tqq","weixin","tieba","sqq"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","weixin","tieba","sqq"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+</footer>
+</body>
+</html>

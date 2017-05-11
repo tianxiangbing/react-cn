@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<title>JSX 陷阱-React中国</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+	<meta name="keywords" content="jsx,bug,陷阱" />
+	<meta name="description" content="JSX 陷阱" />
+	<link rel="stylesheet" href="http://www.react-cn.com/css/css.css">
+	<link rel="shortcut icon" href="http://www.react-cn.com/favicon.ico">
+</head>
+<body>
+<header>
+	<h1><a class="logo" href="http://www.react-cn.com/"><img class="nav-logo" src="http://www.react-cn.com//logo.svg" width="36" height="36">React中国</a></h1>
+	<nav class="menu">
+		<a href="http://www.react-cn.com/index.html" >首页</a>
+		<a href="http://www.react-cn.com/downloads.html" >下载</a>
+		<a href="http://www.react-cn.com/docs/getting-started.html" class="active">中文文档</a>
+		<a href="http://www.react-cn.com/addons/index.html" >react 工具</a>
+		<a href="https://github.com/React-Plugin">react 插件</a>
+		<a href="http://www.react-cn.com/docs/examples.html" >例子</a>
+	</nav>
+	<div class="submenu">
+		<a target="_blank" href="http://www.react-cn.com//shang.qq.com/wpa/qunwpa?idkey=db86a206a1e04f114217ccffd92ee11f5faca14d283a71d97817937ee3cf9d00"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="reactjs、reactnative技术群" title="reactjs、reactnative技术群"></a>
+		<a href="http://www.react-cn.com/about.html">关于我们</a>
+		<a href="http://www.react-cn.com/reactnative/index.html">React Native中文资料</a>
+	</div>
+</header>
+<div class="container documentationContent">
+	<div class="rightContainer">
+		<div class="inner">
+			<a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/docs/md/jsx-gotchas.md" target="_blank">在github上编辑这篇文章</a>
+			<h1><a name="jsx-" class="anchor" href="#jsx-"></a>JSX 陷阱<a  class="hash-link" href="#jsx-">#</a></h1><p>JSX 与 HTML 非常相似，但是有些关键区别要注意。</p>
+<blockquote>
+<p>注意:</p>
+<p>关于 DOM 的区别，如行内样式属性 <code>style</code>，参考 <a href="/docs/dom-differences.html">DOM 区别</a></p>
+</blockquote>
+<h2><a name="html-" class="anchor" href="#html-"></a>HTML 实体<a  class="hash-link" href="#html-">#</a></h2><p>HTML 实体可以插入到 JSX 的文本中。</p>
+<pre><code class="lang-javascript">&lt;<span class="hljs-keyword">div</span>&gt;First &amp;middot; Second&lt;/<span class="hljs-keyword">div</span>&gt;
+</code></pre>
+<p>如果想在 JSX 表达式中显示 HTML 实体，可以会遇到二次转义的问题，因为 React 默认会转义所有字符串，为了防止各种 XSS 攻击。</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// 错误: 会显示 “First &amp;middot; Second”</span>
+&lt;<span class="hljs-keyword">div</span>&gt;{<span class="hljs-string">'First &amp;middot; Second'</span>}&lt;/<span class="hljs-keyword">div</span>&gt;
+</code></pre>
+<p>有多种绕过的方法。最简单的是直接用 Unicode 字符。这时要确保文件是 UTF-8 编码且网页也指定为 UTF-8 编码。</p>
+<pre><code class="lang-javascript">&lt;<span class="hljs-keyword">div</span>&gt;{<span class="hljs-string">'First · Second'</span>}&lt;/<span class="hljs-keyword">div</span>&gt;
+</code></pre>
+<p>安全的做法是先找到 <a href="http://www.fileformat.info/info/unicode/char/b7/index.htm">实体的 Unicode 编号</a> ，然后在 JavaScript 字符串里使用。</p>
+<pre><code class="lang-javascript">&lt;<span class="hljs-keyword">div</span>&gt;{<span class="hljs-string">'First \u00b7 Second'</span>}&lt;/<span class="hljs-keyword">div</span>&gt;
+&lt;<span class="hljs-keyword">div</span>&gt;{<span class="hljs-string">'First '</span> + String.fromCharCode(<span class="hljs-number">183</span>) + <span class="hljs-string">' Second'</span>}&lt;/<span class="hljs-keyword">div</span>&gt;
+</code></pre>
+<p>可以在数组里混合使用字符串和 JSX 元素。</p>
+<pre><code class="lang-javascript"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>{['First ', <span class="hljs-tag">&lt;<span class="hljs-title">span</span>&gt;</span>&amp;middot;<span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>, ' Second']}<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+</code></pre>
+<p>万不得已，可以直接<a href="/react/tips/dangerously-set-inner-html.html">插入原始HTML</a>。</p>
+<pre><code class="lang-javascript">&lt;div dangerouslySetInnerHTML={{<span class="hljs-string">'{{'</span>}}__html: <span class="hljs-string">'First &amp;middot; Second'</span>}} /&gt;
+</code></pre>
+<h2><a name="-html-" class="anchor" href="#-html-"></a>自定义 HTML 属性<a  class="hash-link" href="#-html-">#</a></h2><p>如果往原生 HTML 元素里传入 HTML 规范里不存在的属性，React 不会显示它们。如果需要使用自定义属性，要加 <code>data-</code> 前缀。</p>
+<pre><code class="lang-javascript">&lt;<span class="hljs-tag">div</span> data-custom-attribute=<span class="hljs-string">"foo"</span> /&gt;
+</code></pre>
+<p>然而，在自定义元素中任意的属性都是被支持的 （那些在tag名里带有连接符或者 <code>is=&quot;...&quot;</code> 属性的）</p>
+<pre><code class="lang-javascript">&lt;x-my-<span class="hljs-keyword">component</span> custom-<span class="hljs-keyword">attribute</span>=<span class="hljs-string">"foo"</span> /&gt;
+</code></pre>
+<p>以 <code>aria-</code> 开头的 <a href="http://www.w3.org/WAI/intro/aria">网络无障碍</a> 属性可以正常使用。</p>
+<pre><code class="lang-javascript">&lt;<span class="hljs-keyword">div</span> aria-hidden={<span class="hljs-constant">true</span>} /&gt;
+</code></pre>
+
+            <div class="docs-prevnext"><a href="http://www.react-cn.com/docs/jsx-spread.html" class="prev">← 上一条 </a><a class="next" href="http://www.react-cn.com/docs/interactivity-and-dynamic-uis.html">下一条 →</a></div>
+		</div>
+	</div>
+    <div class="docnav">
+    <div class="nav-docs-section">
+      <h3>快速入门</h3>
+      <ul>
+          <li>
+            <a href="http://www.react-cn.com/docs/getting-started.html" >快速开始</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/tutorial.html" >教程</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/thinking-in-react.html" >React编程思想</a>
+          </li>
+      </ul>
+    </div>
+    <div class="nav-docs-section">
+      <h3>导航</h3>
+      <ul>
+          <li>
+            <a href="http://www.react-cn.com/docs/why-react.html" >为什么使用React?</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/displaying-data.html" >显示数据</a>
+            <ul>
+                  <li>
+                    <a href="http://www.react-cn.com/docs/jsx-in-depth.html" >深入 JSX</a>
+                  </li>
+                
+                  <li>
+                    <a href="http://www.react-cn.com/docs/jsx-spread.html" >JSX 展开属性</a>
+                  </li>
+                
+                  <li>
+                    <a href="http://www.react-cn.com/docs/jsx-gotchas.html" class="active">JSX 陷阱</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/interactivity-and-dynamic-uis.html" >动态交互式用户界面</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/reusable-components.html" >可复用组件</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/transferring-props.html" >传递 Props</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/forms.html" >表单组件</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/working-with-the-browser.html" >与浏览器协作</a>
+              <ul>
+                <li>
+                  <a href="http://www.react-cn.com/docs/more-about-refs.html" >对组件的refs</a>
+                </li>
+              </ul>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/tooling-integration.html" >工具集成</a>
+            
+              <ul>
+                
+                  <li>
+                    <a href="http://www.react-cn.com/docs/language-tooling.html" >语言工具</a>
+                  </li>
+                
+                  <li>
+                    <a href="http://www.react-cn.com/docs/package-management.html" >包管理</a>
+                  </li>
+                
+                  <li>
+                    <a href="http://www.react-cn.com/docs/environments.html" >服务端环境</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a target="_blank" href="http://www.react-cn.com/addons/index.html" >插件</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/advanced-performance.html" >先进的性能</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/context.html" >Context</a>
+          </li>
+      </ul>
+    </div>
+    <div class="nav-docs-section">
+      <h3>社区资源</h3>
+      <ul>
+          <li>
+            <a href="http://www.react-cn.com/docs/conferences.html" >会议</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/videos.html" >视频</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/complementary-tools.html" >辅助工具</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/examples.html" >react例子</a>
+          </li>
+      </ul>
+    </div>
+</div>
+</div>
+<footer>
+<p>友情链接：<a href="https://facebook.github.io/react/" target="_blank">react</a> <a href="http://www.lovewebgames.com/" target="_blank">javascript JY</a> <a href="http://www.lovewebgames.com/jsmodule/index.html" target="_blank">js组件</a><a href="https://tianxiangbing.github.io/react-cn/">react中文文档</a></p>
+<p>© 2016-2017 <a href="https://tianxiangbing.github.io/react-cn/">react-cn.com</a> 版权所有 ICP证：浙ICP备09082150号-3</p>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+    // setTimeout(function(){
+    //     if(localStorage.getItem('isopen')!=1){
+    //         localStorage.setItem('isopen',1)
+    //         window.open('http://www.lovewebgames.com/');
+    //     }
+    // },1000)
+})();
+</script>
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"5","bdPos":"right","bdTop":"91.5"},"image":{"viewList":["qzone","tsina","tqq","weixin","tieba","sqq"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","weixin","tieba","sqq"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+</footer>
+</body>
+</html>

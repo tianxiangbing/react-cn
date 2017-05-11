@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<title>JSX 陷阱-React中国</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+	<meta name="keywords" content="jsx,bug,陷阱" />
+	<meta name="description" content="JSX 陷阱" />
+	<link rel="stylesheet" href="http://www.react-cn.com/css/css.css">
+	<link rel="shortcut icon" href="http://www.react-cn.com/favicon.ico">
+</head>
+<body>
+<header>
+	<h1><a class="logo" href="http://www.react-cn.com/"><img class="nav-logo" src="http://www.react-cn.com//logo.svg" width="36" height="36">React中国</a></h1>
+	<nav class="menu">
+		<a href="http://www.react-cn.com/index.html" >首页</a>
+		<a href="http://www.react-cn.com/downloads.html" >下载</a>
+		<a href="http://www.react-cn.com/docs/getting-started.html" class="active">中文文档</a>
+		<a href="http://www.react-cn.com/addons/index.html" >react 工具</a>
+		<a href="https://github.com/React-Plugin">react 插件</a>
+		<a href="http://www.react-cn.com/docs/examples.html" >例子</a>
+	</nav>
+	<div class="submenu">
+		<a target="_blank" href="http://www.react-cn.com//shang.qq.com/wpa/qunwpa?idkey=db86a206a1e04f114217ccffd92ee11f5faca14d283a71d97817937ee3cf9d00"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="reactjs、reactnative技术群" title="reactjs、reactnative技术群"></a>
+		<a href="http://www.react-cn.com/about.html">关于我们</a>
+		<a href="http://www.react-cn.com/reactnative/index.html">React Native中文资料</a>
+	</div>
+</header>
+<div class="container documentationContent">
+	<div class="rightContainer">
+		<div class="inner">
+			<a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/docs/md/interactivity-and-dynamic-uis.md" target="_blank">在github上编辑这篇文章</a>
+			<h1><a name="-" class="anchor" href="#-"></a>动态交互式用户界面<a  class="hash-link" href="#-">#</a></h1><p>我们已经学习如何使用 React <a href="/docs/displaying-data-zh-CN.html">显示数据</a>。现在让我们来学习如何创建交互式界面。</p>
+<h2><a name="-" class="anchor" href="#-"></a>简单例子<a  class="hash-link" href="#-">#</a></h2><pre><code class="lang-javascript"><span class="hljs-keyword">var</span> LikeButton = React.createClass({
+  getInitialState: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">return</span> {liked: <span class="hljs-literal">false</span>};
+  },
+  handleClick: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(event)</span> </span>{
+    <span class="hljs-keyword">this</span>.setState({liked: !<span class="hljs-keyword">this</span>.state.liked});
+  },
+  render: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">var</span> text = <span class="hljs-keyword">this</span>.state.liked ? <span class="hljs-string">'liked'</span> : <span class="hljs-string">'haven\'t liked'</span>;
+    <span class="hljs-keyword">return</span> (
+      &lt;p onClick={<span class="hljs-keyword">this</span>.handleClick}&gt;
+        You {text} <span class="hljs-keyword">this</span>. Click to toggle.
+      &lt;/p&gt;
+    );
+  }
+});
+
+ReactDOM.render(
+  &lt;LikeButton /&gt;,
+  document.getElementById(<span class="hljs-string">'example'</span>)
+);
+</code></pre>
+<h2><a name="-synthetic-events-" class="anchor" href="#-synthetic-events-"></a>事件处理与合成事件（Synthetic Events）<a  class="hash-link" href="#-synthetic-events-">#</a></h2><p>React 里只需把事件处理器（event handler）以骆峰命名（camelCased）形式当作组件的 props 传入即可，就像使用普通 HTML 那样。React 内部创建一套合成事件系统来使所有事件在 IE8 和以上浏览器表现一致。也就是说，React 知道如何冒泡和捕获事件，而且你的事件处理器接收到的 events 参数与 <a href="http://www.w3.org/TR/DOM-Level-3-Events/">W3C 规范</a> 一致，无论你使用哪种浏览器。</p>
+<h2><a name="-autobinding-event-delegation-" class="anchor" href="#-autobinding-event-delegation-"></a>幕后原理：自动绑定（Autobinding）和事件代理（Event Delegation）<a  class="hash-link" href="#-autobinding-event-delegation-">#</a></h2><p>在幕后，React 做了一些操作来让代码高效运行且易于理解。</p>
+<p><strong>自动绑定:</strong> 在 JavaScript 里创建回调的时候，为了保证 <code>this</code> 的正确性，一般都需要显式地绑定方法到它的实例上。在 React 中，所有方法被自动绑定到了它的组件实例上（<a href="/docs/reusable-components.html#no-autobinding">除非使用ES6的class符号</a>）。React 还缓存这些绑定方法，所以 CPU 和内存都是非常高效。而且还能减少打字！</p>
+<p><strong>事件代理:</strong> React 实际并没有把事件处理器绑定到节点本身。当 React 启动的时候，它在最外层使用唯一一个事件监听器处理所有事件。当组件被加载和卸载时，只是在内部映射里添加或删除事件处理器。当事件触发，React 根据映射来决定如何分发。当映射里没有事件处理函数时，会当作空操作处理。参考 <a href="http://davidwalsh.name/event-delegate">David Walsh 很棒的文章</a> 了解这样做高效的原因。</p>
+<h2><a name="-state-machines-" class="anchor" href="#-state-machines-"></a>组件其实是状态机（State Machines）<a  class="hash-link" href="#-state-machines-">#</a></h2><p>React 把用户界面当作简单状态机。把用户界面想像成拥有不同状态然后渲染这些状态，可以轻松让用户界面和数据保持一致。</p>
+<p>React 里，只需更新组件的 state，然后根据新的 state 重新渲染用户界面（不要操作 DOM）。React 来决定如何最高效地更新 DOM。</p>
+<h2><a name="state-" class="anchor" href="#state-"></a>State 工作原理<a  class="hash-link" href="#state-">#</a></h2><p>常用的通知 React 数据变化的方法是调用 <code>setState(data, callback)</code>。这个方法会合并（merge） <code>data</code> 到 <code>this.state</code>，并重新渲染组件。重新渲染完成后，调用可选的 <code>callback</code> 回调。大部分情况下不需要提供 <code>callback</code>，因为 React 会负责把界面更新到最新状态。</p>
+<h2><a name="-state-" class="anchor" href="#-state-"></a>哪些组件应该有 State？<a  class="hash-link" href="#-state-">#</a></h2><p>大部分组件的工作应该是从 <code>props</code> 里取数据并渲染出来。但是，有时需要对用户输入、服务器请求或者时间变化等作出响应，这时才需要使用 State。</p>
+<p><strong>尝试把尽可能多的组件无状态化。</strong> 这样做能隔离 state，把它放到最合理的地方，也能减少冗余，同时易于解释程序运作过程。</p>
+<p>常用的模式是创建多个只负责渲染数据的无状态（stateless）组件，在它们的上层创建一个有状态（stateful）组件并把它的状态通过 <code>props</code> 传给子级。这个有状态的组件封装了所有用户的交互逻辑，而这些无状态组件则负责声明式地渲染数据。</p>
+<h2><a name="-em-em-state-" class="anchor" href="#-em-em-state-"></a>哪些 <em>应该</em> 作为 State？<a  class="hash-link" href="#-em-em-state-">#</a></h2><p><strong>State 应该包括那些可能被组件的事件处理器改变并触发用户界面更新的数据。</strong> 真实的应用中这种数据一般都很小且能被 JSON 序列化。当创建一个状态化的组件时，思考一下表示它的状态最少需要哪些数据，并只把这些数据存入 <code>this.state</code>。在 <code>render()</code> 里再根据 state 来计算你需要的其它数据。你会发现以这种方式思考和开发程序最终往往是正确的，因为如果在 state 里添加冗余数据或计算所得数据，那么你就需要经常手动保持数据同步，而不能让 React 来帮你处理。</p>
+<h2><a name="-em-em-state-" class="anchor" href="#-em-em-state-"></a>哪些 <em>不应该</em> 作为 State？<a  class="hash-link" href="#-em-em-state-">#</a></h2><p><code>this.state</code> 应该仅包括能表示用户界面状态所需的最少数据。因此，它不应该包括：</p>
+<ul>
+<li><strong>计算所得数据：</strong> 不要担心根据 state 来预先计算数据 —— 把所有的计算都放到 <code>render()</code> 里更容易保证用户界面和数据的一致性。例如，在 state 里有一个数组（listItems），我们要把数组长度渲染成字符串， 直接在 <code>render()</code> 里使用 <code>this.state.listItems.length + &#39; list items&#39;</code> 比把它放到 state 里好的多。</li>
+<li><strong>React 组件：</strong> 在 <code>render()</code> 里使用当前 props 和 state 来创建它。</li>
+<li><strong>基于 props 的重复数据：</strong> 尽可能使用 props 来作为实际状态的源。把 props 保存到 state 的一个有效的场景是需要知道它以前值的时候，因为 props 可能因为父组件的重绘而变化。</li>
+</ul>
+
+            <div class="docs-prevnext"><a href="http://www.react-cn.com/docs/jsx-gotchas.html" class="prev">← 上一条 </a><a class="next" href="http://www.react-cn.com/docs/multiple-components.html">下一条 →</a></div>
+		</div>
+	</div>
+    <div class="docnav">
+    <div class="nav-docs-section">
+      <h3>快速入门</h3>
+      <ul>
+          <li>
+            <a href="http://www.react-cn.com/docs/getting-started.html" >快速开始</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/tutorial.html" >教程</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/thinking-in-react.html" >React编程思想</a>
+          </li>
+      </ul>
+    </div>
+    <div class="nav-docs-section">
+      <h3>导航</h3>
+      <ul>
+          <li>
+            <a href="http://www.react-cn.com/docs/why-react.html" >为什么使用React?</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/displaying-data.html" >显示数据</a>
+            <ul>
+                  <li>
+                    <a href="http://www.react-cn.com/docs/jsx-in-depth.html" >深入 JSX</a>
+                  </li>
+                
+                  <li>
+                    <a href="http://www.react-cn.com/docs/jsx-spread.html" >JSX 展开属性</a>
+                  </li>
+                
+                  <li>
+                    <a href="http://www.react-cn.com/docs/jsx-gotchas.html" >JSX 陷阱</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/interactivity-and-dynamic-uis.html" class="active">动态交互式用户界面</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/reusable-components.html" >可复用组件</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/transferring-props.html" >传递 Props</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/forms.html" >表单组件</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/working-with-the-browser.html" >与浏览器协作</a>
+              <ul>
+                <li>
+                  <a href="http://www.react-cn.com/docs/more-about-refs.html" >对组件的refs</a>
+                </li>
+              </ul>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/tooling-integration.html" >工具集成</a>
+            
+              <ul>
+                
+                  <li>
+                    <a href="http://www.react-cn.com/docs/language-tooling.html" >语言工具</a>
+                  </li>
+                
+                  <li>
+                    <a href="http://www.react-cn.com/docs/package-management.html" >包管理</a>
+                  </li>
+                
+                  <li>
+                    <a href="http://www.react-cn.com/docs/environments.html" >服务端环境</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a target="_blank" href="http://www.react-cn.com/addons/index.html" >插件</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/advanced-performance.html" >先进的性能</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/context.html" >Context</a>
+          </li>
+      </ul>
+    </div>
+    <div class="nav-docs-section">
+      <h3>社区资源</h3>
+      <ul>
+          <li>
+            <a href="http://www.react-cn.com/docs/conferences.html" >会议</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/videos.html" >视频</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/complementary-tools.html" >辅助工具</a>
+          </li>
+          <li>
+            <a href="http://www.react-cn.com/docs/examples.html" >react例子</a>
+          </li>
+      </ul>
+    </div>
+</div>
+</div>
+<footer>
+<p>友情链接：<a href="https://facebook.github.io/react/" target="_blank">react</a> <a href="http://www.lovewebgames.com/" target="_blank">javascript JY</a> <a href="http://www.lovewebgames.com/jsmodule/index.html" target="_blank">js组件</a><a href="https://tianxiangbing.github.io/react-cn/">react中文文档</a></p>
+<p>© 2016-2017 <a href="https://tianxiangbing.github.io/react-cn/">react-cn.com</a> 版权所有 ICP证：浙ICP备09082150号-3</p>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+    // setTimeout(function(){
+    //     if(localStorage.getItem('isopen')!=1){
+    //         localStorage.setItem('isopen',1)
+    //         window.open('http://www.lovewebgames.com/');
+    //     }
+    // },1000)
+})();
+</script>
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"5","bdPos":"right","bdTop":"91.5"},"image":{"viewList":["qzone","tsina","tqq","weixin","tieba","sqq"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","weixin","tieba","sqq"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+</footer>
+</body>
+</html>

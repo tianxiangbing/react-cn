@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<title>react插件-React中国</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+	<meta name="keywords" content="react,插件" />
+	<meta name="description" content="reactjs插件列表" />
+	<link rel="stylesheet" href="http://www.react-cn.com/css/css.css">
+	<link rel="shortcut icon" href="http://www.react-cn.com/favicon.ico">
+</head>
+<body>
+<header>
+	<h1><a class="logo" href="http://www.react-cn.com/"><img class="nav-logo" src="http://www.react-cn.com//logo.svg" width="36" height="36">React中国</a></h1>
+	<nav class="menu">
+		<a href="http://www.react-cn.com/index.html" >首页</a>
+		<a href="http://www.react-cn.com/downloads.html" >下载</a>
+		<a href="http://www.react-cn.com/docs/getting-started.html" >中文文档</a>
+		<a href="http://www.react-cn.com/addons/index.html" class="active">react 工具</a>
+		<a href="https://github.com/React-Plugin">react 插件</a>
+		<a href="http://www.react-cn.com/docs/examples.html" >例子</a>
+	</nav>
+	<div class="submenu">
+		<a target="_blank" href="http://www.react-cn.com//shang.qq.com/wpa/qunwpa?idkey=db86a206a1e04f114217ccffd92ee11f5faca14d283a71d97817937ee3cf9d00"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="reactjs、reactnative技术群" title="reactjs、reactnative技术群"></a>
+		<a href="http://www.react-cn.com/about.html">关于我们</a>
+		<a href="http://www.react-cn.com/reactnative/index.html">React Native中文资料</a>
+	</div>
+</header>
+<div class="container documentationContent">
+	<div class="rightContainer">
+		<div class="inner">
+			<a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/addons/md/pure-render-mixin.md" target="_blank">在github上编辑这篇文章</a>
+			<h1><a name="purerendermixin" class="anchor" href="#purerendermixin"></a>PureRenderMixin<a  class="hash-link" href="#purerendermixin">#</a></h1><p>如果你的 React 组件的 render 函数是 &quot;纯净&quot; 的（换句话说，它的渲染在给定相同的 props 和 state 时返回相同的结果），你可以使用这个 mixin 在某些情况下进行性能加速。</p>
+<p>例子:</p>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> PureRenderMixin = require(<span class="hljs-string">'react-addons-pure-render-mixin'</span>);
+React.createClass({
+  mixins: [PureRenderMixin],
+
+  render: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">return</span> &lt;div className={<span class="hljs-keyword">this</span>.props.className}&gt;foo&lt;/div&gt;;
+  }
+});
+</code></pre>
+<p>使用 ES6 class 语法的例子:</p>
+<pre><code class="lang-js"><span class="hljs-keyword">import</span> <span class="hljs-type">PureRenderMixin</span> from <span class="hljs-symbol">'react</span>-addons-pure-render-mixin';
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FooComponent</span> <span class="hljs-keyword"><span class="hljs-keyword">extends</span></span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> {</span>
+  constructor(props) {
+    <span class="hljs-keyword">super</span>(props);
+    <span class="hljs-keyword">this</span>.shouldComponentUpdate = <span class="hljs-type">PureRenderMixin</span>.shouldComponentUpdate.bind(<span class="hljs-keyword">this</span>);
+  }
+
+  render() {
+    <span class="hljs-keyword">return</span> &lt;div className={<span class="hljs-keyword">this</span>.props.className}&gt;foo&lt;/div&gt;;
+  }
+}
+</code></pre>
+<p>在内部, mixin 实现了 <a href="/react/docs/component-specs.html#updating-shouldcomponentupdate">shouldComponentUpdate</a>, 它对当前及下一步的 props 和 state 进行比较，并当相等时返回 <code>false</code>。</p>
+<blockquote>
+<p>注意:</p>
+<p>它仅仅浅比较对象。如果包含了复杂的对象，可能会对于深层的不同产生 false-negatives。只 mix 到那些含有简单 props 和 state 的组件，或者在你知道深层对象改变时使用 <code>forceUpdate()</code> 。或者，考虑使用<a href="https://facebook.github.io/immutable-js/">immutable objects</a> 来促进快速的嵌套数据比较。</p>
+<p>此外， <code>shouldComponentUpdate</code> 跳过了整个子树的更新。确保所有的子组件都是 &quot;纯净&quot; 的。</p>
+</blockquote>
+
+            <div class="docs-prevnext"><a href="http://www.react-cn.com/docs/update.html" class="prev">← 上一条 </a><a class="next" href="http://www.react-cn.com/docs/perf.html">下一条 →</a></div>
+		</div> 
+	</div>
+    <div class="docnav">
+    <div class="nav-docs-section">
+      <h3>react插件</h3>
+      <ul>
+            <li>
+            <a href="http://www.react-cn.com/addons/animation.html" >动画</a>
+            </li>
+            <li>
+            <a href="http://www.react-cn.com/addons/two-way-binding-helpers.html" >双向绑定辅助</a>
+            </li>
+            <li>
+            <a href="http://www.react-cn.com/addons/test-utils.html" >测试工具</a>
+            </li>
+            <li>
+            <a href="http://www.react-cn.com/addons/clone-with-props.html" >克隆 ReactElements</a>
+            </li>
+        
+            <li>
+            <a href="http://www.react-cn.com/addons/create-fragment.html" >Keyed Fragments</a>
+            </li>
+            <li>
+            <a href="http://www.react-cn.com/addons/update.html" >immutability 助手</a>
+            </li>
+            <li>
+            <a href="http://www.react-cn.com/addons/pure-render-mixin.html" class="active">PureRenderMixin</a>
+            </li>
+            <li>
+            <a href="http://www.react-cn.com/addons/perf.html" >性能工具</a>
+            </li>
+            <li>
+            <a href="http://www.react-cn.com/addons/shallow-compare.html" >浅比较</a>
+            </li>
+      </ul>
+    </div>
+</div>
+</div>
+<footer>
+<p>友情链接：<a href="https://facebook.github.io/react/" target="_blank">react</a> <a href="http://www.lovewebgames.com/" target="_blank">javascript JY</a> <a href="http://www.lovewebgames.com/jsmodule/index.html" target="_blank">js组件</a><a href="https://tianxiangbing.github.io/react-cn/">react中文文档</a></p>
+<p>© 2016-2017 <a href="https://tianxiangbing.github.io/react-cn/">react-cn.com</a> 版权所有 ICP证：浙ICP备09082150号-3</p>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+    // setTimeout(function(){
+    //     if(localStorage.getItem('isopen')!=1){
+    //         localStorage.setItem('isopen',1)
+    //         window.open('http://www.lovewebgames.com/');
+    //     }
+    // },1000)
+})();
+</script>
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"5","bdPos":"right","bdTop":"91.5"},"image":{"viewList":["qzone","tsina","tqq","weixin","tieba","sqq"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","weixin","tieba","sqq"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+</footer>
+</body>
+</html>

@@ -144,8 +144,8 @@ gulp.task('js', function () {
 
 gulp.task('copy',function(){
 	gulp.src('src/plugin/x-*/**/*')
-	.pipe(gulp.dest('./docs'))
-	.pipe(gulp.dest('./react-cn.com'));
+	.pipe(gulp.dest('./docs/plugin'))
+	.pipe(gulp.dest('./react-cn.com/plugin'));
 })
 
 gulp.task('default', ['md', 'html', 'reactcnhtml', 'reactcnmd', 'css', 'img', 'js','copy'])

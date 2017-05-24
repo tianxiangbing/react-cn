@@ -1,1 +1,213 @@
-require(["gitbook","jquery"],function(e,n){function t(e,n){var t;return function(){var r=this,a=arguments;t||(t=setTimeout(function(){t=null,e.apply(r,a)},n))}}function r(t){c.addClass("open");var r=0==t.count;c.toggleClass("no-results",r),f.empty(),d.text(t.count),v.text(t.query),t.results.forEach(function(t){var r=n("<li>",{class:"search-results-item"}),a=n("<h3>"),o=n("<a>",{href:e.state.basePath+"/"+t.url,text:t.title}),i=t.body.trim();i.length>g&&(i=i.slice(0,g).trim()+"...");var s=n("<p>").html(i);o.appendTo(a),a.appendTo(r),s.appendTo(r),r.appendTo(f)})}function a(n){w.addClass("with-search"),w.addClass("search-loading"),t(e.search.query(n,0,y).then(function(e){r(e)}).always(function(){w.removeClass("search-loading")}),1e3)}function o(){w.removeClass("with-search"),c.removeClass("open")}function i(){var e=u("q");e&&e.length>0&&(p.val(e),a(e))}function s(){function e(){var e=p.val();0==e.length?o():a(e)}p=n("#book-search-input input"),c=n("#book-search-results"),f=c.find(".search-results-list"),h=c.find(".search-results-title"),d=h.find(".search-results-count"),v=h.find(".search-query");var t=!1;p.on("propertychange",function(n){"value"==n.originalEvent.propertyName&&e()}),p.on("input",function(r){t||(n(this).unbind("propertychange"),t=!0),e()}),p.on("blur",function(e){if(m){var t=l("q",n(this).val());history.pushState({path:t},null,t)}})}function u(e){var n=window.location.href;e=e.replace(/[\[\]]/g,"\\$&");var t=new RegExp("[?&]"+e+"(=([^&#]*)|&|#|$)","i"),r=t.exec(n);return r?r[2]?decodeURIComponent(r[2].replace(/\+/g," ")):"":null}function l(e,n){n=encodeURIComponent(n);var t,r=window.location.href,a=new RegExp("([?&])"+e+"=.*?(&|#|$)(.*)","gi");if(a.test(r))return"undefined"!=typeof n&&null!==n?r.replace(a,"$1"+e+"="+n+"$2$3"):(t=r.split("#"),r=t[0].replace(a,"$1$3").replace(/(&|\?)$/,""),"undefined"!=typeof t[1]&&null!==t[1]&&(r+="#"+t[1]),r);if("undefined"!=typeof n&&null!==n){var o=r.indexOf("?")!==-1?"&":"?";return t=r.split("#"),r=t[0]+o+e+"="+n,"undefined"!=typeof t[1]&&null!==t[1]&&(r+="#"+t[1]),r}return r}var c,p,f,h,d,v,y=15,g=500,m="undefined"!=typeof history.pushState,w=n("body");e.events.on("page.change",function(){s(),o(),e.search.isInitialized()&&i()}),e.events.on("search.ready",function(){s(),i()})});
+require([
+    'gitbook',
+    'jquery'
+], function(gitbook, $) {
+    var MAX_RESULTS = 15;
+    var MAX_DESCRIPTION_SIZE = 500;
+
+    var usePushState = (typeof history.pushState !== 'undefined');
+
+    // DOM Elements
+    var $body = $('body');
+    var $bookSearchResults;
+    var $searchInput;
+    var $searchList;
+    var $searchTitle;
+    var $searchResultsCount;
+    var $searchQuery;
+
+    // Throttle search
+    function throttle(fn, wait) {
+        var timeout;
+
+        return function() {
+            var ctx = this, args = arguments;
+            if (!timeout) {
+                timeout = setTimeout(function() {
+                    timeout = null;
+                    fn.apply(ctx, args);
+                }, wait);
+            }
+        };
+    }
+
+    function displayResults(res) {
+        $bookSearchResults.addClass('open');
+
+        var noResults = res.count == 0;
+        $bookSearchResults.toggleClass('no-results', noResults);
+
+        // Clear old results
+        $searchList.empty();
+
+        // Display title for research
+        $searchResultsCount.text(res.count);
+        $searchQuery.text(res.query);
+
+        // Create an <li> element for each result
+        res.results.forEach(function(res) {
+            var $li = $('<li>', {
+                'class': 'search-results-item'
+            });
+
+            var $title = $('<h3>');
+
+            var $link = $('<a>', {
+                'href': gitbook.state.basePath + '/' + res.url,
+                'text': res.title
+            });
+
+            var content = res.body.trim();
+            if (content.length > MAX_DESCRIPTION_SIZE) {
+                content = content.slice(0, MAX_DESCRIPTION_SIZE).trim()+'...';
+            }
+            var $content = $('<p>').html(content);
+
+            $link.appendTo($title);
+            $title.appendTo($li);
+            $content.appendTo($li);
+            $li.appendTo($searchList);
+        });
+    }
+
+    function launchSearch(q) {
+        // Add class for loading
+        $body.addClass('with-search');
+        $body.addClass('search-loading');
+
+        // Launch search query
+        throttle(gitbook.search.query(q, 0, MAX_RESULTS)
+        .then(function(results) {
+            displayResults(results);
+        })
+        .always(function() {
+            $body.removeClass('search-loading');
+        }), 1000);
+    }
+
+    function closeSearch() {
+        $body.removeClass('with-search');
+        $bookSearchResults.removeClass('open');
+    }
+
+    function launchSearchFromQueryString() {
+        var q = getParameterByName('q');
+        if (q && q.length > 0) {
+            // Update search input
+            $searchInput.val(q);
+
+            // Launch search
+            launchSearch(q);
+        }
+    }
+
+    function bindSearch() {
+        // Bind DOM
+        $searchInput        = $('#book-search-input input');
+        $bookSearchResults  = $('#book-search-results');
+        $searchList         = $bookSearchResults.find('.search-results-list');
+        $searchTitle        = $bookSearchResults.find('.search-results-title');
+        $searchResultsCount = $searchTitle.find('.search-results-count');
+        $searchQuery        = $searchTitle.find('.search-query');
+
+        // Launch query based on input content
+        function handleUpdate() {
+            var q = $searchInput.val();
+
+            if (q.length == 0) {
+                closeSearch();
+            }
+            else {
+                launchSearch(q);
+            }
+        }
+
+        // Detect true content change in search input
+        // Workaround for IE < 9
+        var propertyChangeUnbound = false;
+        $searchInput.on('propertychange', function(e) {
+            if (e.originalEvent.propertyName == 'value') {
+                handleUpdate();
+            }
+        });
+
+        // HTML5 (IE9 & others)
+        $searchInput.on('input', function(e) {
+            // Unbind propertychange event for IE9+
+            if (!propertyChangeUnbound) {
+                $(this).unbind('propertychange');
+                propertyChangeUnbound = true;
+            }
+
+            handleUpdate();
+        });
+
+        // Push to history on blur
+        $searchInput.on('blur', function(e) {
+            // Update history state
+            if (usePushState) {
+                var uri = updateQueryString('q', $(this).val());
+                history.pushState({ path: uri }, null, uri);
+            }
+        });
+    }
+
+    gitbook.events.on('page.change', function() {
+        bindSearch();
+        closeSearch();
+
+        // Launch search based on query parameter
+        if (gitbook.search.isInitialized()) {
+            launchSearchFromQueryString();
+        }
+    });
+
+    gitbook.events.on('search.ready', function() {
+        bindSearch();
+
+        // Launch search from query param at start
+        launchSearchFromQueryString();
+    });
+
+    function getParameterByName(name) {
+        var url = window.location.href;
+        name = name.replace(/[\[\]]/g, '\\$&');
+        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)', 'i'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+
+    function updateQueryString(key, value) {
+        value = encodeURIComponent(value);
+
+        var url = window.location.href;
+        var re = new RegExp('([?&])' + key + '=.*?(&|#|$)(.*)', 'gi'),
+            hash;
+
+        if (re.test(url)) {
+            if (typeof value !== 'undefined' && value !== null)
+                return url.replace(re, '$1' + key + '=' + value + '$2$3');
+            else {
+                hash = url.split('#');
+                url = hash[0].replace(re, '$1$3').replace(/(&|\?)$/, '');
+                if (typeof hash[1] !== 'undefined' && hash[1] !== null)
+                    url += '#' + hash[1];
+                return url;
+            }
+        }
+        else {
+            if (typeof value !== 'undefined' && value !== null) {
+                var separator = url.indexOf('?') !== -1 ? '&' : '?';
+                hash = url.split('#');
+                url = hash[0] + separator + key + '=' + value;
+                if (typeof hash[1] !== 'undefined' && hash[1] !== null)
+                    url += '#' + hash[1];
+                return url;
+            }
+            else
+                return url;
+        }
+    }
+});

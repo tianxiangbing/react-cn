@@ -1,0 +1,1 @@
+require(["gitbook","jQuery"],function(t,e){t.events.bind("start",function(e,n){var i=n["edit-link"],a=i.label,o=i.base,r=t.state.innerLanguage;r&&("object"==typeof a&&(a=a[r]),r+="/"),"/"!=o.slice(-1)&&(o+="/"),t.toolbar.createButton({icon:"fa fa-edit",text:a,onClick:function(){var e=t.state.filepath;window.open(o+r+e)}})})});

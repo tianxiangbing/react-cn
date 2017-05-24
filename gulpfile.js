@@ -142,4 +142,10 @@ gulp.task('js', function () {
 		.pipe(livereload());
 });
 
-gulp.task('default', ['md', 'html', 'reactcnhtml', 'reactcnmd', 'css', 'img', 'js'])
+gulp.task('copy',function(){
+	gulp.src('src/plugin/x-*/**/*')
+	.pipe(gulp.dest('./docs'))
+	.pipe(gulp.dest('./react-cn.com'));
+})
+
+gulp.task('default', ['md', 'html', 'reactcnhtml', 'reactcnmd', 'css', 'img', 'js','copy'])

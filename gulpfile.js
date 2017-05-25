@@ -61,11 +61,13 @@ gulp.task('reactcnhtml', function () {
 gulp.task('css', function () {
 	sass('src/**/css.scss')
 		.pipe(gulp.dest('./docs/'))
+		.pipe(gulp.dest('./react-cn.com/'))
 		.on('error', sass.logError)
 		.pipe(livereload());
 });
 gulp.task('img', function () {
 	gulp.src('src/**/*.png').pipe(gulp.dest('./docs'))
+		.pipe(gulp.dest('./react-cn.com'))
 		.pipe(livereload())
 });
 

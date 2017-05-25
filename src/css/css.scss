@@ -357,3 +357,17 @@ blockquote{
     background-color: rgba(0,0,0,0.04);
     padding: 1px 3px;
 }
+.plugin-list{
+	margin-top:10px;
+	h1{
+		line-height: 40px;
+		color:#333;
+	}
+	h2{
+		line-height: 33px;
+	}
+	p{
+		line-height: 1.8;
+		text-indent: 30px;
+	}
+}

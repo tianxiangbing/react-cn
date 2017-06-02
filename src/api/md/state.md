@@ -1,0 +1,2 @@
+# state
+react被称为一个单向数据流的状态机，所以说在整个react的学习中，state是贯穿全程的，理解state是写好react的基础。

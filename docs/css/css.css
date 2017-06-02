@@ -569,10 +569,15 @@ p code {
 .plugin-list {
   margin-top: 10px; }
   .plugin-list h1 {
-    line-height: 40px;
-    color: #333; }
+    line-height: 40px; }
+    .plugin-list h1 a {
+      color: #333; }
   .plugin-list h2 {
     line-height: 33px; }
+    .plugin-list h2 a {
+      color: #333; }
   .plugin-list p {
     line-height: 1.8;
     text-indent: 30px; }
+    .plugin-list p a {
+      color: #666; }

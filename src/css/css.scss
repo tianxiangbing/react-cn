@@ -361,13 +361,21 @@ blockquote{
 	margin-top:10px;
 	h1{
 		line-height: 40px;
-		color:#333;
+		a{
+			color:#333;
+		}
 	}
 	h2{
 		line-height: 33px;
+		a{
+			color:#333;
+		}
 	}
 	p{
 		line-height: 1.8;
 		text-indent: 30px;
+		a{
+			color:#666;
+		}
 	}
 }

@@ -1,0 +1,2 @@
+# setState
+setState是改变state值的唯一途径，请不要试图使用其他方式修改state的值。

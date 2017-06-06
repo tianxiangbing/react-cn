@@ -1,2 +1,2 @@
 # state
-react被称为一个单向数据流的状态机，所以说在整个react的学习中，state是贯穿全程的，理解state是写好react的基础。
+react被称为一个单向数据流的状态机，所以说在整个react的学习中，state是贯穿全程的，理解state是写好react的基础。好像提到state就要与props联系起来似的，其实他们是两个完全不同的东西，props在于数据的传递，state在于当前组件的状态。

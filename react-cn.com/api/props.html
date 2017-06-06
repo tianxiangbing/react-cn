@@ -32,7 +32,16 @@
 	<div class="rightContainer">
 		<div class="inner">
 			<a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/api/md/props.md" target="_blank">在github上编辑这篇文章</a>
-			<h1><a name="props" class="anchor" href="#props"></a>props<a  class="hash-link" href="#props">#</a></h1><p>组件的属性，通常用来和其他组件的通信</p>
+			<h1><a name="props" class="anchor" href="#props"></a>props<a  class="hash-link" href="#props">#</a></h1><p>组件的属性，通常用来和其他组件的通信，react推荐凡是组件通信数据都是通过props。他与state的区别在于，state是通过setState来更新的，props是通过组件的生命周期来更新的，这意味着，组件生命周期不发生变化，props是不会变的。</p>
+<pre><code class="lang-js"><span class="hljs-tag">componentWillReceiveProps</span>(newProps) {
+    <span class="hljs-tag">if</span> (newProps.isShow &amp;&amp; !this.state.isShow) {
+      <span class="hljs-tag">this</span><span class="hljs-class">.setState</span>({ <span class="hljs-attribute">isShow</span>: true });
+    } <span class="hljs-tag">else</span> <span class="hljs-tag">if</span> (!newProps.isShow &amp;&amp; this.state.isShow) {
+      <span class="hljs-tag">this</span><span class="hljs-class">.setState</span>({ <span class="hljs-attribute">isShow</span>: false });
+    }
+  }
+</code></pre>
+<p>这是我在制作<a href="https://github.com/react-plugin/x-alert">x-alert</a>插件时的代码，他是把组件调用者的props与组件本身的<code>state</code>相结合的例子。</p>
 
 		</div>
 	</div>

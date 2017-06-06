@@ -2,11 +2,11 @@
 <html lang="zh">
 <head>
 	<meta charset="UTF-8">
-	<title>react refs api-React中国</title>
+	<title>react getInitialState api-React中国</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="renderer" content="webkit|ie-comp|ie-stand">
-	<meta name="keywords" content="ref,refs" />
-	<meta name="description" content="react state" />
+	<meta name="keywords" content="react.js,getInitialState" />
+	<meta name="description" content="react.js getInitialState 的中文api说明" />
 	<link rel="stylesheet" href="https://tianxiangbing.github.io/react-cn/css/css.css">
 	<link rel="shortcut icon" href="https://tianxiangbing.github.io/react-cn/favicon.ico">
 </head>
@@ -31,8 +31,34 @@
 <div class="container documentationContent">
 	<div class="rightContainer">
 		<div class="inner">
-			<a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/api/md/state.md" target="_blank">在github上编辑这篇文章</a>
-			<h1><a name="state" class="anchor" href="#state"></a>state<a  class="hash-link" href="#state">#</a></h1><p>react被称为一个单向数据流的状态机，所以说在整个react的学习中，state是贯穿全程的，理解state是写好react的基础。好像提到state就要与props联系起来似的，其实他们是两个完全不同的东西，props在于数据的传递，state在于当前组件的状态。</p>
+			<a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/api/md/getInitialState.md" target="_blank">在github上编辑这篇文章</a>
+			<h1><a name="getinitialstate" class="anchor" href="#getinitialstate"></a>getInitialState<a  class="hash-link" href="#getinitialstate">#</a></h1><p>es5时的初始化state时的方法，在es6语法中，state的初始化在constructor构造函数中完成</p>
+<pre><code class="lang-js">var LikeButton = React.createClass({
+  getInitialState: function() {
+    return {text: '我是一个<span class="hljs-keyword">state</span>'};
+  },
+  render: function() {
+    return (
+      <span class="hljs-variable">&lt;p &gt;</span>
+        {this.<span class="hljs-keyword">state</span>.text}
+      <span class="hljs-variable">&lt;/p&gt;</span>
+    );
+  }
+});
+</code></pre>
+<p>这里建议使用<code>es6</code>的语法，在<code>es5</code>版本中的<code>createClass</code>有做过特殊的处理<code>this</code>,所以<code>this</code>永远是指向的当前组件，但<code>es6</code>中并不这样做，更符合es的规范。</p>
+<pre><code class="lang-js">class App extends React.Component {
+  constructor(props){
+    super(props);
+    this.<span class="hljs-keyword">state</span>={title:'我是es6的<span class="hljs-keyword">state</span>初始化'};
+  }
+  render(){
+      return (
+          <span class="hljs-variable">&lt;div&gt;</span>{this.<span class="hljs-keyword">state</span>.title}<span class="hljs-variable">&lt;/div&gt;</span>
+      )
+  }
+}
+</code></pre>
 
 		</div>
 	</div>
@@ -41,7 +67,7 @@
       <h2>react API</h3>
       <ul>
           <li>
-            <a href="https://tianxiangbing.github.io/react-cn/api/state.html" class="active">state</a>
+            <a href="https://tianxiangbing.github.io/react-cn/api/state.html" >state</a>
           </li>
           <li>
             <a href="https://tianxiangbing.github.io/react-cn/api/setState.html" >setState</a>
@@ -53,7 +79,7 @@
             <a href="https://tianxiangbing.github.io/react-cn/api/refs.html" >refs</a>
           </li>
           <li>
-            <a href="https://tianxiangbing.github.io/react-cn/api/getInitialState.html" >getInitialState</a>
+            <a href="https://tianxiangbing.github.io/react-cn/api/getInitialState.html" class="active">getInitialState</a>
           </li>
           <li>
             <a href="https://tianxiangbing.github.io/react-cn/api/componentWillMount.html" >componentWillMount</a>

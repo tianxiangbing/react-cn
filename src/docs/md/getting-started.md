@@ -1,16 +1,19 @@
 
 # 快速入门
 
-## JSFiddle
+## codepen
 
-开始 Hack React 的最简单的方法是用下面 JSFiddle 的Hello Worlds：
+下面我们用codepen来演示react.js的一个hello world的示例
 
- * **[React JSFiddle](https://jsfiddle.net/reactjs/69z2wepo/)**
- * [React JSFiddle without JSX](https://jsfiddle.net/reactjs/5vjqabv3/)
+<p data-height="265" data-theme-id="0" data-slug-hash="OgyjOd" data-default-tab="result" data-user="tianxiangbing" data-embed-version="2" data-pen-title="react.js hello world!" class="codepen">See the Pen <a href="https://codepen.io/tianxiangbing/pen/OgyjOd/">react.js hello world!</a> by 田想兵 (<a href="https://codepen.io/tianxiangbing">@tianxiangbing</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+
+ * **[React codepen](https://codepen.io/tianxiangbing/pen/OgyjOd)**
+ * [React codepen without JSX](https://codepen.io/tianxiangbing/pen/OgyjOd)
 
 ## 通过 npm 使用 React
 
-我们建议在 React 中使用 CommonJS 模块系统，比如 [browserify](http://browserify.org/) 或 [webpack](https://webpack.github.io/)。使用 [`react`](https://www.npmjs.com/package/react) 和 [`react-dom`](https://www.npmjs.com/package/react-dom) npm 包.
+我们建议在 React 中使用 es6 语法。使用 [`react`](https://www.npmjs.com/package/react) 和 [`react-dom`](https://www.npmjs.com/package/react-dom) npm 包.
 
 ```js
 // main.js

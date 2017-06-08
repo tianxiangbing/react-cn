@@ -1,0 +1,2 @@
+# componentDidMount
+这是react组件的生命周期之一，在挂载发生后被立即调用。 需要DOM node的初始化应该放在这里。如果你要获取真的dom结构，应该是写在componentDidMount之后的任何时间内。

@@ -1,0 +1,2 @@
+# componentWillMount
+这是react组件的生命周期之一，在react组件加载完之前立即执行，此时还不能访问到真实的dom结构.

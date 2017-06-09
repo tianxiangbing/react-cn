@@ -1,5 +1,5 @@
 # react-cn
-[react中国](https://tianxiangbing.github.io/react-cn/)
+[react中国](http://www.react-cn.com/)
 # react.js的优势
 1. 虚拟DOM更新，所有的dom操作都采用虚拟的DOM更新，只对有差异的dom重构，减少页面数据刷新带来的性能问题。
 2. 组件化,自带组件化和模块化概念，针对所有的业务模块都以组件的形式呈现，避免编写重复代码。

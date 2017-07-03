@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
 	<meta charset="UTF-8">
-	<title>react props api-React中国</title>
+	<title>react props api</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="renderer" content="webkit|ie-comp|ie-stand">
 	<meta name="keywords" content="props,api" />
@@ -33,11 +33,11 @@
 		<div class="inner">
 			<a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/api/md/props.md" target="_blank">在github上编辑这篇文章</a>
 			<h1><a name="props" class="anchor" href="#props"></a>props<a  class="hash-link" href="#props">#</a></h1><p>组件的属性，通常用来和其他组件的通信，react推荐凡是组件通信数据都是通过props。他与state的区别在于，state是通过setState来更新的，props是通过组件的生命周期来更新的，这意味着，组件生命周期不发生变化，props是不会变的。</p>
-<pre><code class="lang-js"><span class="hljs-tag">componentWillReceiveProps</span>(newProps) {
-    <span class="hljs-tag">if</span> (newProps.isShow &amp;&amp; !this.state.isShow) {
-      <span class="hljs-tag">this</span><span class="hljs-class">.setState</span>({ <span class="hljs-attribute">isShow</span>: true });
-    } <span class="hljs-tag">else</span> <span class="hljs-tag">if</span> (!newProps.isShow &amp;&amp; this.state.isShow) {
-      <span class="hljs-tag">this</span><span class="hljs-class">.setState</span>({ <span class="hljs-attribute">isShow</span>: false });
+<pre><code class="lang-js">componentWillReceiveProps(<span class="hljs-keyword">new</span><span class="hljs-type">Props</span>) {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">new</span><span class="hljs-type">Props</span>.isShow &amp;&amp; !<span class="hljs-built_in">this</span>.state.isShow) {
+      <span class="hljs-built_in">this</span>.setState({ isShow: <span class="hljs-type">true </span>});
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">new</span><span class="hljs-type">Props</span>.isShow &amp;&amp; <span class="hljs-built_in">this</span>.state.isShow) {
+      <span class="hljs-built_in">this</span>.setState({ isShow: <span class="hljs-type">false </span>});
     }
   }
 </code></pre>

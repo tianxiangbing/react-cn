@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
 	<meta charset="UTF-8">
-	<title>传递 Props-React中国</title>
+	<title>传递 Props</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="renderer" content="webkit|ie-comp|ie-stand">
 	<meta name="keywords" content="jsx,传递 Props" />
@@ -34,25 +34,25 @@
 			<a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/docs/md/transferring-props.md" target="_blank">在github上编辑这篇文章</a>
 			<h1><a name="-props" class="anchor" href="#-props"></a>传递 Props<a  class="hash-link" href="#-props">#</a></h1><p>React 里有一个非常常用的模式就是对组件做一层抽象。组件对外公开一个简单的属性（Props）来实现功能，但内部的实现可能非常复杂。</p>
 <p>可以使用 <a href="/docs/jsx-spread-zh-CN.html">JSX 展开属性</a> 来合并现有的 props 和其它值：</p>
-<pre><code class="lang-javascript">&lt;<span class="hljs-name">Component</span> {...this.props} <span class="hljs-name">more</span>=<span class="hljs-string">"values"</span> /&gt;
+<pre><code class="lang-javascript">&lt;Component {..<span class="hljs-selector-class">.this</span><span class="hljs-selector-class">.props</span>} more=<span class="hljs-string">"values"</span> /&gt;
 </code></pre>
 <p>如果不使用 JSX，可以使用一些对象辅助方法如 ES6 的 <code>Object.assign</code> 或 Underscore <code>_.extend</code>。</p>
-<pre><code class="lang-javascript"><span class="hljs-tag">React</span><span class="hljs-class">.createElement</span>(<span class="hljs-tag">Component</span>, <span class="hljs-tag">Object</span><span class="hljs-class">.assign</span>(<span class="hljs-rules">{}</span>, <span class="hljs-tag">this</span><span class="hljs-class">.props</span>, <span class="hljs-rules">{ <span class="hljs-rule"><span class="hljs-attribute">more</span>:<span class="hljs-value"> <span class="hljs-string">'values'</span> }))</span></span>;</span>
+<pre><code class="lang-javascript"><span class="hljs-selector-tag">React</span><span class="hljs-selector-class">.createElement</span>(<span class="hljs-selector-tag">Component</span>, <span class="hljs-selector-tag">Object</span><span class="hljs-selector-class">.assign</span>({}, <span class="hljs-selector-tag">this</span><span class="hljs-selector-class">.props</span>, { <span class="hljs-attribute">more</span>: <span class="hljs-string">'values'</span> }));
 </code></pre>
 <p>下面的教程介绍一些最佳实践。使用了 JSX 和 试验性的ECMAScript 语法。</p>
 <h2><a name="-" class="anchor" href="#-"></a>手动传递<a  class="hash-link" href="#-">#</a></h2><p>大部分情况下你应该显式地向下传递 props。这样可以确保只公开你认为是安全的内部 API 的子集。</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">function</span> FancyCheckbox(props) {
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">FancyCheckbox</span>(<span class="hljs-params">props</span>) </span>{
   <span class="hljs-keyword">var</span> fancyClass = props.checked ? <span class="hljs-string">'FancyChecked'</span> : <span class="hljs-string">'FancyUnchecked'</span>;
   <span class="hljs-keyword">return</span> (
-    &lt;div className={fancyClass} onClick={props.onClick}&gt;
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">{fancyClass}</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{props.onClick}</span>&gt;</span>
       {props.children}
-    &lt;/div&gt;
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
   );
 }
 ReactDOM.render(
-  &lt;FancyCheckbox checked={<span class="hljs-literal">true</span>} onClick={<span class="hljs-built_in">console</span>.log.bind(<span class="hljs-built_in">console</span>)}&gt;
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">FancyCheckbox</span> <span class="hljs-attr">checked</span>=<span class="hljs-string">{true}</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{console.log.bind(console)}</span>&gt;</span>
     Hello world!
-  &lt;/FancyCheckbox&gt;,
+  <span class="hljs-tag">&lt;/<span class="hljs-name">FancyCheckbox</span>&gt;</span></span>,
   <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'example'</span>)
 );
 </code></pre>
@@ -66,50 +66,50 @@ ReactDOM.render(
 <pre><code class="lang-javascript"><span class="hljs-keyword">var</span> { <span class="hljs-keyword">checked</span>, ...other } = props;
 </code></pre>
 <p>这样能确保把所有 props 传下去，<em>除了</em> 那些已经被使用了的。</p>
-<pre><code class="lang-javascript"><span class="hljs-function">function <span class="hljs-title">FancyCheckbox</span>(<span class="hljs-params">props</span>) </span>{
-  <span class="hljs-keyword">var</span> { <span class="hljs-keyword">checked</span>, ...other } = props;
-  <span class="hljs-keyword">var</span> fancyClass = <span class="hljs-keyword">checked</span> ? <span class="hljs-string">'FancyChecked'</span> : <span class="hljs-string">'FancyUnchecked'</span>;
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">FancyCheckbox</span>(<span class="hljs-params">props</span>) </span>{
+  <span class="hljs-keyword">var</span> { checked, ...other } = props;
+  <span class="hljs-keyword">var</span> fancyClass = checked ? <span class="hljs-string">'FancyChecked'</span> : <span class="hljs-string">'FancyUnchecked'</span>;
   <span class="hljs-comment">// `other` 包含 { onClick: console.log } 但 checked 属性除外</span>
   <span class="hljs-keyword">return</span> (
-    &lt;div {...other} className={fancyClass} /&gt;
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> {<span class="hljs-attr">...other</span>} <span class="hljs-attr">className</span>=<span class="hljs-string">{fancyClass}</span> /&gt;</span>
   );
 }
 ReactDOM.render(
-  &lt;FancyCheckbox <span class="hljs-keyword">checked</span>={<span class="hljs-keyword">true</span>} onClick={console.log.bind(console)}&gt;
+  <span class="hljs-tag">&lt;<span class="hljs-name">FancyCheckbox</span> <span class="hljs-attr">checked</span>=<span class="hljs-string">{true}</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{console.log.bind(console)}</span>&gt;</span>
     Hello world!
-  &lt;/FancyCheckbox&gt;,
-  document.getElementById(<span class="hljs-string">'example'</span>)
-);
+  <span class="hljs-tag">&lt;/<span class="hljs-name">FancyCheckbox</span>&gt;</span>,
+  document.getElementById('example')
+);</span>
 </code></pre>
 <blockquote>
 <p>注意:</p>
 <p>上面例子中，<code>checked</code> 属性也是一个有效的 DOM 属性。如果你没有使用解构赋值，那么可能无意中把它传下去。</p>
 </blockquote>
 <p>在传递这些未知的 <code>other</code> 属性时，要经常使用解构赋值模式。</p>
-<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">FancyCheckbox</span><span class="hljs-params">(props)</span> </span>{
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">FancyCheckbox</span>(<span class="hljs-params">props</span>) </span>{
   <span class="hljs-keyword">var</span> fancyClass = props.checked ? <span class="hljs-string">'FancyChecked'</span> : <span class="hljs-string">'FancyUnchecked'</span>;
   <span class="hljs-comment">// 反模式：`checked` 会被传到里面的组件里</span>
   <span class="hljs-keyword">return</span> (
-    &lt;div {...props} className={fancyClass} /&gt;
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> {<span class="hljs-attr">...props</span>} <span class="hljs-attr">className</span>=<span class="hljs-string">{fancyClass}</span> /&gt;</span>
   );
-}
+}</span>
 </code></pre>
 <h2><a name="-prop" class="anchor" href="#-prop"></a>使用和传递同一个 Prop<a  class="hash-link" href="#-prop">#</a></h2><p>如果组件需要使用一个属性又要往下传递，可以直接使用 <code>checked={checked}</code> 再传一次。这样做比传整个 <code>props</code> 对象要好，因为更利于重构和语法检查。</p>
-<pre><code class="lang-javascript"><span class="hljs-function">function <span class="hljs-title">FancyCheckbox</span>(<span class="hljs-params">props</span>) </span>{
-  <span class="hljs-keyword">var</span> { <span class="hljs-keyword">checked</span>, title, ...other } = props;
-  <span class="hljs-keyword">var</span> fancyClass = <span class="hljs-keyword">checked</span> ? <span class="hljs-string">'FancyChecked'</span> : <span class="hljs-string">'FancyUnchecked'</span>;
-  <span class="hljs-keyword">var</span> fancyTitle = <span class="hljs-keyword">checked</span> ? <span class="hljs-string">'X '</span> + title : <span class="hljs-string">'O '</span> + title;
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">FancyCheckbox</span>(<span class="hljs-params">props</span>) </span>{
+  <span class="hljs-keyword">var</span> { checked, title, ...other } = props;
+  <span class="hljs-keyword">var</span> fancyClass = checked ? <span class="hljs-string">'FancyChecked'</span> : <span class="hljs-string">'FancyUnchecked'</span>;
+  <span class="hljs-keyword">var</span> fancyTitle = checked ? <span class="hljs-string">'X '</span> + title : <span class="hljs-string">'O '</span> + title;
   <span class="hljs-keyword">return</span> (
-    &lt;label&gt;
-      &lt;input {...other}
-        <span class="hljs-keyword">checked</span>={<span class="hljs-keyword">checked</span>}
-        className={fancyClass}
-        type=<span class="hljs-string">"checkbox"</span>
-      /&gt;
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> {<span class="hljs-attr">...other</span>}
+        <span class="hljs-attr">checked</span>=<span class="hljs-string">{checked}</span>
+        <span class="hljs-attr">className</span>=<span class="hljs-string">{fancyClass}</span>
+        <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span>
+      /&gt;</span>
       {fancyTitle}
-    &lt;/label&gt;
+    <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
   );
-}
+}</span>
 </code></pre>
 <blockquote>
 <p>注意:</p>
@@ -117,7 +117,7 @@ ReactDOM.render(
 </blockquote>
 <h2><a name="-code-code-" class="anchor" href="#-code-code-"></a>剩余属性和展开属性 <code>...</code><a  class="hash-link" href="#-code-code-">#</a></h2><p>剩余属性可以把对象剩下的属性提取到一个新的对象。这会把所有在解构赋值中列出的属性剔除。</p>
 <p>这是 <a href="https://github.com/sebmarkbage/ecmascript-rest-spread">ECMAScript 草案</a> 中的试验特性。</p>
-<pre><code class="lang-javascript">var { x, y, ...z } = { x: <span class="hljs-number">1</span>, y: <span class="hljs-number">2</span>, a: <span class="hljs-number">3</span>, b: <span class="hljs-number">4</span> };
+<pre><code class="lang-javascript">var { x, y, ...z } = { <span class="hljs-string">x:</span> <span class="hljs-number">1</span>, <span class="hljs-string">y:</span> <span class="hljs-number">2</span>, <span class="hljs-string">a:</span> <span class="hljs-number">3</span>, <span class="hljs-string">b:</span> <span class="hljs-number">4</span> };
 x; <span class="hljs-comment">// 1</span>
 y; <span class="hljs-comment">// 2</span>
 z; <span class="hljs-comment">// { a: 3, b: 4 }</span>

@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
 	<meta charset="UTF-8">
-	<title>Keyed Fragments-React中国</title>
+	<title>Keyed Fragments</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="renderer" content="webkit|ie-comp|ie-stand">
 	<meta name="keywords" content="Keyed Fragments,插件" />
@@ -35,28 +35,28 @@
 			<h1><a name="keyed-fragments" class="anchor" href="#keyed-fragments"></a>Keyed Fragments<a  class="hash-link" href="#keyed-fragments">#</a></h1><p>在大多数情况下，你可以使用 <code>key</code> prop 指定你从 <code>render</code> 返回的元素的 keys。然而，这在一个情况下会失败：如果你有两组你需要记录的子级，将没有办法在不使用包裹元素的情况下放置一个 key 到每组上。</p>
 <p>即是，如果你有一个像这样的组件：</p>
 <pre><code class="lang-js"><span class="hljs-keyword">var</span> Swapper = React.createClass({
-  propTypes: {
+  <span class="hljs-attr">propTypes</span>: {
     <span class="hljs-comment">// `leftChildren` and `rightChildren` can be a string, element, array, etc.</span>
     leftChildren: React.PropTypes.node,
-    rightChildren: React.PropTypes.node,
+    <span class="hljs-attr">rightChildren</span>: React.PropTypes.node,
 
-    swapped: React.PropTypes.bool
+    <span class="hljs-attr">swapped</span>: React.PropTypes.bool
   },
-  render: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+  <span class="hljs-attr">render</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">var</span> children;
     <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.props.swapped) {
       children = [<span class="hljs-keyword">this</span>.props.rightChildren, <span class="hljs-keyword">this</span>.props.leftChildren];
     } <span class="hljs-keyword">else</span> {
       children = [<span class="hljs-keyword">this</span>.props.leftChildren, <span class="hljs-keyword">this</span>.props.rightChildren];
     }
-    <span class="hljs-keyword">return</span> &lt;div&gt;{children}&lt;/div&gt;;
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{children}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;
   }
 });
 </code></pre>
 <p>这些子级会在当你改变 <code>swapped</code> prop 时加载和卸载，因为没有任何的 key 标记在这两组子级上。</p>
 <p>要解决这个问题，你可以使用 <code>createFragment</code> 插件来给予这两组子级 keys.</p>
 <h4><a name="-code-array-lt-reactnode-gt-createfragment-object-children-code-" class="anchor" href="#-code-array-lt-reactnode-gt-createfragment-object-children-code-"></a><code>Array&lt;ReactNode&gt; createFragment(object children)</code><a  class="hash-link" href="#-code-array-lt-reactnode-gt-createfragment-object-children-code-">#</a></h4><p>代替创建数组，我们这样写：</p>
-<pre><code class="lang-js"><span class="hljs-keyword">var</span> createFragment = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react-addons-create-fragment'</span>);
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> createFragment = require(<span class="hljs-string">'react-addons-create-fragment'</span>);
 
 <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.props.swapped) {
   children = createFragment({
@@ -75,12 +75,12 @@
 <blockquote>
 <p><strong>注意:</strong></p>
 <p>将来，<code>createFragment</code> 也许会被替换为如下的API：</p>
-<pre><code class="lang-js"><span class="hljs-keyword">return</span> (
-  &lt;div&gt;
-    &lt;<span class="hljs-string">x:</span>frag key=<span class="hljs-string">"right"</span>&gt;{<span class="hljs-keyword">this</span>.props.rightChildren}&lt;/<span class="hljs-string">x:</span>frag&gt;,
-    &lt;<span class="hljs-string">x:</span>frag key=<span class="hljs-string">"left"</span>&gt;{<span class="hljs-keyword">this</span>.props.leftChildren}&lt;/<span class="hljs-string">x:</span>frag&gt;
-  &lt;/div&gt;
-);
+<pre><code class="lang-js"><span class="xml">return (
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">x:frag</span> <span class="hljs-attr">key</span>=<span class="hljs-string">"right"</span>&gt;</span></span><span class="hljs-template-variable">{this.props.rightChildren}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">x:frag</span>&gt;</span>,
+    <span class="hljs-tag">&lt;<span class="hljs-name">x:frag</span> <span class="hljs-attr">key</span>=<span class="hljs-string">"left"</span>&gt;</span></span><span class="hljs-template-variable">{this.props.leftChildren}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">x:frag</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+);</span>
 </code></pre>
 <p>允许你直接在 JSX 里赋值 keys 而不用添加包裹元素。 </p>
 </blockquote>

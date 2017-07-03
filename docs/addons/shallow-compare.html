@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
 	<meta charset="UTF-8">
-	<title>react浅比较-React中国</title>
+	<title>react浅比较</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="renderer" content="webkit|ie-comp|ie-stand">
 	<meta name="keywords" content="react,插件" />
@@ -36,7 +36,7 @@
 <p>如果你的React组件的绘制函数是 “干净的” （换句话说，它在给定的 props 和 state 下绘制相同的结果）,你可以使用这个辅助函数以在某些情况下提升性能。</p>
 <p>例如:</p>
 <pre><code class="lang-js"><span class="hljs-keyword">var</span> shallowCompare = require(<span class="hljs-symbol">'react</span>-addons-shallow-compare');
-export <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SampleComponent</span> <span class="hljs-keyword"><span class="hljs-keyword">extends</span></span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> {</span>
+export <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SampleComponent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   shouldComponentUpdate(nextProps, nextState) {
     <span class="hljs-keyword">return</span> shallowCompare(<span class="hljs-keyword">this</span>, nextProps, nextState);
   }

@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
 	<meta charset="UTF-8">
-	<title>包管理-React中国</title>
+	<title>包管理</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="renderer" content="webkit|ie-comp|ie-stand">
 	<meta name="keywords" content="jsx,packagement" />
@@ -35,28 +35,28 @@
 			<h1><a name="-" class="anchor" href="#-"></a>包管理<a  class="hash-link" href="#-">#</a></h1><h2><a name="cdn-hosted-react" class="anchor" href="#cdn-hosted-react"></a>CDN-hosted React<a  class="hash-link" href="#cdn-hosted-react">#</a></h2><p>We provide CDN-hosted versions of React <a href="/react/downloads.html">on our download page</a>. These pre-built files use the UMD module format. Dropping them in with a simple <code>&lt;script&gt;</code> tag will inject the <code>React</code> and <code>ReactDOM</code> globals into your environment. It should also work out-of-the-box in CommonJS and AMD environments.</p>
 <h2><a name="using-react-from-npm" class="anchor" href="#using-react-from-npm"></a>Using React from npm<a  class="hash-link" href="#using-react-from-npm">#</a></h2><p>You can use React with a CommonJS module system like <a href="http://browserify.org/">browserify</a> or <a href="https://webpack.github.io/">webpack</a>. Use the <a href="https://www.npmjs.com/package/react"><code>react</code></a> and <a href="https://www.npmjs.com/package/react-dom"><code>react-dom</code></a> npm packages.</p>
 <pre><code class="lang-js"><span class="hljs-comment">// main.js</span>
-<span class="hljs-built_in">var</span> React = <span class="hljs-keyword">require</span>(<span class="hljs-string">'react'</span>);
-<span class="hljs-built_in">var</span> ReactDOM = <span class="hljs-keyword">require</span>(<span class="hljs-string">'react-dom'</span>);
+<span class="hljs-keyword">var</span> React = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react'</span>);
+<span class="hljs-keyword">var</span> ReactDOM = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react-dom'</span>);
 
-ReactDOM<span class="hljs-built_in">.</span>render(
-  &lt;h1&gt;Hello, world<span class="hljs-subst">!</span>&lt;/h1&gt;,
-  document<span class="hljs-built_in">.</span>getElementById(<span class="hljs-string">'example'</span>)
+ReactDOM.render(
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Hello, world!<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>,
+  <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'example'</span>)
 );
 </code></pre>
 <p>Configure <a href="https://babeljs.io/">babel</a> with a <code>.babelrc</code> file:</p>
-<pre><code class="lang-json"> { "<span class="hljs-attribute">presets</span>": <span class="hljs-value">[<span class="hljs-string">"react"</span>] </span>}
+<pre><code class="lang-json"> { <span class="hljs-attr">"presets"</span>: [<span class="hljs-string">"react"</span>] }
 </code></pre>
 <blockquote>
 <p>Note:</p>
 <p>If you are using ES2015, you will want to also use the <code>babel-preset-es2015</code> package.</p>
 </blockquote>
 <p>To install React DOM and build your bundle with browserify:</p>
-<pre><code class="lang-sh">$ npm install --save react react-dom <span class="hljs-keyword">babelify </span><span class="hljs-keyword">babel-preset-react
-</span>$ <span class="hljs-keyword">browserify </span>-t [ <span class="hljs-keyword">babelify </span>] main.js -o <span class="hljs-keyword">bundle.js</span>
+<pre><code class="lang-sh">$ npm <span class="hljs-keyword">install </span>--save react react-dom <span class="hljs-keyword">babelify </span><span class="hljs-keyword">babel-preset-react
+</span>$ <span class="hljs-keyword">browserify </span>-t [ <span class="hljs-keyword">babelify </span>] main.<span class="hljs-keyword">js </span>-o <span class="hljs-keyword">bundle.js</span>
 </code></pre>
 <p>To install React DOM and build your bundle with webpack:</p>
-<pre><code class="lang-sh">$ npm install --save react react-dom <span class="hljs-keyword">babel-preset-react </span><span class="hljs-keyword">babel-loader </span><span class="hljs-keyword">babel-core
-</span>$ webpack main.js <span class="hljs-keyword">bundle.js </span>--module-<span class="hljs-keyword">bind </span><span class="hljs-string">'js=babel-loader'</span>
+<pre><code class="lang-sh">$ npm <span class="hljs-keyword">install </span>--save react react-dom <span class="hljs-keyword">babel-preset-react </span><span class="hljs-keyword">babel-loader </span><span class="hljs-keyword">babel-core
+</span>$ webpack main.<span class="hljs-keyword">js </span><span class="hljs-keyword">bundle.js </span>--module-<span class="hljs-keyword">bind </span><span class="hljs-string">'js=babel-loader'</span>
 </code></pre>
 <blockquote>
 <p>Note:</p>
@@ -70,43 +70,43 @@ ReactDOM<span class="hljs-built_in">.</span>render(
 });
 </code></pre>
 <p>Update your HTML file as below:</p>
-<pre><code class="lang-html{8,12}"><span class="hljs-doctype">&lt;!DOCTYPE html&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">html</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-title">head</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">meta</span> <span class="hljs-attribute">charset</span>=<span class="hljs-value">"UTF-8"</span> /&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span>Hello React!<span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"build/react.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"build/react-dom.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+<pre><code class="lang-html{8,12}"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Hello React!<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"build/react.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"build/react-dom.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
     <span class="hljs-comment">&lt;!-- No need for Babel! --&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-title">head</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-title">body</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"example"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"build/helloworld.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"example"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"build/helloworld.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
 </code></pre>
 <h2><a name="using-react-from-bower" class="anchor" href="#using-react-from-bower"></a>Using React from Bower<a  class="hash-link" href="#using-react-from-bower">#</a></h2><p>Bower is a package manager optimized for the front-end development. If multiple packages depend on a package - jQuery for example - Bower will download jQuery just once. This is known as a flat dependency graph and it helps reduce page load. For more info, visit <a href="http://bower.io/">http://bower.io/</a></p>
 <p>If you&#39;d like to use bower, it&#39;s as easy as:</p>
-<pre><code>bower <span class="hljs-operator"><span class="hljs-keyword">install</span> <span class="hljs-comment">--save react</span></span>
-</code></pre><pre><code class="lang-html"><span class="hljs-doctype">&lt;!DOCTYPE html&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">html</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-title">head</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">meta</span> <span class="hljs-attribute">charset</span>=<span class="hljs-value">"UTF-8"</span> /&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span>Hello React!<span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"bower_components/react/react.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"bower_components/react/react-dom.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"https://unpkg.com/babel-core@5.8.38/browser.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-title">head</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-title">body</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"example"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text/babel"</span>&gt;</span><span class="handlebars"><span class="xml">
+<pre><code><span class="hljs-keyword">bower </span><span class="hljs-keyword">install </span>--save react
+</code></pre><pre><code class="lang-html"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Hello React!<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"bower_components/react/react.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"bower_components/react/react-dom.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://unpkg.com/babel-core@5.8.38/browser.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"example"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/babel"</span>&gt;</span><span class="javascript">
       ReactDOM.render(
-        <span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>Hello, world!<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>,
-        document.getElementById('example')
+        <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Hello, world!<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>,
+        <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'example'</span>)
       );
-    </span></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span>
+    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
 </code></pre>
 <h2><a name="using-master" class="anchor" href="#using-master"></a>Using master<a  class="hash-link" href="#using-master">#</a></h2><p>We have instructions for building from <code>master</code> <a href="https://github.com/facebook/react">in our GitHub repository</a>.</p>
 

@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
 	<meta charset="UTF-8">
-	<title>双向绑定辅助-React中国</title>
+	<title>双向绑定辅助</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="renderer" content="webkit|ie-comp|ie-stand">
 	<meta name="keywords" content="react,binding" />
@@ -47,68 +47,68 @@
 </blockquote>
 <h2><a name="reactlink-" class="anchor" href="#reactlink-"></a>ReactLink: 之前和之后<a  class="hash-link" href="#reactlink-">#</a></h2><p>这里有一个简单的 不用 <code>ReactLink</code> 的 form 例子：</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">var</span> NoLink = React.createClass({
-  getInitialState: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
-    <span class="hljs-keyword">return</span> {message: <span class="hljs-string">'Hello!'</span>};
+  <span class="hljs-attr">getInitialState</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> {<span class="hljs-attr">message</span>: <span class="hljs-string">'Hello!'</span>};
   },
-  handleChange: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(event)</span> </span>{
-    <span class="hljs-keyword">this</span>.setState({message: event.target.value});
+  <span class="hljs-attr">handleChange</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) </span>{
+    <span class="hljs-keyword">this</span>.setState({<span class="hljs-attr">message</span>: event.target.value});
   },
-  render: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+  <span class="hljs-attr">render</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">var</span> message = <span class="hljs-keyword">this</span>.state.message;
-    <span class="hljs-keyword">return</span> &lt;input type=<span class="hljs-string">"text"</span> value={message} onChange={<span class="hljs-keyword">this</span>.handleChange} /&gt;;
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">{message}</span> <span class="hljs-attr">onChange</span>=<span class="hljs-string">{this.handleChange}</span> /&gt;</span>;
   }
-});
+});</span>
 </code></pre>
 <p>这个工作的很好并且数据如何流动很清晰，然而，当有大量的 form fields时，可能会有些冗长。让我们使用  <code>ReactLink</code> 来节省我们的输入：</p>
-<pre><code class="lang-javascript{4,9}"><span class="hljs-keyword">var</span> LinkedStateMixin = require(<span class="hljs-string">'react-addons-linked-state-mixin'</span>);
+<pre><code class="lang-javascript{4,9}"><span class="hljs-keyword">var</span> LinkedStateMixin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react-addons-linked-state-mixin'</span>);
 
 <span class="hljs-keyword">var</span> WithLink = React.createClass({
-  mixins: [LinkedStateMixin],
-  getInitialState: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
-    <span class="hljs-keyword">return</span> {message: <span class="hljs-string">'Hello!'</span>};
+  <span class="hljs-attr">mixins</span>: [LinkedStateMixin],
+  <span class="hljs-attr">getInitialState</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> {<span class="hljs-attr">message</span>: <span class="hljs-string">'Hello!'</span>};
   },
-  render: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
-    <span class="hljs-keyword">return</span> &lt;input type=<span class="hljs-string">"text"</span> valueLink={<span class="hljs-keyword">this</span>.linkState(<span class="hljs-string">'message'</span>)} /&gt;;
+  <span class="hljs-attr">render</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">valueLink</span>=<span class="hljs-string">{this.linkState(</span>'<span class="hljs-attr">message</span>')} /&gt;</span>;
   }
-});
+});</span>
 </code></pre>
 <p><code>LinkedStateMixin</code> 添加了一个 <code>linkState()</code> 方法到你的React组件。<code>linkState()</code> 返回一个 <code>ReactLink</code> 包含当前React state值的对象和一个改变它的回调函数。</p>
 <p><code>ReactLink</code> 对象可以作为props在树中上下传递，所以很容易（显示的）在深层次的组件和高层次的state之间 设置双向绑定。</p>
 <p>注意 checkboxes 有一个关于他们 <code>value</code> 属性的特殊行为，这个行为是 如果checkbox被选中 值会在表单提交时被发送。 <code>value</code> 不会 checkbox 选中或是不选中时更新。对于checkboxes，你应该用<code>checkedLink</code> 代替 <code>valueLink</code>:</p>
-<pre><code>&lt;input <span class="hljs-class"><span class="hljs-keyword">type</span>=</span><span class="hljs-string">"checkbox"</span> checkedLink={<span class="hljs-keyword">this</span>.linkState(<span class="hljs-symbol">'booleanValu</span>e')} /&gt;
+<pre><code>&lt;input <span class="hljs-class"><span class="hljs-keyword">type</span></span>=<span class="hljs-string">"checkbox"</span> checkedLink={<span class="hljs-keyword">this</span>.linkState(<span class="hljs-symbol">'booleanValu</span>e')} /&gt;
 </code></pre><h2><a name="-" class="anchor" href="#-"></a>引擎盖下<a  class="hash-link" href="#-">#</a></h2><p>这里对 <code>ReactLink</code>有两方面：创建<code>ReactLink</code>的实例以及使用它的地方。为了证明<code>ReactLink</code>有多简单，让我们重写两方面一边更好的理解。</p>
 <h3><a name="reactlink-without-linkedstatemixin" class="anchor" href="#reactlink-without-linkedstatemixin"></a>ReactLink Without LinkedStateMixin<a  class="hash-link" href="#reactlink-without-linkedstatemixin">#</a></h3><pre><code class="lang-javascript{5-7,9-12}"><span class="hljs-keyword">var</span> WithoutMixin = React.createClass({
-  getInitialState: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
-    <span class="hljs-keyword">return</span> {message: <span class="hljs-string">'Hello!'</span>};
+  <span class="hljs-attr">getInitialState</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> {<span class="hljs-attr">message</span>: <span class="hljs-string">'Hello!'</span>};
   },
-  handleChange: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(newValue)</span> </span>{
-    <span class="hljs-keyword">this</span>.setState({message: newValue});
+  <span class="hljs-attr">handleChange</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">newValue</span>) </span>{
+    <span class="hljs-keyword">this</span>.setState({<span class="hljs-attr">message</span>: newValue});
   },
-  render: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+  <span class="hljs-attr">render</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">var</span> valueLink = {
-      value: <span class="hljs-keyword">this</span>.state.message,
-      requestChange: <span class="hljs-keyword">this</span>.handleChange
+      <span class="hljs-attr">value</span>: <span class="hljs-keyword">this</span>.state.message,
+      <span class="hljs-attr">requestChange</span>: <span class="hljs-keyword">this</span>.handleChange
     };
-    <span class="hljs-keyword">return</span> &lt;input type=<span class="hljs-string">"text"</span> valueLink={valueLink} /&gt;;
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">valueLink</span>=<span class="hljs-string">{valueLink}</span> /&gt;</span>;
   }
-});
+});</span>
 </code></pre>
 <p>正如你所见，<code>ReactLink</code>对象是非常简单,只有<code>value</code>和<code>requestChange</code>属性.并且<code>LinkStateMixin</code>也很简单:它只是作用(populates)于<code>this.state</code>的元素值并且回调名为<code>this.setState()</code>的函数.</p>
-<h3><a name="reactlink-without-valuelink" class="anchor" href="#reactlink-without-valuelink"></a>ReactLink Without valueLink<a  class="hash-link" href="#reactlink-without-valuelink">#</a></h3><pre><code class="lang-javascript"><span class="hljs-keyword">var</span> LinkedStateMixin = require(<span class="hljs-string">'react-addons-linked-state-mixin'</span>);
+<h3><a name="reactlink-without-valuelink" class="anchor" href="#reactlink-without-valuelink"></a>ReactLink Without valueLink<a  class="hash-link" href="#reactlink-without-valuelink">#</a></h3><pre><code class="lang-javascript"><span class="hljs-keyword">var</span> LinkedStateMixin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react-addons-linked-state-mixin'</span>);
 
 <span class="hljs-keyword">var</span> WithoutLink = React.createClass({
-  mixins: [LinkedStateMixin],
-  getInitialState: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
-    <span class="hljs-keyword">return</span> {message: <span class="hljs-string">'Hello!'</span>};
+  <span class="hljs-attr">mixins</span>: [LinkedStateMixin],
+  <span class="hljs-attr">getInitialState</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> {<span class="hljs-attr">message</span>: <span class="hljs-string">'Hello!'</span>};
   },
-  render: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+  <span class="hljs-attr">render</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">var</span> valueLink = <span class="hljs-keyword">this</span>.linkState(<span class="hljs-string">'message'</span>);
-    <span class="hljs-keyword">var</span> handleChange = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(e)</span> </span>{
+    <span class="hljs-keyword">var</span> handleChange = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
       valueLink.requestChange(e.target.value);
     };
-    <span class="hljs-keyword">return</span> &lt;input type=<span class="hljs-string">"text"</span> value={valueLink.value} onChange={handleChange} /&gt;;
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">{valueLink.value}</span> <span class="hljs-attr">onChange</span>=<span class="hljs-string">{handleChange}</span> /&gt;</span>;
   }
-});
+});</span>
 </code></pre>
 <p>对于<code>valueLink</code>的属性同样也很简单,它只是简单的处理<code>onChange</code>事件,调用<code>this.props.valueLink.requestChange()</code>的时候也使用<code>this.props.valueLink.requestChange()</code>代替<code>this.props.value</code>.这就是双向绑定!</p>
 

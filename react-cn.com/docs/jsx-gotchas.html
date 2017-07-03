@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
 	<meta charset="UTF-8">
-	<title>JSX 陷阱-React中国</title>
+	<title>JSX 陷阱</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="renderer" content="webkit|ie-comp|ie-stand">
 	<meta name="keywords" content="jsx,bug,陷阱" />
@@ -38,7 +38,7 @@
 <p>关于 DOM 的区别，如行内样式属性 <code>style</code>，参考 <a href="/docs/dom-differences.html">DOM 区别</a></p>
 </blockquote>
 <h2><a name="html-" class="anchor" href="#html-"></a>HTML 实体<a  class="hash-link" href="#html-">#</a></h2><p>HTML 实体可以插入到 JSX 的文本中。</p>
-<pre><code class="lang-javascript">&lt;<span class="hljs-keyword">div</span>&gt;First &amp;middot; Second&lt;/<span class="hljs-keyword">div</span>&gt;
+<pre><code class="lang-javascript"><span class="hljs-params">&lt;div&gt;</span>First <span class="hljs-variable">&amp;middot</span>; Second<span class="hljs-params">&lt;/div&gt;</span>
 </code></pre>
 <p>如果想在 JSX 表达式中显示 HTML 实体，可以会遇到二次转义的问题，因为 React 默认会转义所有字符串，为了防止各种 XSS 攻击。</p>
 <pre><code class="lang-javascript"><span class="hljs-comment">// 错误: 会显示 “First &amp;middot; Second”</span>
@@ -52,19 +52,19 @@
 &lt;<span class="hljs-keyword">div</span>&gt;{<span class="hljs-string">'First '</span> + String.fromCharCode(<span class="hljs-number">183</span>) + <span class="hljs-string">' Second'</span>}&lt;/<span class="hljs-keyword">div</span>&gt;
 </code></pre>
 <p>可以在数组里混合使用字符串和 JSX 元素。</p>
-<pre><code class="lang-javascript"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>{['First ', <span class="hljs-tag">&lt;<span class="hljs-title">span</span>&gt;</span>&amp;middot;<span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>, ' Second']}<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+<pre><code class="lang-javascript"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{['First ', <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>&amp;middot;<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>, ' Second']}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
 <p>万不得已，可以直接<a href="/react/tips/dangerously-set-inner-html.html">插入原始HTML</a>。</p>
-<pre><code class="lang-javascript">&lt;div dangerouslySetInnerHTML={{<span class="hljs-string">'{{'</span>}}__html: <span class="hljs-string">'First &amp;middot; Second'</span>}} /&gt;
+<pre><code class="lang-javascript">&lt;<span class="hljs-selector-tag">div</span> dangerouslySetInnerHTML={{<span class="hljs-string">'{{'</span>}}__html: <span class="hljs-string">'First &amp;middot; Second'</span>}} /&gt;
 </code></pre>
 <h2><a name="-html-" class="anchor" href="#-html-"></a>自定义 HTML 属性<a  class="hash-link" href="#-html-">#</a></h2><p>如果往原生 HTML 元素里传入 HTML 规范里不存在的属性，React 不会显示它们。如果需要使用自定义属性，要加 <code>data-</code> 前缀。</p>
-<pre><code class="lang-javascript">&lt;<span class="hljs-tag">div</span> data-custom-attribute=<span class="hljs-string">"foo"</span> /&gt;
+<pre><code class="lang-javascript">&lt;<span class="hljs-selector-tag">div</span> data-custom-attribute=<span class="hljs-string">"foo"</span> /&gt;
 </code></pre>
 <p>然而，在自定义元素中任意的属性都是被支持的 （那些在tag名里带有连接符或者 <code>is=&quot;...&quot;</code> 属性的）</p>
 <pre><code class="lang-javascript">&lt;x-my-<span class="hljs-keyword">component</span> custom-<span class="hljs-keyword">attribute</span>=<span class="hljs-string">"foo"</span> /&gt;
 </code></pre>
 <p>以 <code>aria-</code> 开头的 <a href="http://www.w3.org/WAI/intro/aria">网络无障碍</a> 属性可以正常使用。</p>
-<pre><code class="lang-javascript">&lt;<span class="hljs-keyword">div</span> aria-hidden={<span class="hljs-constant">true</span>} /&gt;
+<pre><code class="lang-javascript">&lt;<span class="hljs-keyword">div</span> aria-hidden={<span class="hljs-literal">true</span>} /&gt;
 </code></pre>
 
             <div class="docs-prevnext"><a href="http://www.react-cn.com/docs/jsx-spread.html" class="prev">← 上一条 </a><a class="next" href="http://www.react-cn.com/docs/interactivity-and-dynamic-uis.html">下一条 →</a></div>

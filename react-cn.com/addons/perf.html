@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
 	<meta charset="UTF-8">
-	<title>性能工具-React中国</title>
+	<title>性能工具</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="renderer" content="webkit|ie-comp|ie-stand">
 	<meta name="keywords" content="react,插件" />
@@ -53,21 +53,21 @@
 <h2><a name="advanced-api" class="anchor" href="#advanced-api"></a>Advanced API<a  class="hash-link" href="#advanced-api">#</a></h2><p>以上的打印方法使用 <code>Perf.getLastMeasurements()</code> 来美观的打印结果。</p>
 <h3><a name="-code-perf-getlastmeasurements-code-" class="anchor" href="#-code-perf-getlastmeasurements-code-"></a><code>Perf.getLastMeasurements()</code><a  class="hash-link" href="#-code-perf-getlastmeasurements-code-">#</a></h3><p>从最后的 start-stop 会话获取测量数据数据。这个数组包含对象，每个看起来像这样：</p>
 <pre><code class="lang-js">{
-  <span class="hljs-comment">// The term "inclusive" and "exclusive" are explained below</span>
+  // The term <span class="hljs-string">"inclusive"</span> and <span class="hljs-string">"exclusive"</span> are explained below
   <span class="hljs-string">"exclusive"</span>: {},
-  <span class="hljs-comment">// '.0.0' is the React ID of the node</span>
-  <span class="hljs-string">"inclusive"</span>: {<span class="hljs-string">".0.0"</span>: <span class="hljs-number">0.0670000008540228</span>, <span class="hljs-string">".0"</span>: <span class="hljs-number">0.3259999939473346</span>},
-  <span class="hljs-string">"render"</span>: {<span class="hljs-string">".0"</span>: <span class="hljs-number">0.036999990697950125</span>, <span class="hljs-string">".0.0"</span>: <span class="hljs-number">0.010000003385357559</span>},
-  <span class="hljs-comment">// Number of instances</span>
+  // <span class="hljs-string">'.0.0'</span> is the React ID of the node
+  <span class="hljs-string">"inclusive"</span>: {<span class="hljs-string">".0.0"</span>: <span class="hljs-number">0</span>.<span class="hljs-number">067000000</span>8540228, <span class="hljs-string">".0"</span>: <span class="hljs-number">0</span>.<span class="hljs-number">3259999939473346</span>},
+  <span class="hljs-string">"render"</span>: {<span class="hljs-string">".0"</span>: <span class="hljs-number">0</span>.<span class="hljs-number">036</span>999990697950125, <span class="hljs-string">".0.0"</span>: <span class="hljs-number">0</span>.<span class="hljs-number">0100000033</span>85357559},
+  // Number of instances
   <span class="hljs-string">"counts"</span>: {<span class="hljs-string">".0"</span>: <span class="hljs-number">1</span>, <span class="hljs-string">".0.0"</span>: <span class="hljs-number">1</span>},
-  <span class="hljs-comment">// DOM touches</span>
+  // DOM touches
   <span class="hljs-string">"writes"</span>: {},
-  <span class="hljs-comment">// Extra debugging info</span>
+  // Extra debugging info
   <span class="hljs-string">"displayNames"</span>: {
     <span class="hljs-string">".0"</span>: {<span class="hljs-string">"current"</span>: <span class="hljs-string">"App"</span>, <span class="hljs-string">"owner"</span>: <span class="hljs-string">"&lt;root&gt;"</span>},
     <span class="hljs-string">".0.0"</span>: {<span class="hljs-string">"current"</span>: <span class="hljs-string">"Box"</span>, <span class="hljs-string">"owner"</span>: <span class="hljs-string">"App"</span>}
   },
-  <span class="hljs-string">"totalTime"</span>: <span class="hljs-number">0.48499999684281647</span>
+  <span class="hljs-string">"totalTime"</span>: <span class="hljs-number">0</span>.<span class="hljs-number">48499999684281647</span>
 }
 </code></pre>
 

@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
 	<meta charset="UTF-8">
-	<title>语言工具-React中国</title>
+	<title>语言工具</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="renderer" content="webkit|ie-comp|ie-stand">
 	<meta name="keywords" content="jsx,es2015,typescript" />
@@ -41,8 +41,8 @@
 <p>This tool will translate files that use JSX syntax to plain JavaScript files that can run directly in the browser. It will also watch directories for you and automatically transform files when they are changed; for example: <code>babel --watch src/ --out-dir lib/</code>.</p>
 <p>Beginning with Babel 6, there are no transforms included by default. This means that options must be specified when running the <code>babel</code> command, or a <code>.babelrc</code> must specify options. Additional packages must also be installed which bundle together a number of transforms, called presets. The most common use when working with React will be to include the <code>es2015</code> and <code>react</code> presets. More information about the changes to Babel can be found in <a href="http://babeljs.io/blog/2015/10/29/6.0.0">their blog post announcing Babel 6</a>.</p>
 <p>Here is an example of what you will do if using ES2015 syntax and React:</p>
-<pre><code><span class="hljs-label">npm</span> install <span class="hljs-keyword">babel-preset-es2015 </span><span class="hljs-keyword">babel-preset-react
-</span><span class="hljs-keyword">babel </span>--presets es2015,react --watch src/ --out-dir lib/
+<pre><code>npm install babel-preset-es2015 babel-preset-react
+babel --presets es2015,react --watch src/ --<span class="hljs-keyword">out</span>-dir <span class="hljs-class"><span class="hljs-keyword">lib</span>/</span>
 </code></pre><p>By default JSX files with a <code>.js</code> extension are transformed. Run <code>babel --help</code> for more information on how to use Babel.</p>
 <p>Example output:</p>
 <pre><code>$ cat test.js

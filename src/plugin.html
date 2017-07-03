@@ -1,4 +1,11 @@
-@@include('header.htm') 
+@@include('header.htm',{
+	"context":{
+	"menu":"plugin",
+	"title":"react插件列表",
+	"keywords": "reactjs插件,react.js",
+	"desc": "react插件列表"
+	}
+}) 
 <div class="container documentationContent">
 	<div class="rightContainer">
 		<div class="inner">
@@ -16,6 +23,14 @@
 					<p>
 						<a href="plugin/x-alert/index.html" target="_blank">
 							x-alert默认一套简单的样式，和各种默认的配置项。它主要有两种样式，一种是普通的alert，一种是toast样式。
+						</a>
+					</p>
+				</div>
+				<div class="plugin">
+					<h2><a href="plugin/x-confirm/index.html" target="_blank">react x-confirm 确定弹框插件</a></h2>
+					<p>
+						<a href="plugin/x-confirm/index.html" target="_blank">
+							x-confirm确认取消插件，提供确定取消的回调方法
 						</a>
 					</p>
 				</div>

@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
 	<meta charset="UTF-8">
-	<title>react getInitialState api-React中国</title>
+	<title>react getInitialState api</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="renderer" content="webkit|ie-comp|ie-stand">
 	<meta name="keywords" content="react.js,getInitialState" />
@@ -33,28 +33,28 @@
 		<div class="inner">
 			<a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/api/md/getInitialState.md" target="_blank">在github上编辑这篇文章</a>
 			<h1><a name="getinitialstate" class="anchor" href="#getinitialstate"></a>getInitialState<a  class="hash-link" href="#getinitialstate">#</a></h1><p>es5时的初始化state时的方法，在es6语法中，state的初始化在constructor构造函数中完成</p>
-<pre><code class="lang-js">var LikeButton = React.createClass({
-  getInitialState: function() {
-    return {text: '我是一个<span class="hljs-keyword">state</span>'};
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> LikeButton = React.createClass({
+  <span class="hljs-attr">getInitialState</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> {<span class="hljs-attr">text</span>: <span class="hljs-string">'我是一个state'</span>};
   },
-  render: function() {
-    return (
-      <span class="hljs-variable">&lt;p &gt;</span>
-        {this.<span class="hljs-keyword">state</span>.text}
-      <span class="hljs-variable">&lt;/p&gt;</span>
+  <span class="hljs-attr">render</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span> &gt;</span>
+        {this.state.text}
+      <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span>
     );
   }
 });
 </code></pre>
 <p>这里建议使用<code>es6</code>的语法，在<code>es5</code>版本中的<code>createClass</code>有做过特殊的处理<code>this</code>,所以<code>this</code>永远是指向的当前组件，但<code>es6</code>中并不这样做，更符合es的规范。</p>
-<pre><code class="lang-js">class App extends React.Component {
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   constructor(props){
-    super(props);
-    this.<span class="hljs-keyword">state</span>={title:'我是es6的<span class="hljs-keyword">state</span>初始化'};
+    <span class="hljs-keyword">super</span>(props);
+    <span class="hljs-keyword">this</span>.state={title:'我是es6的state初始化'};
   }
   render(){
-      return (
-          <span class="hljs-variable">&lt;div&gt;</span>{this.<span class="hljs-keyword">state</span>.title}<span class="hljs-variable">&lt;/div&gt;</span>
+      <span class="hljs-keyword">return</span> (
+          &lt;div&gt;{<span class="hljs-keyword">this</span>.state.title}&lt;/div&gt;
       )
   }
 }

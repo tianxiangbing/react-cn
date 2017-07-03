@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
 	<meta charset="UTF-8">
-	<title>JSX 陷阱-React中国</title>
+	<title>JSX 陷阱</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="renderer" content="webkit|ie-comp|ie-stand">
 	<meta name="keywords" content="jsx,bug,陷阱" />
@@ -34,26 +34,26 @@
 			<a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/docs/md/interactivity-and-dynamic-uis.md" target="_blank">在github上编辑这篇文章</a>
 			<h1><a name="-" class="anchor" href="#-"></a>动态交互式用户界面<a  class="hash-link" href="#-">#</a></h1><p>我们已经学习如何使用 React <a href="/docs/displaying-data-zh-CN.html">显示数据</a>。现在让我们来学习如何创建交互式界面。</p>
 <h2><a name="-" class="anchor" href="#-"></a>简单例子<a  class="hash-link" href="#-">#</a></h2><pre><code class="lang-javascript"><span class="hljs-keyword">var</span> LikeButton = React.createClass({
-  getInitialState: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
-    <span class="hljs-keyword">return</span> {liked: <span class="hljs-literal">false</span>};
+  <span class="hljs-attr">getInitialState</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> {<span class="hljs-attr">liked</span>: <span class="hljs-literal">false</span>};
   },
-  handleClick: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(event)</span> </span>{
-    <span class="hljs-keyword">this</span>.setState({liked: !<span class="hljs-keyword">this</span>.state.liked});
+  <span class="hljs-attr">handleClick</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) </span>{
+    <span class="hljs-keyword">this</span>.setState({<span class="hljs-attr">liked</span>: !<span class="hljs-keyword">this</span>.state.liked});
   },
-  render: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+  <span class="hljs-attr">render</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">var</span> text = <span class="hljs-keyword">this</span>.state.liked ? <span class="hljs-string">'liked'</span> : <span class="hljs-string">'haven\'t liked'</span>;
     <span class="hljs-keyword">return</span> (
-      &lt;p onClick={<span class="hljs-keyword">this</span>.handleClick}&gt;
-        You {text} <span class="hljs-keyword">this</span>. Click to toggle.
-      &lt;/p&gt;
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{this.handleClick}</span>&gt;</span>
+        You {text} this. Click to toggle.
+      <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span>
     );
   }
 });
 
 ReactDOM.render(
-  &lt;LikeButton /&gt;,
-  document.getElementById(<span class="hljs-string">'example'</span>)
-);
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">LikeButton</span> /&gt;</span>,
+  document.getElementById('example')
+);</span>
 </code></pre>
 <h2><a name="-synthetic-events-" class="anchor" href="#-synthetic-events-"></a>事件处理与合成事件（Synthetic Events）<a  class="hash-link" href="#-synthetic-events-">#</a></h2><p>React 里只需把事件处理器（event handler）以骆峰命名（camelCased）形式当作组件的 props 传入即可，就像使用普通 HTML 那样。React 内部创建一套合成事件系统来使所有事件在 IE8 和以上浏览器表现一致。也就是说，React 知道如何冒泡和捕获事件，而且你的事件处理器接收到的 events 参数与 <a href="http://www.w3.org/TR/DOM-Level-3-Events/">W3C 规范</a> 一致，无论你使用哪种浏览器。</p>
 <h2><a name="-autobinding-event-delegation-" class="anchor" href="#-autobinding-event-delegation-"></a>幕后原理：自动绑定（Autobinding）和事件代理（Event Delegation）<a  class="hash-link" href="#-autobinding-event-delegation-">#</a></h2><p>在幕后，React 做了一些操作来让代码高效运行且易于理解。</p>

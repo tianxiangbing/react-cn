@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
 	<meta charset="UTF-8">
-	<title>jsx展开属性-React中国</title>
+	<title>jsx展开属性</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="renderer" content="webkit|ie-comp|ie-stand">
 	<meta name="keywords" content="jsx,props,属性,数据" />
@@ -33,26 +33,26 @@
 		<div class="inner">
 			<a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/docs/md/jsx-spread.md" target="_blank">在github上编辑这篇文章</a>
 			<h1><a name="jsx-" class="anchor" href="#jsx-"></a>JSX 展开属性<a  class="hash-link" href="#jsx-">#</a></h1><p>如果你事先知道组件需要的全部 Props（属性），JSX 很容易地这样写：</p>
-<pre><code class="lang-javascript">  var component = <span class="hljs-tag">&lt;<span class="hljs-title">Component</span> <span class="hljs-attribute">foo</span>=<span class="hljs-value">{x}</span> <span class="hljs-attribute">bar</span>=<span class="hljs-value">{y}</span> /&gt;</span>;
+<pre><code class="lang-javascript">  <span class="hljs-keyword">var</span> component = <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Component</span> <span class="hljs-attr">foo</span>=<span class="hljs-string">{x}</span> <span class="hljs-attr">bar</span>=<span class="hljs-string">{y}</span> /&gt;</span>;</span>
 </code></pre>
 <h2><a name="-props-" class="anchor" href="#-props-"></a>修改 Props 是不好的，明白吗<a  class="hash-link" href="#-props-">#</a></h2><p>如果你不知道要设置哪些 Props，那么现在最好不要设置它：</p>
-<pre><code class="lang-javascript">  <span class="hljs-variable"><span class="hljs-keyword">var</span> component</span> = <span class="hljs-type">&lt;Component /&gt;</span>;
-  component.props.foo = x; <span class="hljs-comment">// 不好</span>
-  component.props.bar = y; <span class="hljs-comment">// 同样不好</span>
+<pre><code class="lang-javascript">  var <span class="hljs-keyword">component</span> = &lt;<span class="hljs-keyword">Component</span> /&gt;;
+  <span class="hljs-keyword">component</span>.props.foo = x; // 不好
+  <span class="hljs-keyword">component</span>.props.bar = y; // 同样不好
 </code></pre>
 <p>这样是反模式，因为 React 不能帮你检查属性类型（propTypes）。这样即使你的 属性类型有错误也不能得到清晰的错误提示。</p>
 <p>Props 应该被认为是不可变的。在别处修改 props 对象可能会导致预料之外的结果，所以原则上这将是一个冻结的对象。</p>
 <h2><a name="-spread-attributes-" class="anchor" href="#-spread-attributes-"></a>展开属性（Spread Attributes）<a  class="hash-link" href="#-spread-attributes-">#</a></h2><p>现在你可以使用 JSX 的新特性 - 展开属性：</p>
-<pre><code class="lang-javascript">  var props = {}<span class="hljs-comment">;</span>
-  props.foo = x<span class="hljs-comment">;</span>
-  props.bar = y<span class="hljs-comment">;</span>
-  var component = &lt;Component {...props} /&gt;<span class="hljs-comment">;</span>
+<pre><code class="lang-javascript">  <span class="hljs-built_in">var</span> <span class="hljs-built_in">props</span> = {};
+  <span class="hljs-built_in">props</span>.foo = x;
+  <span class="hljs-built_in">props</span>.bar = y;
+  <span class="hljs-built_in">var</span> component = &lt;Component {...<span class="hljs-built_in">props</span>} /&gt;;
 </code></pre>
 <p>传入对象的属性会被复制到组件内。</p>
 <p>它能被多次使用，也可以和其它属性一起用。注意顺序很重要，后面的会覆盖掉前面的。</p>
 <pre><code class="lang-javascript">  <span class="hljs-built_in">var</span> props = { foo: <span class="hljs-string">'default'</span> };
-  <span class="hljs-built_in">var</span> component = &lt;Component {<span class="hljs-attribute">...</span>props} foo={<span class="hljs-string">'override'</span>} /&gt;;
-  console<span class="hljs-built_in">.</span><span class="hljs-keyword">log</span>(component<span class="hljs-built_in">.</span>props<span class="hljs-built_in">.</span>foo); <span class="hljs-comment">// 'override'</span>
+  <span class="hljs-built_in">var</span> component = &lt;Component {<span class="hljs-params">...</span>props} foo={<span class="hljs-string">'override'</span>} /&gt;;
+  console.<span class="hljs-keyword">log</span>(component.props.foo); <span class="hljs-comment">// 'override'</span>
 </code></pre>
 <h2><a name="-code-code-" class="anchor" href="#-code-code-"></a>这个奇怪的 <code>...</code> 标记是什么？<a  class="hash-link" href="#-code-code-">#</a></h2><p>这个 <code>...</code> 操作符（增强的操作符）已经被 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator">ES6 数组</a> 支持。相关的还有 ECMAScript 规范草案中的 <a href="https://github.com/sebmarkbage/ecmascript-rest-spread">Object 剩余和展开属性（Rest and Spread Properties）</a>。我们利用了这些还在制定中标准中已经被支持的特性来使 JSX 拥有更优雅的语法。</p>
 

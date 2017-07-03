@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
 	<meta charset="UTF-8">
-	<title>双向绑定辅助-React中国</title>
+	<title>双向绑定辅助</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="renderer" content="webkit|ie-comp|ie-stand">
 	<meta name="keywords" content="react,binding" />
@@ -40,25 +40,25 @@
 myData.a.b.push(<span class="hljs-number">9</span>);
 </code></pre>
 <p>你将没有任何办法决定哪个数据被改变了，因为之前的拷贝已经被覆盖。作为替代，你需要创建一个新的 <code>myData</code> 的拷贝并且只修改需要改变的地方。然后你可以用三个等于在 <code>shouldComponentUpdate()</code>  里比较旧的 <code>myData</code> 拷贝与新的拷贝：</p>
-<pre><code class="lang-js">var newData = deepCopy(myData)<span class="hljs-comment">;</span>
-newData.x.y.z = 7<span class="hljs-comment">;</span>
-newData.a.b.push(9)<span class="hljs-comment">;</span>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> <span class="hljs-keyword">new</span><span class="hljs-type">Data</span> = deepCopy(myData);
+<span class="hljs-keyword">new</span><span class="hljs-type">Data</span>.x.y.z = <span class="hljs-number">7</span>;
+<span class="hljs-keyword">new</span><span class="hljs-type">Data</span>.a.b.push(<span class="hljs-number">9</span>);
 </code></pre>
 <p>不幸的是，深拷贝很昂贵，并且有时候不可能。你可以通过仅仅拷贝需要被改变和重用没有改变的对象来缓解这个情况。不幸的是，在当今的 JavaScript 里这会很笨重：</p>
-<pre><code class="lang-js">var newData = extend<span class="hljs-list">(<span class="hljs-keyword">myData</span>, {
-  x: extend<span class="hljs-list">(<span class="hljs-keyword">myData</span>.x, {
-    y: extend<span class="hljs-list">(<span class="hljs-keyword">myData</span>.x.y, {z: <span class="hljs-number">7</span>})</span>,
-  })</span>,
-  a: extend<span class="hljs-list">(<span class="hljs-keyword">myData</span>.a, {b: myData.a.b.concat<span class="hljs-list">(<span class="hljs-number">9</span>)</span>})</span>
-})</span><span class="hljs-comment">;</span>
+<pre><code class="lang-js">var newData = extend(<span class="hljs-name">myData</span>, {
+  x: extend(<span class="hljs-name">myData</span>.x, {
+    y: extend(<span class="hljs-name">myData</span>.x.y, {z: <span class="hljs-number">7</span>}),
+  }),
+  a: extend(<span class="hljs-name">myData</span>.a, {b: myData.a.b.concat(<span class="hljs-number">9</span>)})
+})<span class="hljs-comment">;</span>
 </code></pre>
 <p>虽然这相当高性能（因为只对 <code>log n</code> 的对象进行了浅拷贝并重用了剩下的），但它写起来很痛苦。看看所有重复的代码！这不仅仅是烦人的，同时也提供了一大片 bugs 区域。</p>
 <p><code>update()</code> 提供了这个模式的简单语法糖来使写这类代码更容易。上面的代码变成：</p>
 <pre><code class="lang-js">var <span class="hljs-keyword">update</span> = require(<span class="hljs-string">'react-addons-update'</span>);
 
 var newData = <span class="hljs-keyword">update</span>(myData, {
-  x: {y: {z: {<span class="hljs-variable">$set</span>: <span class="hljs-number">7</span>}}},
-  a: {b: {<span class="hljs-variable">$push</span>: [<span class="hljs-number">9</span>]}}
+  x: {y: {z: {$set: <span class="hljs-number">7</span>}}},
+  a: {b: {$push: [<span class="hljs-number">9</span>]}}
 });
 </code></pre>
 <p>虽然这个语法需要花一些时间来适应（它的灵感来自于 <a href="http://docs.mongodb.org/manual/core/crud-introduction/#query">MongoDB&#39;s query language</a>），但是没有冗余，它可静态分析并且没有 mutative 版本那么多键入。</p>
@@ -71,23 +71,23 @@ var newData = <span class="hljs-keyword">update</span>(myData, {
 <li><code>{$merge: object}</code> 合并 目标和 <code>object</code> 的 keys.</li>
 <li><code>{$apply: function}</code> 传递当前的值给 function 并用返回值更新它。</li>
 </ul>
-<h2><a name="-" class="anchor" href="#-"></a>例子<a  class="hash-link" href="#-">#</a></h2><h3><a name="-push" class="anchor" href="#-push"></a>简单的 push<a  class="hash-link" href="#-push">#</a></h3><pre><code class="lang-js">var initialArray = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
-var newArray = <span class="hljs-keyword">update</span>(initialArray, {<span class="hljs-variable">$push</span>: [<span class="hljs-number">4</span>]}); // =&gt; [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]
+<h2><a name="-" class="anchor" href="#-"></a>例子<a  class="hash-link" href="#-">#</a></h2><h3><a name="-push" class="anchor" href="#-push"></a>简单的 push<a  class="hash-link" href="#-push">#</a></h3><pre><code class="lang-js"><span class="hljs-keyword">var</span> initialArray = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+<span class="hljs-keyword">var</span> <span class="hljs-keyword">new</span><span class="hljs-type">Array</span> = update(initialArray, {$push: <span class="hljs-type"></span>[<span class="hljs-number">4</span>]}); <span class="hljs-comment">// =&gt; [1, 2, 3, 4]</span>
 </code></pre>
 <p><code>initialArray</code> is still <code>[1, 2, 3]</code>.</p>
 <h3><a name="-collections" class="anchor" href="#-collections"></a>嵌套的 collections<a  class="hash-link" href="#-collections">#</a></h3><pre><code class="lang-js">var collection = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, {a: [<span class="hljs-number">12</span>, <span class="hljs-number">17</span>, <span class="hljs-number">15</span>]}];
-var newCollection = update(collection, {<span class="hljs-number">2</span>: {a: {$splice: [[<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">13</span>, <span class="hljs-number">14</span>]]}}});
-<span class="hljs-comment">// =&gt; [1, 2, {a: [12, 13, 14, 15]}]</span>
+var newCollection = <span class="hljs-keyword">update</span>(collection, {<span class="hljs-number">2</span>: {a: {$splice: [[<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">13</span>, <span class="hljs-number">14</span>]]}}});
+// =&gt; [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, {a: [<span class="hljs-number">12</span>, <span class="hljs-number">13</span>, <span class="hljs-number">14</span>, <span class="hljs-number">15</span>]}]
 </code></pre>
 <p>本例访问了 <code>collection</code> 的<code>2</code>索引下的键<code>a</code>，并且拼接了一个从索引<code>1</code>开始（移除<code>17</code>）并插入<code>13</code>和<code>14</code>的项目。</p>
-<h3><a name="-" class="anchor" href="#-"></a>基于当前的值更新新值<a  class="hash-link" href="#-">#</a></h3><pre><code class="lang-js">var obj = {a: <span class="hljs-number">5</span>, b: <span class="hljs-number">3</span>};
-var newObj = <span class="hljs-keyword">update</span>(obj, {b: {<span class="hljs-variable">$apply</span>: function(x) {return x * <span class="hljs-number">2</span>;}}});
-// =&gt; {a: <span class="hljs-number">5</span>, b: <span class="hljs-number">6</span>}
-// This is equivalent, but gets verbose <span class="hljs-keyword">for</span> deeply nested collections:
-var newObj2 = <span class="hljs-keyword">update</span>(obj, {b: {<span class="hljs-variable">$set</span>: obj.b * <span class="hljs-number">2</span>}});
+<h3><a name="-" class="anchor" href="#-"></a>基于当前的值更新新值<a  class="hash-link" href="#-">#</a></h3><pre><code class="lang-js"><span class="hljs-keyword">var</span> obj = {a: <span class="hljs-type">5</span>, b: <span class="hljs-type">3</span>};
+<span class="hljs-keyword">var</span> <span class="hljs-keyword">new</span><span class="hljs-type">Obj</span> = update(obj, {b: <span class="hljs-type"></span>{$apply: <span class="hljs-type">function</span>(x) {<span class="hljs-keyword">return</span> x * <span class="hljs-number">2</span>;}}});
+<span class="hljs-comment">// =&gt; {a: 5, b: 6}</span>
+<span class="hljs-comment">// This is equivalent, but gets verbose for deeply nested collections:</span>
+<span class="hljs-keyword">var</span> <span class="hljs-keyword">new</span><span class="hljs-type">Obj2</span> = update(obj, {b: <span class="hljs-type"></span>{$<span class="hljs-keyword">set</span>: <span class="hljs-type">obj</span>.b * <span class="hljs-number">2</span>}});
 </code></pre>
-<h3><a name="-" class="anchor" href="#-"></a>(浅) 合并<a  class="hash-link" href="#-">#</a></h3><pre><code class="lang-js">var obj = {a: <span class="hljs-number">5</span>, b: <span class="hljs-number">3</span>};
-var newObj = <span class="hljs-keyword">update</span>(obj, {<span class="hljs-variable">$merge</span>: {b: <span class="hljs-number">6</span>, c: <span class="hljs-number">7</span>}}); // =&gt; {a: <span class="hljs-number">5</span>, b: <span class="hljs-number">6</span>, c: <span class="hljs-number">7</span>}
+<h3><a name="-" class="anchor" href="#-"></a>(浅) 合并<a  class="hash-link" href="#-">#</a></h3><pre><code class="lang-js">var obj = {<span class="hljs-string">a:</span> <span class="hljs-number">5</span>, <span class="hljs-string">b:</span> <span class="hljs-number">3</span>};
+var newObj = update(obj, {<span class="hljs-string">$merge:</span> {<span class="hljs-string">b:</span> <span class="hljs-number">6</span>, <span class="hljs-string">c:</span> <span class="hljs-number">7</span>}}); <span class="hljs-comment">// =&gt; {a: 5, b: 6, c: 7}</span>
 </code></pre>
 
             <div class="docs-prevnext"><a href="create-fragment.html" class="prev">← 上一条 </a><a class="next" href="pure-render-mixin.html">下一条 →</a></div>

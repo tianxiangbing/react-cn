@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
 	<meta charset="UTF-8">
-	<title>react插件-React中国</title>
+	<title>react插件</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="renderer" content="webkit|ie-comp|ie-stand">
 	<meta name="keywords" content="react,插件" />
@@ -34,18 +34,18 @@
 			<a class="edit-page-link" href="https://github.com/tianxiangbing/react-cn/tree/master/src/addons/md/pure-render-mixin.md" target="_blank">在github上编辑这篇文章</a>
 			<h1><a name="purerendermixin" class="anchor" href="#purerendermixin"></a>PureRenderMixin<a  class="hash-link" href="#purerendermixin">#</a></h1><p>如果你的 React 组件的 render 函数是 &quot;纯净&quot; 的（换句话说，它的渲染在给定相同的 props 和 state 时返回相同的结果），你可以使用这个 mixin 在某些情况下进行性能加速。</p>
 <p>例子:</p>
-<pre><code class="lang-js"><span class="hljs-keyword">var</span> PureRenderMixin = require(<span class="hljs-string">'react-addons-pure-render-mixin'</span>);
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> PureRenderMixin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react-addons-pure-render-mixin'</span>);
 React.createClass({
-  mixins: [PureRenderMixin],
+  <span class="hljs-attr">mixins</span>: [PureRenderMixin],
 
-  render: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
-    <span class="hljs-keyword">return</span> &lt;div className={<span class="hljs-keyword">this</span>.props.className}&gt;foo&lt;/div&gt;;
+  <span class="hljs-attr">render</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">{this.props.className}</span>&gt;</span>foo<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;
   }
 });
 </code></pre>
 <p>使用 ES6 class 语法的例子:</p>
 <pre><code class="lang-js"><span class="hljs-keyword">import</span> <span class="hljs-type">PureRenderMixin</span> from <span class="hljs-symbol">'react</span>-addons-pure-render-mixin';
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FooComponent</span> <span class="hljs-keyword"><span class="hljs-keyword">extends</span></span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> {</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FooComponent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   constructor(props) {
     <span class="hljs-keyword">super</span>(props);
     <span class="hljs-keyword">this</span>.shouldComponentUpdate = <span class="hljs-type">PureRenderMixin</span>.shouldComponentUpdate.bind(<span class="hljs-keyword">this</span>);

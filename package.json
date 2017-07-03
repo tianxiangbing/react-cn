@@ -6,7 +6,7 @@
   "scripts": {
     "pretest": "npm run --silent lint",
     "test": "npm run --silent tests-only",
-    "start":"gulp"
+    "start": "gulp"
   },
   "repository": {
     "type": "git",
@@ -31,6 +31,7 @@
     "gulp-ruby-sass": "^2.0.6",
     "gulp-to-markdown": "^1.0.0",
     "gulp-uglify": "^2.0.0",
-    "marked": "^0.3.6"
+    "marked": "^0.3.6",
+    "highlightjs": "^9.10.0"
   }
 }

@@ -272,7 +272,7 @@ html {
   background-color: #f9f9f9;
   height: 100%;
   overflow: auto;
-  font-family: proxima-nova,"Helvetica Neue",Helvetica,Roboto,Arial,sans-serif; }
+  font-family: proxima-nova, "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; }
 
 body {
   height: 100%; }
@@ -348,7 +348,7 @@ header {
     line-height: 77px; }
   .hero .desc {
     text-align: center;
-    margin: 0 0 50px  0; }
+    margin: 0 0 50px 0; }
 
 .buttons-unit {
   text-align: center;
@@ -445,7 +445,8 @@ pre {
   font-size: 13px; }
   .documentationContent h1 {
     margin: 10px 0; }
-  .documentationContent h2, .documentationContent h3 {
+  .documentationContent h2,
+  .documentationContent h3 {
     margin: 10px 0;
     font-weight: bold;
     line-height: 40px; }
@@ -468,10 +469,18 @@ pre {
   .documentationContent pre {
     margin: 10px 0; }
 
-h1 .hash-link, h2 .hash-link, h3 .hash-link, h4 .hash-link, h5 .hash-link {
+h1 .hash-link,
+h2 .hash-link,
+h3 .hash-link,
+h4 .hash-link,
+h5 .hash-link {
   display: none;
   color: #aaa; }
-h1:hover .hash-link, h2:hover .hash-link, h3:hover .hash-link, h4:hover .hash-link, h5:hover .hash-link {
+h1:hover .hash-link,
+h2:hover .hash-link,
+h3:hover .hash-link,
+h4:hover .hash-link,
+h5:hover .hash-link {
   display: inline-block; }
 
 .edit-page-link {
@@ -533,7 +542,7 @@ h1:hover .hash-link, h2:hover .hash-link, h3:hover .hash-link, h4:hover .hash-li
       background: #f2f2f2; }
     #todo .list a button {
       float: right;
-      margin: 5px 0 0  10px; }
+      margin: 5px 0 0 10px; }
     #todo .list a span {
       display: inline-block;
       min-width: 100px;
@@ -581,3 +590,12 @@ p code {
     text-indent: 30px; }
     .plugin-list p a {
       color: #666; }
+
+h2.download {
+  display: inline;
+  font-size: 12px; }
+  h2.download a {
+    color: #ddd;
+    font-size: 10px; }
+    h2.download a:hover {
+      color: #fff; }
